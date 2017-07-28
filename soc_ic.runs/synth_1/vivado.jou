@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Thu Jul 13 17:55:01 2017
+# Process ID: 720
+# Current directory: C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.runs/synth_1
+# Command line: vivado.exe -log ic.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ic.tcl
+# Log file: C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.runs/synth_1/ic.vds
+# Journal file: C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source ic.tcl -notrace

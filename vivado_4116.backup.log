@@ -1,0 +1,47 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Wed Jul 12 18:01:28 2017
+# Process ID: 4116
+# Current directory: C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent736 C:\Users\cao2\Desktop\soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618\soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618\soc_ic\soc_ic.xpr
+# Log file: C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/vivado.log
+# Journal file: C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.xpr
+INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter.
+Current project path is 'C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic'
+INFO: [Project 1-313] Project file moved from '/home/hpalombo/vivado/projects/soc_ic' since last save.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/defs.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/defs.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/arbiter2_ack.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/arbiter2_ack.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/arbiter6.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/arbiter6.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/arbiter6_ack.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/arbiter6_ack.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/arbiter7.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/arbiter7.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/b_arbiter2.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/b_arbiter2.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/b_arbiter6.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/b_arbiter6.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/b_fifo.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/b_fifo.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/bmsg_fifo_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/bmsg_fifo_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/util.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/util.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/rand.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/rand.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/test.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/test.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/cache_req_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/cache_req_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/fifo.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/fifo.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/fifo_snp.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/fifo_snp.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/toper_chan_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/toper_chan_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/per_upreq_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/per_upreq_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/msg_fifo_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/msg_fifo_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/per_write_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/per_write_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/wb_m.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/wb_m.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/ic.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/ic.vhd'.
+CRITICAL WARNING: [Project 1-311] Could not find the file 'C:/Users/cao2/Desktop/oven/soc/arbiter2.vhd', nor could it be found using path 'C:/home/hpalombo/oven/soc/arbiter2.vhd'.
+Scanning sources...
+Finished scanning sources
+WARNING: [filemgmt 56-2] IPUserFilesDir: Could not find the directory 'C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.ip_user_files', nor could it be found using path 'C:/home/hpalombo/vivado/projects/soc_ic/soc_ic.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.2/data/ip'.
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1

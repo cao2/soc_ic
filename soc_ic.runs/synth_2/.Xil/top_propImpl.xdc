@@ -1,0 +1,5 @@
+set_property SRC_FILE_INFO {cfile:C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/Basys3_Master.xdc rfile:../../../Basys3_Master.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:7 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN W5 [get_ports Clock]
+set_property src_info {type:XDC file:1 line:12 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN V17 [get_ports {reset}]
