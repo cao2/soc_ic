@@ -490,212 +490,212 @@ begin
 	--     pwr_req_o        => ic_pwr_req
 	--     );
 
-	uart_entity : entity work.uart_peripheral(rtl)
-		port map(
-			Clock        => Clock,
-			reset        => reset,
-			id_i         => GFX,
-			tx_out       => tx_out,
-			-- write address channel
-			waddr_i      => waddr_gfx,
-			wlen_i       => wlen_gfx,
-			wsize_i      => wsize_gfx,
-			wvalid_i     => wvalid_gfx,
-			wready_o     => wready_gfx,
-			-- write data channel
-			wdata_i      => wdata_gfx,
-			wtrb_i       => wtrb_gfx,
-			wlast_i      => wlast_gfx,
-			wdvalid_i    => wdvalid_gfx,
-			wdataready_o => wdataready_gfx,
-			-- write response channel
-			wrready_i    => wrready_gfx,
-			wrvalid_o    => wrvalid_gfx,
-			wrsp_o       => wrsp_gfx,
-			-- read address channel
-			raddr_i      => raddr_gfx,
-			rlen_i       => rlen_gfx,
-			rsize_i      => rsize_gfx,
-			rvalid_i     => rvalid_gfx,
-			rready_o     => rready_gfx,
-			-- read data channel
-			rdata_o      => rdata_gfx,
-			rstrb_o      => rstrb_gfx,
-			rlast_o      => rlast_gfx,
-			rdvalid_o    => rdvalid_gfx,
-			rdready_i    => rdready_gfx,
-			rres_o       => rres_gfx,
-			-- up snp
-			upres_i      => gfx_upres,
-			upreq_o      => gfx_upreq,
-			upreq_full_i => gfx_upreq_full,
-			-- power
-			pwr_req_i    => pwr_gfx_req,
-			pwr_res_o    => pwr_gfx_res,
-			done_o       => gfx_done
-		);
-
-	audio_entity : entity work.peripheral(rtl)
-		port map(
-			Clock        => Clock,
-			reset        => reset,
-			id_i         => AUDIO,
-			-- write address channel
-			waddr_i      => waddr_audio,
-			wlen_i       => wlen_audio,
-			wsize_i      => wsize_audio,
-			wvalid_i     => wvalid_audio,
-			wready_o     => wready_audio,
-			-- write data channel
-			wdata_i      => wdata_audio,
-			wtrb_i       => wtrb_audio,
-			wlast_i      => wlast_audio,
-			wdvalid_i    => wdvalid_audio,
-			wdataready_o => wdataready_audio,
-			-- write response channel
-			wrready_i    => wrready_audio,
-			wrvalid_o    => wrvalid_audio,
-			wrsp_o       => wrsp_audio,
-			-- read address channel
-			raddr_i      => raddr_audio,
-			rlen_i       => rlen_audio,
-			rsize_i      => rsize_audio,
-			rvalid_i     => rvalid_audio,
-			rready_o     => rready_audio,
-			-- read data channel
-			rdata_o      => rdata_audio,
-			rstrb_o      => rstrb_audio,
-			rlast_o      => rlast_audio,
-			rdvalid_o    => rdvalid_audio,
-			rdready_i    => rdready_audio,
-			rres_o       => rres_audio,
-			-- up snp
-			upres_i      => audio_upres,
-			upreq_o      => audio_upreq,
-			upreq_full_i => audio_upreq_full,
-			-- power
-			pwr_req_i    => pwr_audio_req,
-			pwr_res_o    => pwr_audio_res,
-			done_o       => audio_done
-		);
-
-	usb_entity : entity work.peripheral(rtl)
-		port map(
-			Clock        => Clock,
-			reset        => reset,
-			id_i         => USB,
-			-- write address channel
-			waddr_i      => waddr_usb,
-			wlen_i       => wlen_usb,
-			wsize_i      => wsize_usb,
-			wvalid_i     => wvalid_usb,
-			wready_o     => wready_usb,
-			-- write data channel
-			wdata_i      => wdata_usb,
-			wtrb_i       => wtrb_usb,
-			wlast_i      => wlast_usb,
-			wdvalid_i    => wdvalid_usb,
-			wdataready_o => wdataready_usb,
-			-- write response channel
-			wrready_i    => wrready_usb,
-			wrvalid_o    => wrvalid_usb,
-			wrsp_o       => wrsp_usb,
-			-- read address channel
-			raddr_i      => raddr_usb,
-			rlen_i       => rlen_usb,
-			rsize_i      => rsize_usb,
-			rvalid_i     => rvalid_usb,
-			rready_o     => rready_usb,
-			-- read data channel
-			rdata_o      => rdata_usb,
-			rstrb_o      => rstrb_usb,
-			rlast_o      => rlast_usb,
-			rdvalid_o    => rdvalid_usb,
-			rdready_i    => rdready_usb,
-			rres_o       => rres_usb,
-			-- up snp
-			upres_i      => usb_upres,
-			upreq_o      => usb_upreq,
-			upreq_full_i => usb_upreq_full,
-			-- power
-			pwr_req_i    => pwr_usb_req,
-			pwr_res_o    => pwr_usb_res,
-			done_o       => usb_done
-		);
-
-	gfx_entity : entity work.peripheral(rtl)
-		port map(
-			Clock        => Clock,
-			reset        => reset,
-			id_i         => UART,
-			-- write address channel
-			waddr_i      => waddr_uart,
-			wlen_i       => wlen_uart,
-			wsize_i      => wsize_uart,
-			wvalid_i     => wvalid_uart,
-			wready_o     => wready_uart,
-			-- write data channel
-			wdata_i      => wdata_uart,
-			wtrb_i       => wtrb_uart,
-			wlast_i      => wlast_uart,
-			wdvalid_i    => wdvalid_uart,
-			wdataready_o => wdataready_uart,
-			-- write response channel
-			wrready_i    => wrready_uart,
-			wrvalid_o    => wrvalid_uart,
-			wrsp_o       => wrsp_uart,
-			-- read address channel
-			raddr_i      => raddr_uart,
-			rlen_i       => rlen_uart,
-			rsize_i      => rsize_uart,
-			rvalid_i     => rvalid_uart,
-			rready_o     => rready_uart,
-			-- read data channel
-			rdata_o      => rdata_uart,
-			rstrb_o      => rstrb_uart,
-			rlast_o      => rlast_uart,
-			rdvalid_o    => rdvalid_uart,
-			rdready_i    => rdready_uart,
-			rres_o       => rres_uart,
-			-- up snp
-			upres_i      => uart_upres,
-			upreq_o      => uart_upreq,
-			upreq_full_i => uart_upreq_full,
-			-- power
-			pwr_req_i    => pwr_uart_req,
-			pwr_res_o    => pwr_uart_res,
-			done_o       => uart_done
-		);
-
-	mem : entity work.Memory(rtl)
-		port map(
-			Clock        => Clock,
-			reset        => reset,
-			waddr_i      => waddr,
-			wlen_i       => wlen,
-			wsize_i      => wsize,
-			wvalid_i     => wvalid,
-			wready_o     => wready,
-			wdata_i      => wdata,
-			wtrb_i       => wtrb,
-			wlast_i      => wlast,
-			wdvalid_i    => wdvalid,
-			wdataready_o => wdataready,
-			wrready_i    => wrready,
-			wrvalid_o    => wrvalid,
-			wrsp_o       => wrsp,
-			raddr_i      => raddr,
-			rlen_i       => rlen,
-			rsize_i      => rsize,
-			rvalid_i     => rvalid,
-			rready_o     => rready,
-			rdata_o      => rdata,
-			rstrb_o      => rstrb,
-			rlast_o      => rlast,
-			rdvalid_o    => rdvalid,
-			rdready_i    => rdready,
-			rres_o       => rres
-		);
+--	uart_entity : entity work.uart_peripheral(rtl)
+--		port map(
+--			Clock        => Clock,
+--			reset        => reset,
+--			id_i         => GFX,
+--			tx_out       => tx_out,
+--			-- write address channel
+--			waddr_i      => waddr_gfx,
+--			wlen_i       => wlen_gfx,
+--			wsize_i      => wsize_gfx,
+--			wvalid_i     => wvalid_gfx,
+--			wready_o     => wready_gfx,
+--			-- write data channel
+--			wdata_i      => wdata_gfx,
+--			wtrb_i       => wtrb_gfx,
+--			wlast_i      => wlast_gfx,
+--			wdvalid_i    => wdvalid_gfx,
+--			wdataready_o => wdataready_gfx,
+--			-- write response channel
+--			wrready_i    => wrready_gfx,
+--			wrvalid_o    => wrvalid_gfx,
+--			wrsp_o       => wrsp_gfx,
+--			-- read address channel
+--			raddr_i      => raddr_gfx,
+--			rlen_i       => rlen_gfx,
+--			rsize_i      => rsize_gfx,
+--			rvalid_i     => rvalid_gfx,
+--			rready_o     => rready_gfx,
+--			-- read data channel
+--			rdata_o      => rdata_gfx,
+--			rstrb_o      => rstrb_gfx,
+--			rlast_o      => rlast_gfx,
+--			rdvalid_o    => rdvalid_gfx,
+--			rdready_i    => rdready_gfx,
+--			rres_o       => rres_gfx,
+--			-- up snp
+--			upres_i      => gfx_upres,
+--			upreq_o      => gfx_upreq,
+--			upreq_full_i => gfx_upreq_full,
+--			-- power
+--			pwr_req_i    => pwr_gfx_req,
+--			pwr_res_o    => pwr_gfx_res,
+--			done_o       => gfx_done
+--		);
+--
+--	audio_entity : entity work.peripheral(rtl)
+--		port map(
+--			Clock        => Clock,
+--			reset        => reset,
+--			id_i         => AUDIO,
+--			-- write address channel
+--			waddr_i      => waddr_audio,
+--			wlen_i       => wlen_audio,
+--			wsize_i      => wsize_audio,
+--			wvalid_i     => wvalid_audio,
+--			wready_o     => wready_audio,
+--			-- write data channel
+--			wdata_i      => wdata_audio,
+--			wtrb_i       => wtrb_audio,
+--			wlast_i      => wlast_audio,
+--			wdvalid_i    => wdvalid_audio,
+--			wdataready_o => wdataready_audio,
+--			-- write response channel
+--			wrready_i    => wrready_audio,
+--			wrvalid_o    => wrvalid_audio,
+--			wrsp_o       => wrsp_audio,
+--			-- read address channel
+--			raddr_i      => raddr_audio,
+--			rlen_i       => rlen_audio,
+--			rsize_i      => rsize_audio,
+--			rvalid_i     => rvalid_audio,
+--			rready_o     => rready_audio,
+--			-- read data channel
+--			rdata_o      => rdata_audio,
+--			rstrb_o      => rstrb_audio,
+--			rlast_o      => rlast_audio,
+--			rdvalid_o    => rdvalid_audio,
+--			rdready_i    => rdready_audio,
+--			rres_o       => rres_audio,
+--			-- up snp
+--			upres_i      => audio_upres,
+--			upreq_o      => audio_upreq,
+--			upreq_full_i => audio_upreq_full,
+--			-- power
+--			pwr_req_i    => pwr_audio_req,
+--			pwr_res_o    => pwr_audio_res,
+--			done_o       => audio_done
+--		);
+--
+--	usb_entity : entity work.peripheral(rtl)
+--		port map(
+--			Clock        => Clock,
+--			reset        => reset,
+--			id_i         => USB,
+--			-- write address channel
+--			waddr_i      => waddr_usb,
+--			wlen_i       => wlen_usb,
+--			wsize_i      => wsize_usb,
+--			wvalid_i     => wvalid_usb,
+--			wready_o     => wready_usb,
+--			-- write data channel
+--			wdata_i      => wdata_usb,
+--			wtrb_i       => wtrb_usb,
+--			wlast_i      => wlast_usb,
+--			wdvalid_i    => wdvalid_usb,
+--			wdataready_o => wdataready_usb,
+--			-- write response channel
+--			wrready_i    => wrready_usb,
+--			wrvalid_o    => wrvalid_usb,
+--			wrsp_o       => wrsp_usb,
+--			-- read address channel
+--			raddr_i      => raddr_usb,
+--			rlen_i       => rlen_usb,
+--			rsize_i      => rsize_usb,
+--			rvalid_i     => rvalid_usb,
+--			rready_o     => rready_usb,
+--			-- read data channel
+--			rdata_o      => rdata_usb,
+--			rstrb_o      => rstrb_usb,
+--			rlast_o      => rlast_usb,
+--			rdvalid_o    => rdvalid_usb,
+--			rdready_i    => rdready_usb,
+--			rres_o       => rres_usb,
+--			-- up snp
+--			upres_i      => usb_upres,
+--			upreq_o      => usb_upreq,
+--			upreq_full_i => usb_upreq_full,
+--			-- power
+--			pwr_req_i    => pwr_usb_req,
+--			pwr_res_o    => pwr_usb_res,
+--			done_o       => usb_done
+--		);
+--
+--	gfx_entity : entity work.peripheral(rtl)
+--		port map(
+--			Clock        => Clock,
+--			reset        => reset,
+--			id_i         => UART,
+--			-- write address channel
+--			waddr_i      => waddr_uart,
+--			wlen_i       => wlen_uart,
+--			wsize_i      => wsize_uart,
+--			wvalid_i     => wvalid_uart,
+--			wready_o     => wready_uart,
+--			-- write data channel
+--			wdata_i      => wdata_uart,
+--			wtrb_i       => wtrb_uart,
+--			wlast_i      => wlast_uart,
+--			wdvalid_i    => wdvalid_uart,
+--			wdataready_o => wdataready_uart,
+--			-- write response channel
+--			wrready_i    => wrready_uart,
+--			wrvalid_o    => wrvalid_uart,
+--			wrsp_o       => wrsp_uart,
+--			-- read address channel
+--			raddr_i      => raddr_uart,
+--			rlen_i       => rlen_uart,
+--			rsize_i      => rsize_uart,
+--			rvalid_i     => rvalid_uart,
+--			rready_o     => rready_uart,
+--			-- read data channel
+--			rdata_o      => rdata_uart,
+--			rstrb_o      => rstrb_uart,
+--			rlast_o      => rlast_uart,
+--			rdvalid_o    => rdvalid_uart,
+--			rdready_i    => rdready_uart,
+--			rres_o       => rres_uart,
+--			-- up snp
+--			upres_i      => uart_upres,
+--			upreq_o      => uart_upreq,
+--			upreq_full_i => uart_upreq_full,
+--			-- power
+--			pwr_req_i    => pwr_uart_req,
+--			pwr_res_o    => pwr_uart_res,
+--			done_o       => uart_done
+--		);
+--
+--	mem : entity work.Memory(rtl)
+--		port map(
+--			Clock        => Clock,
+--			reset        => reset,
+--			waddr_i      => waddr,
+--			wlen_i       => wlen,
+--			wsize_i      => wsize,
+--			wvalid_i     => wvalid,
+--			wready_o     => wready,
+--			wdata_i      => wdata,
+--			wtrb_i       => wtrb,
+--			wlast_i      => wlast,
+--			wdvalid_i    => wdvalid,
+--			wdataready_o => wdataready,
+--			wrready_i    => wrready,
+--			wrvalid_o    => wrvalid,
+--			wrsp_o       => wrsp,
+--			raddr_i      => raddr,
+--			rlen_i       => rlen,
+--			rsize_i      => rsize,
+--			rvalid_i     => rvalid,
+--			rready_o     => rready,
+--			rdata_o      => rdata,
+--			rstrb_o      => rstrb,
+--			rlast_o      => rlast,
+--			rdvalid_o    => rdvalid,
+--			rdready_i    => rdready,
+--			rres_o       => rres
+--		);
 
 --  -- -- Clock generation, starts at 0
 --  tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
