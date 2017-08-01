@@ -43,14 +43,23 @@ entity memory is
 end Memory;
 
 architecture rtl of Memory is
-  --type rom_type is array (2**32-1 downto 0) of std_logic_vector (31 downto 0);
-  type ram_type is array (0 to natural(2 ** 2 - 1) - 1) of std_logic_vector(wdata_i'range);
-  type ram_type1 is array (0 to natural(2 ** 2 - 1) - 1) of ram_type;
-  signal ROM_array : ram_type1 := (others => (others => (others => '0')));
-
+ 
   signal r,w : std_logic := '0';
-  
+  signal rv, wv,r_ack,w_ack: std_logic;
+  signal radx, wadx, rda, wda: std_logic_vector(31 downto 0);
 begin
+ mem_ent : entity work.real_mem(rtl) port map(
+    Clock       => Clock,
+    reset       => reset,
+    rvalid => rv,
+    rdaddr_i => radx,
+          r_ack => r_ack,
+          rddata_o => rda,
+          wvalid => wv,
+          wtaddr_i => wadx,
+          wtdata_i => wda,
+          w_ack=>w_ack
+    );
   write : process(Clock, reset)
     variable slot       : integer;
     variable address    : integer;
@@ -80,25 +89,30 @@ begin
 
       elsif st = 2 then
         if wdvalid_i = '1' then
-          st := 4;
-          st_nxt := 5;
-        end if;
-      elsif st = 5 then
-        if lp < len - 1 then
-          wdataready_o <= '0';
+          
+           if lp < len - 1 then
+             wdataready_o <= '0';
           ---strob here is not considered
-          ROM_array(slot)(address + lp) <= wdata_i(31 downto 0);
-          lp := lp + 1;
-          wdataready_o <= '1';
-          if wlast_i = '1' then
-            st := 4;
-            st_nxt := 3;
+            wv<='1';
+             wadx<=waddr_i;
+            wda<=wdata_i;
+            st := 6;
+            else
+                st := 3;
+            end if;
+         end if;
+      elsif st=6 then
+          wv <='0';
+          if w_ack ='1' then
+            lp := lp + 1;
+            wdataready_o <= '1';
+            if wlast_i = '1' then
+                st := 3;
+            else 
+                st := 2;
+            end if;
           end if;
-        else
-          cnt := MEM_DELAY;
-          st := 4;
-          st_nxt := 3;
-        end if;
+        
       elsif st = 3 then
   --      w <= '0';
         if wrready_i = '1' then
@@ -106,36 +120,33 @@ begin
           wrsp_o    <= "00";
           st   := 0;
         end if;
-      elsif st = 4 then
-  --      w <= '1';
-        delay(cnt, st, st_nxt);
+
       end if;
     end if;
   end process;
 
   read : process(Clock, reset)
     variable slot    : integer;
-    variable address : integer;
+    variable address : std_logic_vector(31 downto 0);
     variable len     : integer;
     variable size    : std_logic_vector(9 downto 0);
     variable st, st_nxt   : natural := 0;
     variable lp      : integer := 0;
     variable dt      : std_logic_vector(31 downto 0);
     variable cnt     : natural;
+    variable data : std_logic_vector(31 downto 0);
   begin
     if reset = '1' then
       rready_o  <= '1';
       rdvalid_o <= '0';
       rstrb_o   <= "1111";
       rlast_o   <= '0';
-      address := 0;
     elsif (rising_edge(Clock)) then
       if st = 0 then
         lp := 0;
         if rvalid_i = '1' then
           rready_o  <= '0';
-          slot    := to_integer(unsigned(waddr_i(26 downto 25)));
-          address := to_integer(unsigned(waddr_i(15 downto 14)));
+          address := raddr_i;
           len     := to_integer(unsigned(rlen_i));
           size    := rsize_i;
           st   := 2;
@@ -143,29 +154,28 @@ begin
 
       elsif st = 2 then
         if rdready_i = '1' then
-          cnt := MEM_DELAY;
-          st := 4;
-          st_nxt := 5;
-        end if;
-      elsif st = 5 then
+          
           if lp < 16 then
             rdvalid_o <= '1';
-            ---strob here is not considered
-            ---left alone , dono how to fix
-            ---if ROM_array(address+lp) ="00000000000000000000000000000000" then
-            ---ROM_array(address+lp) := selection(2**15-1,32); -- TODO replace all calls "selection" in this file by rand_int, etc...
-            ---end if;
-            --dt      := selection(2 ** 15 - 1, 32);
-            ---rdata_o <= dt;
-            rdata_o   <= ROM_array(slot)(address + lp);
-            lp      := lp + 1;
-            rres_o <= "00";
-            if lp = len then
-              st := 3;
-              rlast_o <= '1';
-            end if;
+            rv<='1';
+            radx<=address;
+            st := 6;
           else
             st := 3;
+          end if;
+      end if;
+     elsif st=6 then 
+--            rdata_o   <= ROM_array(slot)(address + lp);
+            if r_ack ='1' then
+                rdata_o <= rda;
+                lp      := lp + 1;
+                rres_o <= "00";
+                if lp = len then
+                    st := 3;
+                    rlast_o <= '1';
+                else
+                    st := 2;
+                end if;
           end if;
 
       elsif st = 3 then
@@ -174,11 +184,8 @@ begin
         rready_o  <= '1';
         rlast_o   <= '0';
         st   := 0;
-      elsif st = 4 then
---        r <= '1';
-        delay(cnt, st, st_nxt);
-      end if;
     end if;
+   end if;
   end process;
 
 end rtl;

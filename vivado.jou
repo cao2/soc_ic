@@ -13,3 +13,91 @@ start_gui
 open_project C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.xpr
 update_compile_order -fileset sources_1
 import_files
+-force
+import_files
+import_files -force
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top memory [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+file mkdir C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new
+close [ open C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/real_mem.vhd w ]
+add_files C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/real_mem.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+source top.tcl
+close_sim
+launch_runs synth_2
+wait_on_run synth_2
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top top [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+set_param synth.elaboration.rodinMoreOptions "rt::set_parameter maxRomAddrWidth 32"
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top proc [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top top [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2

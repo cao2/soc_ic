@@ -42,23 +42,21 @@ proc step_failed { step } {
   close $ch
 }
 
-set_msg_config -id {Common 17-41} -limit 10000000
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 
 start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
+  set_param synth.elaboration.rodinMoreOptions {rt::set_parameter maxRomAddrWidth 32}
   create_project -in_memory -part xc7a35tcpg236-1
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.cache/wt [current_project]
-  set_property parent.project_path C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.xpr [current_project]
-  set_property ip_output_repo C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.cache/ip [current_project]
+  set_property webtalk.parent_dir C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.cache/wt [current_project]
+  set_property parent.project_path C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.xpr [current_project]
+  set_property ip_output_repo C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
-  add_files -quiet C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.runs/synth_2/top.dcp
-  read_xdc C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/Basys3_Master.xdc
+  add_files -quiet C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_2/top.dcp
+  read_xdc C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/soc_ic/Basys3_Master.xdc
   link_design -top top -part xc7a35tcpg236-1
   close_msg_db -file init_design.pb
 } RESULT]

@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/cao2/Desktop/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soci-master-af9a83b1cf7c69a17bf7ed9f1c24942b5f6e0618/soc_ic/soc_ic.runs/synth_2'
+HD_PWD='C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_2'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

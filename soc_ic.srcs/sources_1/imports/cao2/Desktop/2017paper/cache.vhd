@@ -219,7 +219,7 @@ begin
 		);
 	cpu_req_fifo : entity work.fifo(rtl)
 		generic map(
-			FIFO_DEPTH => DEFAULT_FIFO_DEPTH
+			FIFO_DEPTH => 8
 		)
 		port map(
 			CLK     => Clock,

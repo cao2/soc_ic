@@ -10,8 +10,10 @@
   <File Type="VDS-TIMING-PB" Name="ic_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PPRDIR/../../../oven/soc/defs.vhd">
+    <File Path="$PSRCDIR/sources_1/imports/soc/defs.vhd">
       <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../oven/soc/defs.vhd"/>
+        <Attr Name="ImportTime" Val="1501251681"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
