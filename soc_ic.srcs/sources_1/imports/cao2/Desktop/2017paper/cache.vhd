@@ -548,23 +548,13 @@ begin
 	mem_control_unit : process(reset, clock)
 		variable idx     : integer;
 		variable memcont : std_logic_vector(52 downto 0);
-		variable shifter : boolean := false;
-		variable turn    : integer := 0;
 	begin
 		if (reset = '1') then
 			-- reset signals;
 			cpu_mem_res <= ZERO_MSG;
-			snp_mem_res <= ZERO_MSG;
-			write_ack   <= '0';
-			upd_ack     <= '0';
 			turn        := 0;
 		elsif rising_edge(Clock) then
 			cpu_mem_res <= ZERO_MSG;
-			snp_mem_res <= ZERO_MSG;
-			write_ack   <= '0';
-			upd_ack     <= '0';
-			wb_req_o    <= ZERO_BMSG;
-
 			-- cpu memory request
 			if bus_req_s.val = '1' then
 			    cpu_mem_ack <= '0';
@@ -586,10 +576,20 @@ begin
 					end if;
 				end if;
 
-		
-
+		end if;
+		end if;
+		end process;
+mem_2 : process(reset, clock)
+		variable idx     : integer;
+		variable memcont : std_logic_vector(52 downto 0);
+	begin
+		if (reset = '1') then
+			-- reset signals;
+			snp_mem_res <= ZERO_MSG;
+		elsif rising_edge(Clock) then
+			snp_mem_res <= ZERO_MSG;
 			-- snoop memory request
-			elsif snp_mem_req.val = '1' then
+			if snp_mem_req.val = '1' then
 				idx     := to_integer(unsigned(snp_mem_req.adr(13 downto 0)));
 				memcont := ROM_array(idx);
 				snp_mem_ack <= '0';
@@ -617,10 +617,26 @@ begin
 					end if;
 
 				end if;
-			
+			end if;
+		end if;
+		end process;
 				
 			
+mem3 : process(reset, clock)
+		variable idx     : integer;
+		variable memcont : std_logic_vector(52 downto 0);
+		variable shifter : boolean := false;
+		variable turn    : integer := 0;
+	begin
+		if (reset = '1') then
+			-- reset signals;
+		
+			upd_ack     <= '0';
+		elsif rising_edge(Clock) then
+			
+			upd_ack     <= '0';
 
+			-- cpu memory request
 --			-- upstream snoop req
 --			elsif usnp_mem_req.val = '1' then
 --				idx     := to_integer(unsigned(usnp_mem_req.adr(13 downto 0))); -- index
@@ -659,6 +675,26 @@ begin
 
 --			snp_wt_ack <= '0';
 --			content    <= ROM_array(7967);
+	end if;
+	end process;
+mem4 : process(reset, clock)
+		variable idx     : integer;
+		variable memcont : std_logic_vector(52 downto 0);
+		variable shifter : boolean := false;
+		variable turn    : integer := 0;
+	begin
+		if (reset = '1') then
+			-- reset signals;
+			
+			write_ack   <= '0';
+			turn        := 0;
+		elsif rising_edge(Clock) then
+			
+			write_ack   <= '0';
+			upd_ack     <= '0';
+			wb_req_o    <= ZERO_BMSG;
+
+			-- cpu memory request
 --			elsif mcu_write_req.val = '1' then
 --				idx            := to_integer(unsigned(mcu_write_req.adr(13 downto 0)));
 --				ROM_array(idx) <= "110" & mcu_write_req.adr(31 downto 14) & mcu_write_req.dat;
