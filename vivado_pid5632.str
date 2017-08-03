@@ -1,0 +1,275 @@
+/*
+
+Vivado v2017.2 (64-bit)
+SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+
+Process ID: 5632
+License: Customer
+
+Current time: 	8/3/17 12:34:40 PM EDT
+Time zone: 	Eastern Standard Time (America/New_York)
+
+OS: Windows 7
+OS Version: 6.1
+OS Architecture: amd64
+Available processors (cores): 8
+
+Screen size: 1920x1080
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 498 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	C:/Xilinx/Vivado/2017.2/tps/win64/jre
+JVM executable location: 	C:/Xilinx/Vivado/2017.2/tps/win64/jre/bin/java.exe
+Java library paths: C:/Xilinx/Vivado/2017.2/bin/unwrapped/win64.o;C:/Windows/Sun/Java/bin;C:/Windows/system32;C:/Windows;C:/Xilinx/Vivado/2017.2/bin;C:/Xilinx/Vivado/2017.2/lib/win64.o;C:/Xilinx/Vivado/2017.2/tps/win64/jre/bin/server;C:/Xilinx/Vivado/2017.2/tps/win64/jre/bin;C:/Xilinx/SDK/2017.2/bin;C:/Xilinx/Vivado/2017.2/ids_lite/ISE/bin/nt64;C:/Xilinx/Vivado/2017.2/ids_lite/ISE/lib/nt64;C:/Xilinx/Vivado_HLS/2017.2/bin;C:/Program Files (x86)/AMD APP/bin/x86_64;C:/Program Files (x86)/AMD APP/bin/x86;C:/Windows/system32;C:/Windows;C:/Windows/System32/Wbem;C:/Windows/System32/WindowsPowerShell/v1.0/;C:/Program Files/MATLAB/R2013a/runtime/win64;C:/Program Files/MATLAB/R2013a/bin;C:/Program Files/Microsoft/Web Platform Installer/;C:/Program Files (x86)/Microsoft ASP.NET/ASP.NET Web Pages/v1.0/;C:/Program Files (x86)/Windows Kits/8.0/Windows Performance Toolkit/;C:/Program Files/Microsoft SQL Server/110/Tools/Binn/;C:/Program Files (x86)/ATI Technologies/ATI.ACE/Core-Static;C:/Program Files (x86)/PharosSystems/Core;C:/MinGW/bin;C:/iverilog/bin;C:/iverilog/gtkwave/bin;C:/Program Files (x86)/Notepad++;C:/Program Files (x86)/Skype/Phone/;C:/Xilinx/Vivado/2017.2/tps/mingw/6.2.0/win64.o/nt/bin;C:/Xilinx/Vivado/2017.2/tps/mingw/6.2.0/win64.o/nt/libexec/gcc/x86_64-w64-mingw32/6.2.0;.
+
+User name: 	cao2
+User home directory: C:/Users/cao2
+User working directory: C:/Users/cao2/Desktop/soci/soci/soc_ic
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2017.2
+RDI_DATADIR: C:/Xilinx/Vivado/2017.2/data
+RDI_BINDIR: C:/Xilinx/Vivado/2017.2/bin
+
+User preferences location: C:/Users/cao2/AppData/Roaming/Xilinx/Vivado
+Vivado preferences directory: C:/Users/cao2/AppData/Roaming/Xilinx/Vivado/2017.2/vivado.xml
+Vivado layouts directory: C:/Users/cao2/AppData/Roaming/Xilinx/Vivado/2017.2/layouts
+PlanAhead jar location: 	C:/Xilinx/Vivado/2017.2/lib/classes/planAhead.jar
+Vivado Look & Feel: 	[Synthetica - the extended Synth Look and Feel. - ui.g.i.H]
+Engine tmp dir: 	C:/Users/cao2/Desktop/soci/soci/soc_ic/.Xil/Vivado-5632-ENB222-PC2
+
+GUI allocated memory:	180 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 693 MB
+
+*/
+
+// TclEventType: START_GUI
+// TclEventType: PROJECT_OPEN_DIALOG
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 53 MB (+53305kb) [00:00:04]
+// [Engine Memory]: 473 MB (+344386kb) [00:00:04]
+// bs:g (cg:JFrame):  Open Project : addNotify
+// Opening Vivado Project: C:\Users\cao2\Desktop\soci\soci\soc_ic\soc_ic.xpr. Version: Vivado v2017.2 
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.xpr 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// Tcl Message: open_project C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified 
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 66 MB (+10941kb) [00:00:07]
+// [Engine Memory]: 635 MB (+145017kb) [00:00:07]
+// [GUI Memory]: 86 MB (+16952kb) [00:00:07]
+// [GUI Memory]: 93 MB (+2870kb) [00:00:08]
+// [GUI Memory]: 105 MB (+7940kb) [00:00:08]
+// [Engine Memory]: 688 MB (+21993kb) [00:00:08]
+// Tcl Message: INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.2/data/ip'. 
+// Project name: soc_ic; location: C:/Users/cao2/Desktop/soci/soci/soc_ic; part: xc7a35tcpg236-1
+// [GUI Memory]: 112 MB (+1335kb) [00:00:09]
+// HMemoryUtils.trashcanNow. Engine heap size: 704 MB. GUI used memory: 39 MB. Current time: 8/3/17 12:34:41 PM EDT
+dismissDialog("Open Project"); // bs:g (cg:JFrame)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Tcl Message: update_compile_order -fileset sources_1 
+selectTab((HResource) null, (HResource) null, "Log", 2); // aF:FrameContainer (ContainerContainer:JideSplitPane, cg:JFrame)
+selectButton(PAResourceQtoS.SyntheticaStateMonitor_CANCEL, "Cancel"); // h:k (JPanel:JComponent, cg:JFrame)
+// bs:g (cg:JFrame):  Resetting Runs : addNotify
+selectButton("PAResourceQtoS.StateMonitor_OK_TO_CANCEL_YOUR_RUNNING_SYNTHESIS_Cancel Process", "Cancel Process"); // JButton:AbstractButton (JPanel:JComponent, G:JDialog)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_2 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+dismissDialog("Resetting Runs"); // bs:g (cg:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd)]", 1); // B:i (D:JPanel, cg:JFrame)
+// PAPropertyPanels.initPanels (cpu_test.vhd) elapsed time: 0.2s
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd), rwt_ent : cpu_test(rwt) (cpu_test.vhd)]", 3, true); // B:i (D:JPanel, cg:JFrame) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd), rwt_ent : cpu_test(rwt) (cpu_test.vhd)]", 3, true, false, false, false, false, true); // B:i (D:JPanel, cg:JFrame) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd), cache_ent : l1_cache(rtl) (cache.vhd)]", 2, true); // B:i (D:JPanel, cg:JFrame) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd), cache_ent : l1_cache(rtl) (cache.vhd), snp_res_fifo : fifo(rtl) (fifo.vhd)]", 3, false, false, false, false, false, true); // B:i (D:JPanel, cg:JFrame) - Double Click
+// Elapsed time: 21 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design]", 12, true); // u:M (JViewport:JComponent, cg:JFrame) - Node
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 3); // u:M (JViewport:JComponent, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_GOTO_RTL_DESIGN
+// x:aN (cg:JFrame): Elaborate Design: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, x:aN)
+// bs:g (cg:JFrame):  Open Elaborated Design : addNotify
+dismissDialog("Elaborate Design"); // x:aN (cg:JFrame)
+// TclEventType: ELABORATE_START
+// Tcl Message: synth_design -rtl -name rtl_1 
+// Tcl Message: Command: synth_design -rtl -name rtl_1 Starting synth_design Using part: xc7a35tcpg236-1 Top: proc 
+// HMemoryUtils.trashcanNow. Engine heap size: 736 MB. GUI used memory: 42 MB. Current time: 8/3/17 12:35:26 PM EDT
+// [Engine Memory]: 838 MB (+121840kb) [00:00:57]
+// [Engine Memory]: 936 MB (+58784kb) [00:01:02]
+// [Engine Memory]: 990 MB (+7054kb) [00:01:07]
+// [Engine Memory]: 1,340 MB (+315718kb) [00:01:12]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,380 MB. GUI used memory: 41 MB. Current time: 8/3/17 12:36:06 PM EDT
+// [Engine Memory]: 1,426 MB (+19123kb) [00:01:37]
+// [Engine Memory]: 1,503 MB (+6530kb) [00:01:42]
+// [Engine Memory]: 1,626 MB (+50298kb) [00:01:47]
+// TclEventType: ELABORATE_FINISH
+// HMemoryUtils.trashcanNow. Engine heap size: 1,674 MB. GUI used memory: 41 MB. Current time: 8/3/17 12:36:21 PM EDT
+// [Engine Memory]: 1,849 MB (+148252kb) [00:01:57]
+// [Engine Memory]: 2,003 MB (+64706kb) [00:02:12]
+// HMemoryUtils.trashcanNow. Engine heap size: 2,127 MB. GUI used memory: 41 MB. Current time: 8/3/17 12:36:46 PM EDT
+// [Engine Memory]: 2,223 MB (+124948kb) [00:02:17]
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: POWER_CNS_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 2,261 MB. GUI used memory: 41 MB. Current time: 8/3/17 12:36:58 PM EDT
+// TclEventType: DESIGN_NEW
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// RouteApi::loadEngineXgd elapsed time: 5s
+// Schematic: addNotify
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 927.422 ; gain = 0.000 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Synth 8-638] synthesizing module 'proc' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/proc.vhd:40] INFO: [Synth 8-638] synthesizing module 'l1_cache' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/cache.vhd:41] INFO: [Synth 8-638] synthesizing module 'fifo' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/fifo.vhd:22] 
+// Tcl Message: 	Parameter FIFO_DEPTH bound to: 256 - type: integer  
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'fifo' (1#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/fifo.vhd:22] INFO: [Synth 8-638] synthesizing module 'b_fifo' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/b_fifo.vhd:22] 
+// Tcl Message: 	Parameter FIFO_DEPTH bound to: 256 - type: integer  
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'b_fifo' (2#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/b_fifo.vhd:22] INFO: [Synth 8-638] synthesizing module 'arbiter2' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/arbiter2.vhd:25] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'arbiter2' (3#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/arbiter2.vhd:25] INFO: [Synth 8-638] synthesizing module 'fifo__parameterized0' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/fifo.vhd:22] 
+// Tcl Message: 	Parameter FIFO_DEPTH bound to: 8 - type: integer  
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'fifo__parameterized0' (3#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/fifo.vhd:22] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'l1_cache' (4#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/cache.vhd:41] INFO: [Synth 8-638] synthesizing module 'cpu_test_rwt' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/cpu_test.vhd:25] 
+// Tcl Message: INFO: [Synth 8-638] synthesizing module 'rndgen' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/soc/rndgen.vhd:17] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'rndgen' (5#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/soc/rndgen.vhd:17] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'cpu_test_rwt' (6#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/cpu_test.vhd:25] INFO: [Synth 8-638] synthesizing module 'cpu_test_pwrt' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/cpu_test.vhd:190] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'cpu_test_pwrt' (7#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/cpu_test.vhd:190] INFO: [Synth 8-638] synthesizing module 'arbiter6' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/arbiter6.vhd:34] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'arbiter6' (8#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/arbiter6.vhd:34] 
+// Tcl Message: INFO: [Synth 8-256] done synthesizing module 'proc' (9#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/proc.vhd:40] 
+// Tcl Message: INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:23 ; elapsed = 00:00:23 . Memory (MB): peak = 1519.051 ; gain = 591.629 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message:  Report Check Netlist:  +------+------------------+-------+---------+-------+------------------+ |      |Item              |Errors |Warnings |Status |Description       | +------+------------------+-------+---------+-------+------------------+ |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets | +------+------------------+-------+---------+-------+------------------+ 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:28 ; elapsed = 00:00:27 . Memory (MB): peak = 1519.051 ; gain = 591.629 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Device 21-403] Loading part xc7a35tcpg236-1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message:  Processing XDC Constraints Initializing timing engine Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/soc_ic/Basys3_Master.xdc] 
+// Tcl Message: Finished Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/soc_ic/Basys3_Master.xdc] Completed Processing XDC Constraints  
+// Tcl Message: INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s). INFO: [Project 1-111] Unisim Transformation Summary: No Unisim elements were transformed.  
+// Tcl Message: RTL Elaboration Complete:  : Time (s): cpu = 00:02:02 ; elapsed = 00:01:43 . Memory (MB): peak = 2492.918 ; gain = 1565.496 
+// OpenDesignTask elapsed time: 103.3s
+// Tcl Message: 25 Infos, 290 Warnings, 4 Critical Warnings and 0 Errors encountered. synth_design completed successfully 
+// Tcl Message: synth_design: Time (s): cpu = 00:02:02 ; elapsed = 00:01:43 . Memory (MB): peak = 2492.918 ; gain = 1565.496 
+// 'dH' command handler elapsed time: 105 seconds
+// M:a (cg:JFrame): Critical Messages: addNotify
+// Elapsed time: 103 seconds
+dismissDialog("Open Elaborated Design"); // bs:g (cg:JFrame)
+// Elapsed time: 27 seconds
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f:a (JPanel:JComponent, M:a)
+dismissDialog("Critical Messages"); // M:a (cg:JFrame)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Run Synthesis]", 18, false); // u:M (JViewport:JComponent, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_RUN_SYNTHESIS
+// bs:g (cg:JFrame):  Starting Design Runs : addNotify
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs synth_2 
+// Tcl Message: [Thu Aug  3 12:37:38 2017] Launched synth_2... Run output will be captured here: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_2/runme.log 
+dismissDialog("Starting Design Runs"); // bs:g (cg:JFrame)
+selectTab((HResource) null, (HResource) null, "Log", 2); // aF:FrameContainer (ContainerContainer:JideSplitPane, cg:JFrame)
+// [GUI Memory]: 117 MB (+189kb) [00:08:37]
+// Elapsed time: 354 seconds
+selectButton(PAResourceQtoS.SyntheticaStateMonitor_CANCEL, "Cancel"); // h:k (JPanel:JComponent, cg:JFrame)
+// bs:g (cg:JFrame):  Resetting Runs : addNotify
+selectButton("PAResourceQtoS.StateMonitor_OK_TO_CANCEL_YOUR_RUNNING_SYNTHESIS_Cancel Process", "Cancel Process"); // JButton:AbstractButton (JPanel:JComponent, G:JDialog)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_2 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+dismissDialog("Resetting Runs"); // bs:g (cg:JFrame)
+// Elapsed time: 148 seconds
+selectButton(PAResourceTtoZ.TaskBanner_CLOSE, (String) null); // k:JideButton (JPanel:JComponent, cg:JFrame)
+closeTask("RTL Analysis", "Elaborated Design", "DesignTask.RTL_PLANNING");
+// x:aN (cg:JFrame): Confirm Close: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, x:aN)
+// TclEventType: DESIGN_CLOSE
+// [GUI Memory]: 126 MB (+3139kb) [00:11:35]
+// HMemoryUtils.trashcanNow. Engine heap size: 2,261 MB. GUI used memory: 69 MB. Current time: 8/3/17 12:46:08 PM EDT
+// Engine heap size: 2,261 MB. GUI used memory: 70 MB. Current time: 8/3/17 12:46:08 PM EDT
+// TclEventType: CURR_DESIGN_SET
+// TclEventType: DESIGN_CLOSE
+// Tcl Message: close_design 
+// Tcl Message: close_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 2492.918 ; gain = 0.000 
+dismissDialog("Confirm Close"); // x:aN (cg:JFrame)
+selectCodeEditor("cache.vhd", 73, 44); // bI:J (JPanel:JComponent, cg:JFrame)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("cache.vhd", 94, 247); // bI:J (JPanel:JComponent, cg:JFrame)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design]", 12, true); // u:M (JViewport:JComponent, cg:JFrame) - Node
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 3); // u:M (JViewport:JComponent, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_GOTO_RTL_DESIGN
+// x:aN (cg:JFrame): Elaborate Design: addNotify
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a:JButton (JPanel:JComponent, x:aN)
+dismissDialog("Elaborate Design"); // x:aN (cg:JFrame)
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 11); // u:M (JViewport:JComponent, cg:JFrame)
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 11); // u:M (JViewport:JComponent, cg:JFrame)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 11, true); // u:M (JViewport:JComponent, cg:JFrame) - Node
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design]", 12, true); // u:M (JViewport:JComponent, cg:JFrame) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_RTL_DESIGN
+// x:aN (cg:JFrame): Elaborate Design: addNotify
+// 'dH' command handler elapsed time: 9 seconds
+dismissDialog("Elaborate Design"); // x:aN (cg:JFrame)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd), cache_ent : l1_cache(rtl) (cache.vhd)]", 2); // B:i (D:JPanel, cg:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, proc(rtl) (proc.vhd)]", 1, true, false, false, false, true, false); // B:i (D:JPanel, cg:JFrame) - Popup Trigger - Node
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // Z:JMenu (ai:JPopupMenu, cg:JFrame)
+selectMenuItem(PAResourceQtoS.SrcMenu_REFRESH_HIERARCHY, "Refresh Hierarchy"); // ac:JMenuItem (ai:JPopupMenu, cg:JFrame)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 11, true, false, false, false, true, false); // u:M (JViewport:JComponent, cg:JFrame) - Popup Trigger - Node
+selectMenuItem(PAResourceCommand.PACommandNames_OPEN_RTL_DESIGN, "New Elaborated Design..."); // ac:JMenuItem (ai:JPopupMenu, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_OPEN_RTL_DESIGN
+// G:p (cg:JFrame): Open Elaborated Design: addNotify
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a:JButton (JPanel:JComponent, G:p)
+dismissDialog("Open Elaborated Design"); // G:p (cg:JFrame)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Run Synthesis]", 17, false); // u:M (JViewport:JComponent, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_RUN_SYNTHESIS
+// bs:g (cg:JFrame):  Starting Design Runs : addNotify
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs synth_2 
+// Tcl Message: [Thu Aug  3 12:47:06 2017] Launched synth_2... Run output will be captured here: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_2/runme.log 
+dismissDialog("Starting Design Runs"); // bs:g (cg:JFrame)
+// Elapsed time: 303 seconds
+selectButton(PAResourceQtoS.SyntheticaStateMonitor_CANCEL, "Cancel"); // h:k (JPanel:JComponent, cg:JFrame)
+// bs:g (cg:JFrame):  Resetting Runs : addNotify
+selectButton("PAResourceQtoS.StateMonitor_OK_TO_CANCEL_YOUR_RUNNING_SYNTHESIS_Cancel Process", "Cancel Process"); // JButton:AbstractButton (JPanel:JComponent, G:JDialog)
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_2 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+dismissDialog("Resetting Runs"); // bs:g (cg:JFrame)
+// Elapsed time: 11 seconds
+selectCodeEditor("cache.vhd", 134, 144); // bI:J (JPanel:JComponent, cg:JFrame)
+selectCodeEditor("cache.vhd", 134, 144, false, false, false, false, true); // bI:J (JPanel:JComponent, cg:JFrame) - Double Click
+selectCodeEditor("cache.vhd", 24, 125); // bI:J (JPanel:JComponent, cg:JFrame)
+selectCodeEditor("cache.vhd", 166, 248, false, false, false, true, false); // bI:J (JPanel:JComponent, cg:JFrame) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ac:JMenuItem (ai:JPopupMenu, Popup:JWindow)
+selectCodeEditor("cache.vhd", 101, 248); // bI:J (JPanel:JComponent, cg:JFrame)

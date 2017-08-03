@@ -80,12 +80,6 @@ begin
     bus_res_i   => bus_res_i, -- mem or pwr resp from ic
 
     wb_req_o      => wb_req_o,
-
-    -- NOT IMPLEMENTED
-    --bsf_full_o    => , -- bus resp fifo full
-    --srf_full_o    => , 
-    --crf_full_o    => ,
-	 
     full_crq_i    => '0',
     full_wb_i     => '0',
     full_srs_i    => '0'

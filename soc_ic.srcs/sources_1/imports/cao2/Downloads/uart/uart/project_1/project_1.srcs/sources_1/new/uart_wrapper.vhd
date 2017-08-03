@@ -43,6 +43,8 @@ entity uart_peripheral is
        rres_o        : out std_logic_vector(1 downto 0);
        pwr_req_i     : in  MSG_T;
        pwr_res_o     : out MSG_T;
+       
+       rx_in: in std_logic;
        tx_out:  out std_logic;
        
        -- up req
