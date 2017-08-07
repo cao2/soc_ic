@@ -43,7 +43,7 @@ architecture rtl of l1_cache is
 	-- 3 lsb: dirty bit, valid bit, exclusive bit
 	-- cache hold valid bit ,dirty bit, exclusive bit, 6 bits tag, 32 bits data,
 	-- 41 bits in total
-	type rom_type is array (natural(2 ** 14 - 1) downto 0) of std_logic_vector(52 downto 0);
+	type rom_type is array (natural(2 ** 5 - 1) downto 0) of std_logic_vector(52 downto 0);
 	signal ROM_array : rom_type := (others => (others => '0'));
 
 	-- Naming conventions:
@@ -545,98 +545,71 @@ begin
 	-- *        snp_mem_ack, snp_mem_hit, snp_mem_res,
 	-- *        usnp_mem_ack, usnp_mem_hit, usnp_mem_res;
 	-- *      wb_req_o
-	mem_control_unit : process(reset, clock)
-		variable idx     : integer;
-		variable memcont : std_logic_vector(52 downto 0);
-	begin
-		if (reset = '1') then
-			-- reset signals;
-			cpu_mem_res <= ZERO_MSG;
-			turn        := 0;
-		elsif rising_edge(Clock) then
-			cpu_mem_res <= ZERO_MSG;
-			-- cpu memory request
-			if bus_req_s.val = '1' then
-			    cpu_mem_ack <= '0';
-				idx  := to_integer(unsigned(bus_req_s.adr(14 downto 0)));
-				memcont  := ROM_array(idx);
-				-- if we can't find it in memory
-				if memcont(52 downto 52) = "0" or (bus_req_s.cmd = READ_CMD and memcont(50 downto 50) = "0") or bus_req_s.cmd = WRITE_CMD or memcont(49 downto 32) /= bus_req_s.adr(31 downto 14) then -- 31 to 14
-					cpu_mem_ack <= '1';
-					cpu_mem_hit <= '0';
-					cpu_mem_res <= bus_req_s;
-				else                    -- it's a hit
-					cpu_mem_ack <= '1';
-					cpu_mem_hit <= '1';
-					if bus_req_s.cmd = WRITE_CMD then
-						cpu_mem_res <= bus_req_s;
-					else
-						cpu_mem_res   <= (bus_req_s.val, bus_req_s.cmd, bus_req_s.tag,
-                          bus_req_s.id, bus_req_s.adr, memcont(31 downto 0));
-					end if;
-				end if;
-
-		end if;
-		end if;
-		end process;
-mem_2 : process(reset, clock)
-		variable idx     : integer;
-		variable memcont : std_logic_vector(52 downto 0);
-	begin
-		if (reset = '1') then
-			-- reset signals;
-			snp_mem_res <= ZERO_MSG;
-		elsif rising_edge(Clock) then
-			snp_mem_res <= ZERO_MSG;
-			-- snoop memory request
-			if snp_mem_req.val = '1' then
-				idx     := to_integer(unsigned(snp_mem_req.adr(13 downto 0)));
-				memcont := ROM_array(idx);
-				snp_mem_ack <= '0';
-				-- if we can't find it in memory
-				if memcont(52 downto 52) = "0" or -- it's a miss
-					 memcont(49 downto 32) /= snp_mem_req.adr(31 downto 14) then -- cmp 
-					snp_mem_ack <= '1';
-					snp_mem_hit <= '0';
-					snp_mem_res <= snp_mem_req;
-				else
-					snp_mem_ack <= '1';
-					snp_mem_hit <= '1';
-					-- if it's write, invalidate the cache line
-					if snp_mem_req.cmd = WRITE_CMD then
-						ROM_array(idx)(52)          <= '0'; -- it's a miss
-						ROM_array(idx)(31 downto 0) <= snp_mem_req.dat;
-						snp_mem_req.dat             <= ROM_array(idx)(31 downto 0);
-						snp_mem_res                 <= snp_mem_req;
-					else
-						-- if it's read, mark the exclusive as 0
-						ROM_array(idx)(50) <= '0';
-						snp_mem_res        <= ('1', snp_mem_req.cmd, snp_mem_req.tag,
-						                snp_mem_req.id, snp_mem_req.adr,
-						                ROM_array(idx)(31 downto 0));
-					end if;
-
-				end if;
-			end if;
-		end if;
-		end process;
-				
+--mem_control_unit : process(reset, clock)
+--		variable idx     : integer;
+--		variable memcont : std_logic_vector(52 downto 0);
+--		variable turn: integer :=0;
+--	begin
+--		if (reset = '1') then
+--			-- reset signals;
+--			cpu_mem_res <= ZERO_MSG;
+--			turn        := 0;
+--		elsif rising_edge(Clock) then
+--			cpu_mem_res <= ZERO_MSG;
+--            snp_mem_res <= ZERO_MSG;
+--			-- cpu memory request
+--			if bus_req_s.val = '1' then
+--			    cpu_mem_ack <= '0';
+--				idx  := to_integer(unsigned(bus_req_s.adr(14 downto 0)));
+--				memcont  := ROM_array(idx);
+--				-- if we can't find it in memory
+--				if memcont(52 downto 52) = "0" or (bus_req_s.cmd = READ_CMD and memcont(50 downto 50) = "0") or bus_req_s.cmd = WRITE_CMD or memcont(49 downto 32) /= bus_req_s.adr(31 downto 14) then -- 31 to 14
+--					cpu_mem_ack <= '1';
+--					cpu_mem_hit <= '0';
+--					cpu_mem_res <= bus_req_s;
+--				else                    -- it's a hit
+--					cpu_mem_ack <= '1';
+--					cpu_mem_hit <= '1';
+--					if bus_req_s.cmd = WRITE_CMD then
+--						cpu_mem_res <= bus_req_s;
+--					else
+--						cpu_mem_res   <= (bus_req_s.val, bus_req_s.cmd, bus_req_s.tag,
+--                          bus_req_s.id, bus_req_s.adr, memcont(31 downto 0));
+--					end if;
+--				end if;
+--			-- snoop memory request
+--			elsif snp_mem_req.val = '1' then
+--				idx     := to_integer(unsigned(snp_mem_req.adr(13 downto 0)));
+--				memcont := ROM_array(idx);
+--				snp_mem_ack <= '0';
+--				-- if we can't find it in memory
+--				if memcont(52 downto 52) = "0" or -- it's a miss
+--					 memcont(49 downto 32) /= snp_mem_req.adr(31 downto 14) then -- cmp 
+--					snp_mem_ack <= '1';
+--					snp_mem_hit <= '0';
+--					snp_mem_res <= snp_mem_req;
+--				else
+--					snp_mem_ack <= '1';
+--					snp_mem_hit <= '1';
+--					-- if it's write, invalidate the cache line
+--					if snp_mem_req.cmd = WRITE_CMD then
+--					   memcont(52) :='0';
+--					   memcont(31 downto 0) :=snp_mem_req.dat;
+--					   snp_mem_res                 <= ('1', snp_mem_req.cmd, snp_mem_req.tag,
+--                                                                snp_mem_req.id, snp_mem_req.adr,
+--                                                                memcont(31 downto 0));
+--					else
+--						-- if it's read, mark the exclusive as 0
+--						memcont(50) :='0';
+--						snp_mem_res        <= ('1', snp_mem_req.cmd, snp_mem_req.tag,
+--						                snp_mem_req.id, snp_mem_req.adr,
+--						                memcont(31 downto 0));
+--					end if;
+--                    ROM_array(idx)          <= memcont;
+--				end if;
 			
-mem3 : process(reset, clock)
-		variable idx     : integer;
-		variable memcont : std_logic_vector(52 downto 0);
-		variable shifter : boolean := false;
-		variable turn    : integer := 0;
-	begin
-		if (reset = '1') then
-			-- reset signals;
-		
-			upd_ack     <= '0';
-		elsif rising_edge(Clock) then
 			
-			upd_ack     <= '0';
-
-			-- cpu memory request
+--			 --cpu memory request
 --			-- upstream snoop req
 --			elsif usnp_mem_req.val = '1' then
 --				idx     := to_integer(unsigned(usnp_mem_req.adr(13 downto 0))); -- index
@@ -657,70 +630,73 @@ mem3 : process(reset, clock)
 --					-- if it's write, write it directly
 --					-- ---this need to be changed TODO ?
 --					if usnp_mem_req.cmd = WRITE_CMD then
---						ROM_array(idx)(52)          <= '0';
---						ROM_array(idx)(31 downto 0) <= usnp_mem_req.dat;
+--					memcont(52) :='0';
+--					memcont(31 downto 0) :=usnp_mem_req.dat;
+--						ROM_array(idx)          <= memcont;
 --						usnp_mem_res                <= ('1', usnp_mem_req.cmd, usnp_mem_req.tag,
 --						                 usnp_mem_req.id, usnp_mem_req.adr,
---						                 ROM_array(idx)(31 downto 0));
+--						                 memcont(31 downto 0));
 --					else
 --						-- if it's read, mark the exclusive as 0
 --						-- -not for this situation, because it is shared by other ips
 --						-- -ROM_array(idx)(54) <= '0';
 --						usnp_mem_res <= ('1', usnp_mem_req.cmd, usnp_mem_req.tag,
 --						                 usnp_mem_req.id, usnp_mem_req.adr,
---						                 ROM_array(idx)(31 downto 0));
+--						                 memcont(31 downto 0));
 --					end if;
 --				end if;
 				
-
---			snp_wt_ack <= '0';
---			content    <= ROM_array(7967);
-	end if;
-	end process;
+--            end if;
+----			snp_wt_ack <= '0';
+----			content    <= ROM_array(7967);
+--	end if;
+--	end process;
+	
+	
+	
+	
+	
+	
+	
 mem4 : process(reset, clock)
 		variable idx     : integer;
 		variable memcont : std_logic_vector(52 downto 0);
 		variable shifter : boolean := false;
-		variable turn    : integer := 0;
+		variable ct : integer :=0;
 	begin
 		if (reset = '1') then
 			-- reset signals;
-			
-			write_ack   <= '0';
-			turn        := 0;
 		elsif rising_edge(Clock) then
 			
 			write_ack   <= '0';
 			upd_ack     <= '0';
 			wb_req_o    <= ZERO_BMSG;
-
+            memcont :=(others =>'0');
+            idx :=31;
 			-- cpu memory request
---			elsif mcu_write_req.val = '1' then
---				idx            := to_integer(unsigned(mcu_write_req.adr(13 downto 0)));
---				ROM_array(idx) <= "110" & mcu_write_req.adr(31 downto 14) & mcu_write_req.dat;
---				write_ack      <= '1';
---				upd_ack        <= '0';
---				write_res      <= mcu_write_req;
---				turn           := 0;
---			elsif snp_wt.val = '1' then
---				turn           := 0;
---				idx            := to_integer(unsigned(snp_wt.adr(13 downto 0)));
---				ROM_array(idx) <= "100" & snp_wt.adr(31 downto 14) & snp_wt.dat;
---				snp_wt_ack     <= '1';
---				turn           := 0;
---			elsif bus_res.val = '1' then
---				turn    := 0;
---				idx     := to_integer(unsigned(bus_res.adr(13 downto 0))) /16 * 16;
---				tidx    <= to_integer(unsigned(bus_res.adr(13 downto 0)));
---				memcont := ROM_array(idx);
-
---				-- if tags do not match, dirty bit is 1,
---				-- and write_back fifo in BUS is not full,
+			if mcu_write_req.val = '1' then
+				idx            := to_integer(unsigned(mcu_write_req.adr(13 downto 0)));
+				memcont :="110" & mcu_write_req.adr(31 downto 14) & mcu_write_req.dat;
+				--ROM_array(idx) <= memcont;
+				write_ack      <= '1';
+				upd_ack        <= '0';
+				write_res      <= mcu_write_req;
+			elsif snp_wt.val = '1' then
+				idx            := to_integer(unsigned(snp_wt.adr(13 downto 0)));
+				memcont :="100" & snp_wt.adr(31 downto 14) & snp_wt.dat;
+				--ROM_array(idx) <= memcont;
+				snp_wt_ack     <= '1';
+			elsif bus_res.val = '1' then
+				idx     := to_integer(unsigned(bus_res.adr(13 downto 0))) /16 * 16;
+				tidx    <= to_integer(unsigned(bus_res.adr(13 downto 0)));
+				-- if tags do not match, dirty bit is 1,
+				-- and write_back fifo in BUS is not full,
 --				if memcont(52 downto 52) = "1" and memcont(51 downto 51) = "1" and memcont(49 downto 32) /= bus_res.adr(31 downto 14) and full_wb_i /= '1' then
 --					wb_req_o <= ('1', WRITE_CMD, ZERO_TAG, ZERO_ID, bus_res.adr,
 --					             ROM_array(idx + 15)(31 downto 0) & ROM_array(idx + 14)(31 downto 0) & ROM_array(idx + 13)(31 downto 0) & ROM_array(idx + 12)(31 downto 0) & ROM_array(idx + 11)(31 downto 0) & ROM_array(idx + 10)(31 downto 0) & ROM_array(idx + 9)(31 downto 0) & ROM_array(idx + 8)(31 downto 0) & ROM_array(idx + 7)(31 downto 0) & ROM_array(idx + 6)(31 downto 0) & ROM_array(idx + 5)(31 downto 0) & ROM_array(idx + 4)(31 downto 0) & ROM_array(idx + 3)(31 downto 0) & ROM_array(idx + 2)(31 downto 0) & ROM_array(idx + 1)(31 downto 0) & ROM_array(idx)(31 downto 0));
 --				end if;
---				ROM_array(idx + 15) <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(511 downto 480);
+                memcont :="101" & bus_res.adr(31 downto 14) & bus_res.dat(511 downto 480);
+				--ROM_array(idx + 15) <= memcont;
 --				ROM_array(idx + 14) <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(479 downto 448);
 --				ROM_array(idx + 13) <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(447 downto 416);
 --				ROM_array(idx + 12) <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(415 downto 384);
@@ -736,12 +712,13 @@ mem4 : process(reset, clock)
 --				ROM_array(idx + 2)  <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(95 downto 64);
 --				ROM_array(idx + 1)  <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(63 downto 32);
 --				ROM_array(idx)      <= "101" & bus_res.adr(31 downto 14) & bus_res.dat(31 downto 0);
---				upd_ack             <= '1';
---				upd_res             <= (bus_res.val, bus_res.cmd, bus_res.tag, bus_res.id, bus_res.adr,
---				            bus_res.dat(to_integer(unsigned(bus_res.adr(3 downto 0)))
---                           * 32 + 31 downto to_integer(unsigned(bus_res.adr(3 downto 0))) * 32));
---				write_ack           <= '0';
+				upd_ack             <= '1';
+				upd_res             <= (bus_res.val, bus_res.cmd, bus_res.tag, bus_res.id, bus_res.adr,
+				            bus_res.dat(to_integer(unsigned(bus_res.adr(3 downto 0)))
+                           * 32 + 31 downto to_integer(unsigned(bus_res.adr(3 downto 0))) * 32));
+				write_ack           <= '0';
 			end if;
+		    ROM_array(idx) <= memcont;
 		end if;
 	end process;
 

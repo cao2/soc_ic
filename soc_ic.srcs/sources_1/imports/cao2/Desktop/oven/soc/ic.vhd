@@ -372,7 +372,7 @@ begin
 			bus_res_c0_ack_i  => brs1_ack2,
 			bus_res_c1_ack_i  => brs2_ack2,
 			toper_i           => togfx_p,
-			bus_res_c0_o      => bus_res2_5,
+			bus_res_c0_o      => bus_res1_5,
 			bus_res_c1_o      => bus_res2_5,
 			gfx_upres_ack_i   => '0',
 			usb_upres_ack_i   => usb_upres_ack5,

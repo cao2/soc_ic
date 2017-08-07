@@ -237,66 +237,66 @@ architecture tb of top is
 	signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done : std_logic;
 	signal full_snpres                                                       : std_logic;
 begin
-	--   proc0_e : entity work.proc(rtl) port map(
-	--     reset     => reset,
-	--     Clock     => Clock,
-	--
-	--     id_i      => CPU0,
-	--
-	--     snp_req_i  => snp_req1, -- snoop req from cache 2
-	--     snp_hit_o => snp_hit1,
-	--     snp_res_o => snp_res1,
-	--
-	--     up_snp_req_i  => up_snp_req, -- upstream snoop req 
-	--     up_snp_hit_o => up_snp_hit,
-	--     up_snp_res_o => up_snp_res,
-	--     full_snpres_i=> full_snpres,
-	--
-	--     snp_req_o => snp_req2, -- fwd snp req to other cache
-	--     snp_hit_i => snp_hit2,
-	--     snp_res_i => snp_res2,
-	--
-	--     bus_req_o  => bus_req1, -- mem or pwr req to ic
-	--     bus_res_i   => bus_res1, -- mem or pwr resp from ic    
-	--
-	----     wb_req_o      => wb_req1,
-	--
-	--     -- for observation:
-	--     done_o => proc0_done,
-	--     cpu_req_o  => cpu_req1,
-	--     cpu_res_o => cpu_res1
-	--
-	--     );
+	   proc0_e : entity work.proc(rtl) port map(
+	     reset     => reset,
+	     Clock     => Clock,
 	
---	   proc1_e : entity work.proc(rtl) port map(
---	     reset     => reset,
---	     Clock     => Clock,
+	     id_i      => CPU0,
 	
---	     id_i      => CPU1,
+	     snp_req_i  => snp_req1, -- snoop req from cache 2
+	     snp_hit_o => snp_hit1,
+	     snp_res_o => snp_res1,
 	
---	     snp_req_i  => snp_req2, -- snoop req from cache 2
---	     snp_hit_o => snp_hit2,
---	     snp_res_o => snp_res2,
+	     up_snp_req_i  => up_snp_req, -- upstream snoop req 
+	     up_snp_hit_o => up_snp_hit,
+	     up_snp_res_o => up_snp_res,
+	     full_snpres_i=> full_snpres,
 	
---	     -- TODO not implemented yet:
---	     up_snp_req_i  => ZERO_MSG, -- upstream snoop req 
---	     --up_snp_hit_o => ,
---	     --up_snp_res_o => ,
---		 full_snpres_i=>'0',
---	     snp_req_o => snp_req1, -- fwd snp req to other cache
---	     snp_hit_i => snp_hit1,
---	     snp_res_i => snp_res1,
+	     snp_req_o => snp_req2, -- fwd snp req to other cache
+	     snp_hit_i => snp_hit2,
+	     snp_res_i => snp_res2,
 	
---	     bus_req_o  => bus_req2, -- mem or pwr req to ic
---	     bus_res_i   => bus_res2, -- mem or pwr resp from ic    
+	     bus_req_o  => bus_req1, -- mem or pwr req to ic
+	     bus_res_i   => bus_res1, -- mem or pwr resp from ic    
 	
---	--     wb_req_o      => wb_req2,
+	--     wb_req_o      => wb_req1,
 	
---	     -- for observation:
---	     done_o => proc1_done,
---	     cpu_req_o  => cpu_req2,
---	     cpu_res_o => cpu_res2
---	     );
+	     -- for observation:
+	     done_o => proc0_done,
+	     cpu_req_o  => cpu_req1,
+	     cpu_res_o => cpu_res1
+	
+	     );
+	
+	   proc1_e : entity work.proc(rtl) port map(
+	     reset     => reset,
+	     Clock     => Clock,
+	
+	     id_i      => CPU1,
+	
+	     snp_req_i  => snp_req2, -- snoop req from cache 2
+	     snp_hit_o => snp_hit2,
+	     snp_res_o => snp_res2,
+	
+	     -- TODO not implemented yet:
+	     up_snp_req_i  => ZERO_MSG, -- upstream snoop req 
+	     --up_snp_hit_o => ,
+	     --up_snp_res_o => ,
+		 full_snpres_i=>'0',
+	     snp_req_o => snp_req1, -- fwd snp req to other cache
+	     snp_hit_i => snp_hit1,
+	     snp_res_i => snp_res1,
+	
+	     bus_req_o  => bus_req2, -- mem or pwr req to ic
+	     bus_res_i   => bus_res2, -- mem or pwr resp from ic    
+	
+	--     wb_req_o      => wb_req2,
+	
+	     -- for observation:
+	     done_o => proc1_done,
+	     cpu_req_o  => cpu_req2,
+	     cpu_res_o => cpu_res2
+	     );
 	
 	  power : entity work.pwr(rtl) port map(
 	    Clock     => Clock,

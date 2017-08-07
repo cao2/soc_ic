@@ -21,3 +21,139 @@ close_design
 launch_runs synth_2
 wait_on_run synth_2
 reset_run synth_2
+launch_simulation
+source top.tcl
+close_sim
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top top [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+set_param synth.elaboration.rodinMoreOptions "rt::set_parameter maxRomAddrWidth 50"
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top l1_cache [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs synth_2
+wait_on_run synth_2
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top top [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+set_property is_enabled false [get_files  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/soc_ic/Basys3_Master.xdc]
+set_property board_part xilinx.com:kc705:part0:1.5 [current_project]
+launch_runs impl_2
+wait_on_run impl_2
+launch_runs impl_2 -to_step write_bitstream
+wait_on_run impl_2
+file mkdir C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new
+close [ open C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc w ]
+add_files -fileset constrs_1 C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {clk_IBUF_inst/O}]
+reset_run synth_2
+launch_runs impl_2 -to_step write_bitstream
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2 -to_step write_bitstream
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+launch_runs impl_2 -to_step write_bitstream
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+reset_run synth_2
+launch_runs impl_2
+wait_on_run impl_2
+launch_runs impl_2 -to_step write_bitstream
+wait_on_run impl_2
