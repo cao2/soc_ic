@@ -1,11 +1,18 @@
+set_property BITSTREAM.CONFIG.BPI_SYNC_MODE Type2 [current_design]
+set_property BITSTREAM.CONFIG.EXTMASTERCCLK_EN div-2 [current_design]
+set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
+set_property BITSTREAM.CONFIG.UNUSEDPIN Pullup [current_design]
+set_property CONFIG_MODE BPI16 [current_design]
+set_property CFGBVS VCCO [current_design]
+set_property CONFIG_VOLTAGE 2.5 [current_design]
 ##CLOCKS
 ##SYSCLK
-set_property LOC BUFGCTRL_X0Y0 [get_cells xilinx_pad_inst_cb]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets reset_IBUF]
-#set_property PACKAGE_PIN AD11 [get_ports Clock]
-#set_property IOSTANDARD LVDS [get_ports Clock]
-set_property PACKAGE_PIN AD12 [get_ports Clock]
-set_property IOSTANDARD LVDS [get_ports Clock]
+set_property PACKAGE_PIN AD11 [get_ports clk1]
+set_property IOSTANDARD LVDS [get_ports clk1]
+set_property PACKAGE_PIN AD12 [get_ports clk]
+set_property IOSTANDARD LVDS [get_ports clk]
+create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk]
+
 ##USERCLK
 #set_property CLOCK_DEDICATED_ROUTE FALSE get_nets {Clock_IBUF}
 #set_property LOC BUFGCTRL_X0Y31 [get_cells xilinx_pad_inst_cb]
