@@ -17,7 +17,17 @@ package defs is
    id        : std_logic_vector(7 downto 0);  --sequence id
    adr       : std_logic_vector(31 downto 0);
    dat       : std_logic_vector(31 downto 0);
-  end record MSG_T;
+end record MSG_T;
+
+type cacheline is record
+	valid: std_logic;
+	cmd: std_logic_vector(7 downto 0);
+	dat: std_logic_vector(511 downto 0);
+	dirty: std_logic;
+	exclusive: std_logic;
+	valid: std_logic_vector(15 downto 0);
+	tag: std_logic_vector(17 downto 0);
+end record cacheline;
 
   type BMSG_T is record
    val       : std_logic;                     -- valid bit;
