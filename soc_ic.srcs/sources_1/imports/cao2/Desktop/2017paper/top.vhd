@@ -16,8 +16,8 @@ use UNISIM.vcomponents.all;
 -- Xilinx HDL Libraries Guide, version 14.7
 
 entity top is
-	Port(clk   : in  std_logic;
-	       clk1 : in std_logic;
+	Port(Clock   : in  std_logic;
+--	       clk1 : in std_logic;
 	     reset   : in  std_logic;
 	     tx_out  : out std_logic;
 	     rx_in     : in std_logic
@@ -241,18 +241,18 @@ architecture tb of top is
 
 	signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done : std_logic;
 	signal full_snpres                                                       : std_logic;
-	signal Clock : std_logic;
+--	signal Clock : std_logic;
 begin
-        IBUFGDS_inst : IBUFGDS
-generic map (
-DIFF_TERM => FALSE, -- Differential Termination
-IBUF_LOW_PWR => TRUE, -- Low power (TRUE) vs. performance (FALSE) setting for referenced I/O standards
-IOSTANDARD => "DEFAULT")
-port map (
-O => Clock, -- Clock buffer output
-I => clk, -- Diff_p clock buffer input (connect directly to top-level port)
-IB => clk1 -- Diff_n clock buffer input (connect directly to top-level port)
-);
+--        IBUFGDS_inst : IBUFGDS
+--generic map (
+--DIFF_TERM => FALSE, -- Differential Termination
+--IBUF_LOW_PWR => TRUE, -- Low power (TRUE) vs. performance (FALSE) setting for referenced I/O standards
+--IOSTANDARD => "DEFAULT")
+--port map (
+--O => Clock, -- Clock buffer output
+--I => clk, -- Diff_p clock buffer input (connect directly to top-level port)
+--IB => clk1 -- Diff_n clock buffer input (connect directly to top-level port)
+--);
 -- End of IBUFGDS_inst instantiation
 	   proc0_e : entity work.proc(rtl) port map(
 	     reset     => reset,

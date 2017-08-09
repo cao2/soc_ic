@@ -98,18 +98,18 @@ begin
    done_o    => rwt_done
    );
 
-  pwrt_ent : entity work.cpu_test(pwrt) port map(
-   rst     => reset,
-   clk     => Clock,
-   en      => is_tset(PWR),
+--  pwrt_ent : entity work.cpu_test(pwrt) port map(
+--   rst     => reset,
+--   clk     => Clock,
+--   en      => is_tset(PWR),
 
-   id_i      => id_i,
+--   id_i      => id_i,
     
-   cpu_res_i => pwrt_res,
-   cpu_req_o => pwrt_req,
-   cpu_req_ack_i => pwrt_req_ack,
-   done_o    => pwrt_done
-   );
+--   cpu_res_i => pwrt_res,
+--   cpu_req_o => pwrt_req,
+--   cpu_req_ack_i => pwrt_req_ack,
+--   done_o    => pwrt_done
+--   );
   
   cpu_req_arbiter : entity work.arbiter6(rtl) port map(
    clock => Clock,
@@ -127,11 +127,11 @@ begin
    dout  => req
    );
   
-  cpu_req_o <= req;
-  cpu_res_o <= cpu_res;
+--  cpu_req_o <= req;
+--  cpu_res_o <= cpu_res;
 
-  rwt_res <= cpu_res when is_rw_cmd(cpu_res) else ZERO_MSG;
-  pwrt_res <= cpu_res when is_pwr_cmd(cpu_res) else ZERO_MSG;
+--  rwt_res <= cpu_res when is_rw_cmd(cpu_res) else ZERO_MSG;
+--  pwrt_res <= cpu_res when is_pwr_cmd(cpu_res) else ZERO_MSG;
 
-  done_o <= rwt_done and pwrt_done;
+--  done_o <= rwt_done and pwrt_done;
 end rtl;
