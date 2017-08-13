@@ -1,0 +1,45 @@
+Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2017.2 (win64) Build 1909853 Thu Jun 15 18:39:09 MDT 2017
+| Date         : Fri Aug 11 17:22:04 2017
+| Host         : ENB222-PC2 running 64-bit Service Pack 1  (build 7601)
+| Command      : report_methodology -file top_methodology_drc_routed.rpt -rpx top_methodology_drc_routed.rpx
+| Design       : top
+| Device       : xc7k325tffg900-2
+| Speed File   : -2
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 2
++-----------+----------+-------------------------------+------------+
+| Rule      | Severity | Description                   | Violations |
++-----------+----------+-------------------------------+------------+
+| TIMING-18 | Warning  | Missing input or output delay | 2          |
++-----------+----------+-------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on reset relative to clock(s) sys_clk_pin 
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An output delay is missing on tx_out relative to clock(s) sys_clk_pin 
+Related violations: <none>
+
+

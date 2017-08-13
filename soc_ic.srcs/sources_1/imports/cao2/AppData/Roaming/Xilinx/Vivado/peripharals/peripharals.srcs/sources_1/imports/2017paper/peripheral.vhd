@@ -75,9 +75,9 @@ begin
      rnd_o  => r
      );
 
-set_tag: process(reset)
+set_tag: process(Clock)
 	begin
-		if reset='1' then
+		if rising_edge(Clock) then
 			if id_i = GFX then
       			tag <= GFX_TAG;
      		elsif id_i=AUDIO then
@@ -90,18 +90,18 @@ set_tag: process(reset)
 		end if;
 	end process;
  
-  write_req_p : process(Clock, reset)
+  write_req_p : process(Clock)
     variable address : integer;
     variable len     : integer;
     variable size    : std_logic_vector(9 downto 0);
     variable state   : integer := 0;
     variable lp      : integer := 0;
   begin
-    if reset = '1' then
-      wready_o     <= '1';
-      wdataready_o <= '0';
-    elsif (rising_edge(Clock)) then
-    	if state = 0 then
+   if (rising_edge(Clock)) then
+    	 if reset = '1' then
+        wready_o     <= '1';
+        wdataready_o <= '0';
+      elsif state = 0 then
     		wready_o <='1';
     		wdataready_o <='0';
         wrvalid_o <= '0';
@@ -142,7 +142,7 @@ set_tag: process(reset)
     end if;
   end process;
 --
-  read_req_p : process(Clock, reset)
+  read_req_p : process(Clock)
     variable address : integer;
     variable len     : integer;
     variable size    : std_logic_vector(9 downto 0);
@@ -150,14 +150,14 @@ set_tag: process(reset)
     variable lp      : integer := 0;
     variable dt      : std_logic_vector(31 downto 0);
   begin
-    if reset = '1' then
-      rready_o  <= '1';
-      rdvalid_o <= '0';
-      rstrb_o   <= "1111";
-      rlast_o   <= '0';
-      address := 0;
-    elsif (rising_edge(Clock)) then
-      if state = 0 then
+    if (rising_edge(Clock)) then
+      if reset = '1' then
+          rready_o  <= '1';
+          rdvalid_o <= '0';
+          rstrb_o   <= "1111";
+          rlast_o   <= '0';
+          address := 0;
+        elsif state = 0 then
         lp := 0;
         if rvalid_i = '1' then
           rready_o  <= '0';
@@ -195,10 +195,8 @@ set_tag: process(reset)
   pwr_req_p : process(Clock)
     variable pwr_req : MSG_T;
   begin
-    if reset = '1' then
-      pwr_res_o <= ZERO_MSG;
-
-    elsif (rising_edge(clock)) then
+    if (rising_edge(clock)) then
+     pwr_res_o <= ZERO_MSG;
       pwr_res_o <= pwr_req;
       pwr_req := pwr_req_i;
       if pwr_req.cmd = PWRUP_CMD then
@@ -213,19 +211,16 @@ set_tag: process(reset)
     end if;
   end process;
 
-  clk_counter : process(clock, sim_end)
+  clk_counter : process(clock)
     variable count : natural := 0;
     variable b : boolean := true;
   begin
-    if sim_end = '1' and b then
-      log(str(id_i) & " ended, clock cycles is " & str(count), INFO);
-      b := false;
-    elsif (rising_edge(clock)) then
+    if (rising_edge(clock)) then
       count := count + 1;
     end if;
   end process;
   
-  ureqt_p : process(clock, reset) -- up read test
+  ureqt_p : process(clock) -- up read test
     variable dc, tc, st_nxt : natural := 0;
     variable s : natural := nat(id_i);
     variable st : natural := 0;
@@ -242,12 +237,12 @@ set_tag: process(reset)
     variable c4 : integer := 600;
     
   begin
-      if reset = '1' then
-        upreq_o <= ZERO_MSG;
-        --ct := rand_nat(to_integer(unsigned(TEST(UREQ))));
-        st := 0;
-      elsif(rising_edge(clock)) then
-        if st = 1 then -- delay
+      if(rising_edge(clock)) then
+        if reset = '1' then
+              upreq_o <= ZERO_MSG;
+              --ct := rand_nat(to_integer(unsigned(TEST(UREQ))));
+              st := 0;
+            elsif st = 1 then -- delay
           rnd_dlay(b, s, dc, st, st_nxt);
         elsif st = 2 then -- done
           upreq_o <= ZERO_MSG;

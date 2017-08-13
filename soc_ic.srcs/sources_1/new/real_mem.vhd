@@ -55,12 +55,13 @@ begin
         variable address : integer;
         variable addr : integer;
     begin
-    if reset = '1' then
-        r_ack<='0';
-        w_ack<='0';
-    elsif (rising_edge(Clock)) then
+   if (rising_edge(Clock)) then
          r_ack<='0';
          w_ack<='0';
+          if reset = '1' then
+                r_ack<='0';
+                w_ack<='0';
+            else
             if rvalid = '1' then
                   address    := to_integer(unsigned(rdaddr_i(9 downto 0)));
                   r_ack<='1';
@@ -72,6 +73,7 @@ begin
                   ram(addr) <= wtdata_i;
                   w_ack <='1';
              end if;
+         end if;
          end if;
      end process;
  

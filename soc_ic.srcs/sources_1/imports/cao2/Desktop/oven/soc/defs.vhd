@@ -56,7 +56,13 @@ end record cacheline;
                                   (others => '0'),
                                   (others => '0'),
                                   (others => '0'));
-
+constant ZERO_c : cacheline := ('0',
+                                                                    (others => '0'),
+                                                                    (others => '0'),
+                                                                    (others => '0'),
+                                                                    (others => '0'),
+                                                                    (others => '0'),
+                                                                    (others => '0'));
   
 --  subtype MSG_T is std_logic_vector(MSG_WIDTH-1 downto 0);
   subtype CMD_T is std_logic_vector(CMD_WIDTH-1 downto 0);

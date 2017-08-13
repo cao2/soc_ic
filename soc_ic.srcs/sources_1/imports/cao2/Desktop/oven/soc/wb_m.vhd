@@ -44,15 +44,15 @@ begin
   ----this need to be edited, 
   ----1. axi protocl
   ----2. more than 2 ips
-  wb_p : process(reset, Clock)
+  wb_p : process( Clock)
     variable state : integer;
     variable tdata:std_logic_vector(511 downto 0);
     variable lp:integer :=0;
   begin
-    if reset = '1' then
-      state   := 0;
-    elsif rising_edge(Clock) then
-      if state = 0 then
+   if rising_edge(Clock) then
+       if reset = '1' then
+        state   := 0;
+      elsif state = 0 then
         if re_io = '0' and fifo_empty_i = '0' then
           re_io   <= '1';
           state := 1;

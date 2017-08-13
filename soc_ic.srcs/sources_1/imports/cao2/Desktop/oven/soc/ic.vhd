@@ -649,7 +649,7 @@ begin
 			ack_i  => mem_ack
 		);
 
-	tomem_chan_p : process(reset, Clock)
+	tomem_chan_p : process( Clock)
 		variable tdata   : std_logic_vector(511 downto 0) := (others => '0');
 		variable sdata   : std_logic_vector(31 downto 0)  := (others => '0');
 		variable state   : integer                        := 0;
@@ -659,15 +659,15 @@ begin
 		variable nullreq : BMSG_T                         := ZERO_BMSG;
 		variable slot    : integer;
 	begin
-		if reset = '1' then
-			rvalid_o <= '0';
-			rdready  <= '0';
-			state    := 0;
-		elsif rising_edge(Clock) then
+		if rising_edge(Clock) then
 			-- dbg_chg("tomem_chan_p", state, prev_st);
 			test_v<=tomem_p.val;
 			test_cmd<=tomem_p.cmd;
-			if state = 0 then
+			if reset = '1' then
+                        rvalid_o <= '0';
+                        rdready  <= '0';
+                        state    := 0;
+                    elsif state = 0 then
 				mem_ack           <= '0';
 				bus_res_mem_to_c0 <= nullreq;
 				bus_res_mem_to_c1 <= nullreq;
@@ -867,7 +867,7 @@ begin
 			ack_i  => gfx_ack
 		);
 
-	mem_write_p : process(reset, Clock)
+	mem_write_p : process(Clock)
 		variable state         : integer := 0;
 		variable prev_st       : integer := -1;
 		variable tep_mem       : MSG_T;
@@ -879,11 +879,11 @@ begin
 		variable timeout_cnt   : integer := 0;
 	-- -- if flag is 1, then return mem write 2
 	begin
-		if reset = '1' then
-			flag := '0';
-		elsif rising_edge(Clock) then
+		if rising_edge(Clock) then
 
-			if state = 0 then
+			if reset = '1' then
+			flag := '0';
+		elsif state = 0 then
 				lp             := 0;
 				mem_write_ack1 <= '0';
 				mem_write_ack2 <= '0';
@@ -1350,12 +1350,12 @@ begin
 			dout  => uart_wb
 		);
 
-	snp_res1_fifo_p : process(reset, Clock)
+	snp_res1_fifo_p : process(Clock)
 	begin
-		if reset = '1' then
-			we2 <= '0';
-		elsif rising_edge(Clock) then
-			if up_snp_res_i.val = '1' then
+		if rising_edge(Clock) then
+			if reset = '1' then
+                    we2 <= '0';
+                elsif up_snp_res_i.val = '1' then
 				--report "2 ic received";
 				if up_snp_hit_i = '0' then
 					in2 <= ('0', up_snp_res_i);
@@ -1370,12 +1370,11 @@ begin
 		end if;
 	end process;
 
-	snp_res1_p : process(reset, Clock)
+	snp_res1_p : process(Clock)
 		variable state   : integer := 0;
 		variable tmp_msg : MSG_T;
 	begin
-		if reset = '1' then
-		elsif rising_edge(Clock) then
+		if rising_edge(Clock) then
 			if state = 0 then
 				if re2 = '0' and emp2 = '0' then
 					re2   <= '1';
@@ -1512,15 +1511,15 @@ begin
 			dout  => pwr_req_o
 		);
 
-	pwr_res_p : process(reset, Clock)
+	pwr_res_p : process(Clock)
 		variable st  : natural;
 		variable src : ADR_T;
 		variable dst : DAT_T;
 	begin
-		if reset = '1' then
-			st := 0;
-		elsif rising_edge(Clock) then
-			if st = 0 then
+		if rising_edge(Clock) then
+			if reset = '1' then
+                    st := 0;
+                elsif st = 0 then
 				if pwr_res_i.val = '1' then
 					dst := pwr_res_i.dat;
 

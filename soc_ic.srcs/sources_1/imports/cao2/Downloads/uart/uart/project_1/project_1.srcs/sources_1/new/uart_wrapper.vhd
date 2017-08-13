@@ -79,14 +79,13 @@ begin
                 tx_full=>tx_full, 
                 rx_empty=>rx_empty,
                 r_data=>rec_data, tx=>tx);
- output_p: process(Clock,reset)
+ output_p: process(Clock)
  begin
-    if reset='1' then
-    elsif (rising_edge(Clock)) then
+    if (rising_edge(Clock)) then
         tx_out<=tx;
     end if;
  end process;
-  write_req_p : process(Clock, reset)
+  write_req_p : process(Clock)
     variable address : integer;
     variable len     : integer;
     variable size    : std_logic_vector(9 downto 0);
@@ -94,12 +93,12 @@ begin
     variable lp      : integer := 0;
     variable write_data: std_logic_vector(31 downto 0);
   begin
-    if reset = '1' then
-      wready_o     <= '1';
-      wdataready_o <= '0';
-      wt <= '0';
-    elsif (rising_edge(Clock)) then
-    	if state = 0 then
+   if (rising_edge(Clock)) then
+    	 if reset = '1' then
+        wready_o     <= '1';
+        wdataready_o <= '0';
+        wt <= '0';
+      elsif state = 0 then
     		wready_o <='1';
     		wdataready_o <='0';
         wrvalid_o <= '0';
@@ -154,7 +153,7 @@ begin
     end if;
   end process;
 --
-  read_req_p : process(Clock, reset)
+  read_req_p : process(Clock)
     variable address : integer;
     variable len     : integer;
     variable size    : std_logic_vector(9 downto 0);
@@ -163,15 +162,15 @@ begin
     variable dt      : std_logic_vector(31 downto 0);
     variable rd_data : std_logic_vector(31 downto 0);
   begin
-    if reset = '1' then
-      rready_o  <= '1';
-      rdvalid_o <= '0';
-      rstrb_o   <= "1111";
-      rlast_o   <= '0';
-      address := 0;
-      rd <='0';
-    elsif (rising_edge(Clock)) then
-      if state = 0 then
+   if (rising_edge(Clock)) then
+       if reset = '1' then
+        rready_o  <= '1';
+        rdvalid_o <= '0';
+        rstrb_o   <= "1111";
+        rlast_o   <= '0';
+        address := 0;
+        rd <='0';
+      elsif state = 0 then
         lp := 0;
         if rvalid_i = '1' then
           rready_o  <= '0';
@@ -221,10 +220,8 @@ begin
   pwr_req_p : process(Clock)
     variable pwr_req : MSG_T;
   begin
-    if reset = '1' then
-      pwr_res_o <= ZERO_MSG;
-
-    elsif (rising_edge(clock)) then
+    if (rising_edge(clock)) then
+     pwr_res_o <= ZERO_MSG;
       pwr_res_o <= pwr_req;
       pwr_req := pwr_req_i;
       if pwr_req.cmd = PWRUP_CMD then

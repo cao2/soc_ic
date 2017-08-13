@@ -27,17 +27,17 @@ begin
   --* handles up requests
   --* rs: fifo_re_io, fifo_dat_i, fifo_empty_i
   --* ws: fifo_re_io, req_o
-  per_upreq_p : process(reset, clock)
+  per_upreq_p : process(clock)
     variable nilreq : std_logic_vector(50 downto 0) := (others => '0');
     variable st  : natural := 0;
   variable count: integer:=0;
   begin
-    if reset = '1' then
-    ---up_snp_req_o <= "000"&nilreq;
-    ---pwr_req1 <= "00000";
-    fifo_re_io <='0';
-    elsif rising_edge(Clock) then
-      if st = 0 then -- init
+   if rising_edge(Clock) then
+       if reset = '1' then
+      ---up_snp_req_o <= "000"&nilreq;
+      ---pwr_req1 <= "00000";
+      fifo_re_io <='0';
+      elsif st = 0 then -- init
         if (fifo_re_io = '0' and
             fifo_empty_i = '0') then -- not (in use or empty)
           fifo_re_io   <= '1';

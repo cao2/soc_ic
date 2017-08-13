@@ -16,12 +16,12 @@ end bmsg_fifo_m;
 architecture rtl of bmsg_fifo_m is
 
 begin
-	fifo_p : process(reset, clock)
+	fifo_p : process(clock)
 	begin
-		if reset = '1' then
-			we_o <= '0';
-		elsif rising_edge(clock) then
-			if (data_i.val = '1') then
+		if rising_edge(clock) then
+			if reset = '1' then
+                    we_o <= '0';
+                elsif (data_i.val = '1') then
 				tofifo_o <= data_i;
 				we_o <= '1';
 			else

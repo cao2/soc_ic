@@ -49,9 +49,8 @@ begin
   
   pwr_req_fifo_p: process (Clock)      
   begin
-    if reset='1' then
-      we1<='0';
-    elsif rising_edge(Clock) then
+    if rising_edge(Clock) then
+         we1 <='0';
       if req_i.val = '1' then
         in1 <= req_i;
         we1 <= '1';
@@ -64,20 +63,20 @@ begin
   --* Forwards req from ic to dev,
   --*    waits for resp from dev, and
   --*    forwards res back to ic
-  req_p : process (reset, Clock)
+  req_p : process ( Clock)
     variable st: integer :=0;
     variable dev : IPTAG_T;
     variable tmp_req, tmp: MSG_T;
   begin
-    if (reset = '1') then
-      gfx_req_o <= ZERO_MSG;
-      audio_req_o <= ZERO_MSG;
-      usb_req_o <= ZERO_MSG;
-      uart_req_o <= ZERO_MSG;
-  elsif rising_edge(clock) then
+    if rising_edge(clock) then
   	test <= tmp;
       res_o <= ZERO_MSG;
-      if st =0 then
+      if (reset = '1') then
+            gfx_req_o <= ZERO_MSG;
+            audio_req_o <= ZERO_MSG;
+            usb_req_o <= ZERO_MSG;
+            uart_req_o <= ZERO_MSG;
+        elsif st =0 then
         gfx_req_o <= ZERO_MSG;
         audio_req_o <= ZERO_MSG;
         usb_req_o <= ZERO_MSG;

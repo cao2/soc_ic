@@ -38,21 +38,21 @@ architecture rtl of arbiter6_ack is
     signal s_token : integer :=0;
 		
 begin  
- 	process (reset, clock)
+ 	process (clock)
  		variable nilreq : MSG_T := ZERO_MSG;
  		variable state : integer:=0;
     begin
-        if reset = '1' then
-        	s_token <= 0;
-        	s_ack1 <= '0';
-        	s_ack2 <= '0';
-        	s_ack3 <= '0';
-        	s_ack4 <= '0';
-        	s_ack5 <= '0';
-        	s_ack6 <= '0';
-        	dout <=  nilreq;
-        elsif rising_edge(clock) then
-        	if state = 0 then
+       if rising_edge(clock) then
+        	 if reset = '1' then
+                  s_token <= 0;
+                  s_ack1 <= '0';
+                  s_ack2 <= '0';
+                  s_ack3 <= '0';
+                  s_ack4 <= '0';
+                  s_ack5 <= '0';
+                  s_ack6 <= '0';
+                  dout <=  nilreq;
+              elsif state = 0 then
 					dout <= nilreq;
 	            s_ack1 <= '0';
 	            s_ack2 <= '0';   

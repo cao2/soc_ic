@@ -28,15 +28,16 @@ architecture rtl of b_arbiter2 is
   signal wb_flag : std_logic;
   
 begin
-  process (reset, clock)
+  process (clock)
     variable cmd: std_logic_vector( 1 downto 0);
   begin
+   if rising_edge(clock) then
     if reset = '1' then
-      wb_flag <= '0';
-      s_ack1 <= '0';
-      s_ack2 <= '0';
-      dout <=  ZERO_BMSG;
-    elsif rising_edge(clock) then
+        wb_flag <= '0';
+        s_ack1 <= '0';
+        s_ack2 <= '0';
+        dout <=  ZERO_BMSG;
+      else
       cmd:= din1.val & din2.val;
       dout <= ZERO_BMSG;
       s_ack1 <= '0';
@@ -67,5 +68,6 @@ begin
     end if;
     ack1 <= s_ack1;
     ack2 <= s_ack2;
+    end if;
   end process;
 end architecture rtl;   

@@ -17,11 +17,19 @@ Compiling package ieee.std_logic_textio
 Compiling package xil_defaultlib.defs
 Compiling package xil_defaultlib.util
 Compiling package xil_defaultlib.test
+Compiling package unisim.vcomponents
+Compiling architecture rtl of entity xil_defaultlib.fifo [fifo_default]
+Compiling architecture rtl of entity xil_defaultlib.b_fifo [b_fifo_default]
+Compiling architecture rtl of entity xil_defaultlib.arbiter2 [arbiter2_default]
+Compiling architecture rtl of entity xil_defaultlib.arbiter6 [arbiter6_default]
+Compiling architecture rtl of entity xil_defaultlib.b_c_arbiter6 [b_c_arbiter6_default]
+Compiling architecture rtl of entity xil_defaultlib.l1_cache [l1_cache_default]
+Compiling architecture rtl of entity xil_defaultlib.rndgen [rndgen_default]
+Compiling architecture rwt of entity xil_defaultlib.cpu_test [cpu_test_default]
+Compiling architecture rtl of entity xil_defaultlib.proc [proc_default]
 Compiling architecture rtl of entity xil_defaultlib.fifo [\fifo(fifo_depth=16)\]
 Compiling architecture rtl of entity xil_defaultlib.pwr [pwr_default]
 Compiling architecture rtl of entity xil_defaultlib.toper_chan_m [toper_chan_m_default]
-Compiling architecture rtl of entity xil_defaultlib.b_fifo [b_fifo_default]
-Compiling architecture rtl of entity xil_defaultlib.fifo [fifo_default]
 Compiling architecture rtl of entity xil_defaultlib.per_upreq_m [per_upreq_m_default]
 Compiling architecture rtl of entity xil_defaultlib.msg_fifo_m [msg_fifo_m_default]
 Compiling architecture rtl of entity xil_defaultlib.fifo_snp [fifo_snp_default]
@@ -29,7 +37,6 @@ Compiling architecture rtl of entity xil_defaultlib.arbiter6_ack [arbiter6_ack_d
 Compiling architecture rtl of entity xil_defaultlib.per_write_m [per_write_m_default]
 Compiling architecture rtl of entity xil_defaultlib.arbiter2_ack [arbiter2_ack_default]
 Compiling architecture rtl of entity xil_defaultlib.b_arbiter6 [b_arbiter6_default]
-Compiling architecture rtl of entity xil_defaultlib.arbiter6 [arbiter6_default]
 Compiling architecture rtl of entity xil_defaultlib.arbiter7 [arbiter7_default]
 Compiling architecture rtl of entity xil_defaultlib.b_arbiter2 [b_arbiter2_default]
 Compiling architecture rtl of entity xil_defaultlib.bmsg_fifo_m [bmsg_fifo_m_default]
@@ -42,7 +49,6 @@ Compiling architecture arch of entity xil_defaultlib.fifo_uart [\fifo_uart(w=5)\
 Compiling architecture arch of entity xil_defaultlib.uart_tx [uart_tx_default]
 Compiling architecture str_arch of entity xil_defaultlib.uart [uart_default]
 Compiling architecture rtl of entity xil_defaultlib.uart_peripheral [uart_peripheral_default]
-Compiling architecture rtl of entity xil_defaultlib.rndgen [rndgen_default]
 Compiling architecture rtl of entity xil_defaultlib.peripheral [peripheral_default]
 Compiling architecture rtl of entity xil_defaultlib.real_mem [real_mem_default]
 Compiling architecture rtl of entity xil_defaultlib.memory [memory_default]

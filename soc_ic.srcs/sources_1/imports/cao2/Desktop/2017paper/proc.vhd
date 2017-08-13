@@ -16,11 +16,11 @@ entity proc is
     snp_req_i    : in  MSG_T;
     bus_res_i    : in  BMSG_T;
     snp_hit_o    : out std_logic;
-    snp_res_o    : out MSG_T := ZERO_MSG;
+    snp_res_o    : out cacheline := ZERO_c;
 	full_snpres_i:in std_logic;
     --goes to cache controller ask for data
     snp_req_o    : out MSG_T;
-    snp_res_i    : in  MSG_T;
+    snp_res_i    : in  cacheline;
     snp_hit_i    : in  std_logic;
     up_snp_req_i : in  MSG_T; --TODO rename to ureq
     up_snp_res_o : out MSG_T;

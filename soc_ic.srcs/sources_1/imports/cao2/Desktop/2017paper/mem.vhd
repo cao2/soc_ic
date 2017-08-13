@@ -60,7 +60,7 @@ begin
           wtdata_i => wda,
           w_ack=>w_ack
     );
-  write : process(Clock, reset)
+  write : process(Clock)
     variable slot       : integer;
     variable address    : integer;
     variable len        : integer;
@@ -69,11 +69,11 @@ begin
     variable cnt        : natural;
     variable lp         : integer := 0;
   begin
-    if reset = '1' then
-      wready_o     <= '1';
-      wdataready_o <= '0';
-    elsif (rising_edge(Clock)) then
-    	if st = 0 then
+   if (rising_edge(Clock)) then
+    	 if reset = '1' then
+        wready_o     <= '1';
+        wdataready_o <= '0';
+      elsif st = 0 then
     		wready_o <='1';
         wrvalid_o <= '0';
         wrsp_o    <= "10";

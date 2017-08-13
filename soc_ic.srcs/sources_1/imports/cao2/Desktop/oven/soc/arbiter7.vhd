@@ -40,20 +40,10 @@ architecture rtl of arbiter7 is
     signal s_token : integer :=0;
 		
 begin  
- 	process (reset, clock)
+ 	process (clock)
         variable nilreq : BMSG_T := ZERO_BMSG;
     begin
-        if reset = '1' then
-        	s_token <= 0;
-        	s_ack1 <= '0';
-        	s_ack2 <= '0';
-        	s_ack3 <= '0';
-        	s_ack4 <= '0';
-        	s_ack5 <= '0';
-        	s_ack6 <= '0';
-			s_ack7 <= '0';
-        	dout <=  nilreq;
-        elsif rising_edge(clock) then
+        if rising_edge(clock) then
         	dout <= nilreq;
             s_ack1 <= '0';
             s_ack2 <= '0';   
@@ -62,7 +52,17 @@ begin
             s_ack5 <= '0';   
             s_ack6 <= '0'; 
 				s_ack7 <= '0';
-            if din1.val = '1' then
+            if reset = '1' then
+                            s_token <= 0;
+                            s_ack1 <= '0';
+                            s_ack2 <= '0';
+                            s_ack3 <= '0';
+                            s_ack4 <= '0';
+                            s_ack5 <= '0';
+                            s_ack6 <= '0';
+                            s_ack7 <= '0';
+                            dout <=  nilreq;
+                        elsif din1.val = '1' then
             	if s_ack1 = '0' then
                     dout <= din1;
                     s_ack1 <= '1';

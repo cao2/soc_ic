@@ -37,18 +37,20 @@ architecture rtl of arbiter6 is
   signal s_token : integer :=0;
   
 begin  
-  process (reset, clock)
+  process ( clock)
   begin
-    if reset = '1' then
-      s_token <= 0;
-      s_ack1 <= '0';
-      s_ack2 <= '0';
-      s_ack3 <= '0';
-      s_ack4 <= '0';
-      s_ack5 <= '0';
-      s_ack6 <= '0';
-      dout <=  ZERO_MSG;
-    elsif rising_edge(clock) then
+    
+   if rising_edge(clock) then
+   if reset = '1' then
+         s_token <= 0;
+         s_ack1 <= '0';
+         s_ack2 <= '0';
+         s_ack3 <= '0';
+         s_ack4 <= '0';
+         s_ack5 <= '0';
+         s_ack6 <= '0';
+         dout <=  ZERO_MSG;
+   else
       dout <= ZERO_MSG;
       s_ack1 <= '0';
       s_ack2 <= '0';   
@@ -94,5 +96,6 @@ begin
     ack4 <= s_ack4;
     ack5 <= s_ack5;
     ack6 <= s_ack6;
+    end if;
   end process;
 end architecture rtl;   

@@ -26,18 +26,18 @@ architecture rtl of arbiter2_ack is
   signal s_token : std_logic;
   
 begin  
-  process (reset, clock)
+  process (clock)
     variable nilreq : MSG_T := ZERO_MSG;
     variable cmd: std_logic_vector( 1 downto 0);
     variable state : integer :=0;
   begin
-    if reset = '1' then
-      s_token <= '0';
-      s_ack1 <= '0';
-      s_ack2 <= '0';
-      dout <=  nilreq;
-    elsif rising_edge(clock) then
-      if state =0 then
+   if rising_edge(clock) then
+       if reset = '1' then
+        s_token <= '0';
+        s_ack1 <= '0';
+        s_ack2 <= '0';
+        dout <=  nilreq;
+      elsif state =0 then
         -- TODO valid bit should always be most significant bit, should change
         -- line below
         cmd:= din1.val & din2.val;

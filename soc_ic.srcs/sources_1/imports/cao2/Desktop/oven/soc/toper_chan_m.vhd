@@ -51,7 +51,7 @@ end toper_chan_m;
 
 architecture rtl of toper_chan_m is
 begin
- toper_chan_p : process(reset, Clock)
+ toper_chan_p : process( Clock)
     variable tdata   : std_logic_vector(511 downto 0) := (others => '0');
     variable sdata   : std_logic_vector(31 downto 0)  := (others => '0');
     variable st   : integer                        := 20; -- TODO hack?
@@ -62,12 +62,12 @@ begin
     variable slot : integer :=0;
     variable prev_st, prev_togfx_p : integer := -1;
   begin
-    if reset = '1' then
-      rvalid_o  <= '0';
-      rdready_o <= '0';
-    elsif rising_edge(Clock) then
+   if rising_edge(Clock) then
       --dbg_chg("togfx_chan_p", st, prev_st);
-      if st =0 then
+       if reset = '1' then
+           rvalid_o  <= '0';
+           rdready_o <= '0';
+         elsif st =0 then
         --per_ack_o <='1';
         st :=20;
       elsif st = 20 then -- start

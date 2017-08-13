@@ -42,7 +42,7 @@ end per_write_m;
 architecture rtl of per_write_m is
 
 begin
-	per_write_p : process(reset, Clock)
+	per_write_p : process(Clock)
 		variable state     : integer := 0;
 		variable tep_gfx   : MSG_T;
 		variable tep_gfx_l : BMSG_T;
@@ -52,11 +52,11 @@ begin
 		variable prev_st   : integer := -1;
 	-- --if flag is 1, then return gfx write 2
 	begin
-		if reset = '1' then
-			flag := '0';
-		elsif rising_edge(Clock) then
+		if rising_edge(Clock) then
 			-- dbg_chg("gfx_write_p", state, prev_st);
-			if state = 0 then
+			if reset = '1' then
+                        flag := '0';
+                    elsif state = 0 then
 				lp             := 0;
 				write_ack1_o <= '0';
 				write_ack2_o <= '0';

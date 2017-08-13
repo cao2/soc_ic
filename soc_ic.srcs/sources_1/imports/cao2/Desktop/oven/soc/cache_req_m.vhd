@@ -33,7 +33,7 @@ architecture rtl of cache_req_m is
 	signal cache_cmd : std_logic_vector(7 downto 0);
 	signal cache_cmd1 : std_logic_vector(7 downto 0);
 begin
-	cache1_req_p : process(reset, Clock)
+	cache1_req_p : process( Clock)
 		variable nilreq         : MSG_T                          := ZERO_MSG;
 		variable tmp_cache_req1 : MSG_T;
 		variable state          : integer                        := 0;
@@ -42,12 +42,12 @@ begin
 		variable b              : boolean                        := true;
 		variable prev_st        : integer                        := -1;
 	begin
-		if reset = '1' then
-			-- snp_req2 <= nilreq;
-			re <= '0';
-		elsif rising_edge(Clock) then
+		if rising_edge(Clock) then
 			cache_cmd1 <= cache_req_i.cmd;
-			if state = 0 then
+			if reset = '1' then
+                        -- snp_req2 <= nilreq;
+                        re <= '0';
+                    elsif state = 0 then
 				if re = '0' and emp = '0' then
 					re    <= '1';
 					state := 1;

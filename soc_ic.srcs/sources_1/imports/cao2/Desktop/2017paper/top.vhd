@@ -36,7 +36,7 @@ architecture tb of top is
 	signal bus_res1, bus_res2                     : BMSG_T;
 	signal snp_hit1, snp_hit2                     : std_logic;
 	signal snp_req1, snp_req2                     : MSG_T;
-	signal snp_res1, snp_res2                     : MSG_T;
+	signal snp_res1, snp_res2                     : cacheline;
 	signal snp_req                                : MSG_T;
 	-- -this should be DATA_WIDTH - 1
 	signal snp_res                                                                                         : MSG_T;
@@ -953,7 +953,7 @@ begin
 
 --  --cpu2_w_mon : process
 --  --  variable m, t : time := 0 ps;
---  --  variable zeros553 : std_logic_vector(552 downto 0) := (others => '0');
+--  --  variable zeros553 : std_logic_vector(5547 downto 0) := (others => '0');
 --  --  variable zeros73 : MSG_T := (others => '0');
 --  --begin
 --  --  if is_tset(TEST(CPU2W)) then
@@ -970,7 +970,7 @@ begin
 
 --  --cpu1_r_mon : process
 --  --  variable m, t : time := 0 ps;
---  --  variable zeros553 : std_logic_vector(552 downto 0) := (others => '0');
+--  --  variable zeros553 : std_logic_vector(5547 downto 0) := (others => '0');
 --  --  variable zeros73 : std_logic_vector(72 downto 0) := (others => '0');
 --  --begin
 --  --  if is_tset(TEST(CPU1R)) then

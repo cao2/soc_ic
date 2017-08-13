@@ -26,16 +26,18 @@ begin
    -- FSMD state & data registers
    process(clk,reset)
    begin
+     if (clk'event and clk='1') then
       if reset='1' then
-         state_reg <= idle;
-         s_reg <= (others=>'0');
-         n_reg <= (others=>'0');
-         b_reg <= (others=>'0');
-      elsif (clk'event and clk='1') then
+             state_reg <= idle;
+             s_reg <= (others=>'0');
+             n_reg <= (others=>'0');
+             b_reg <= (others=>'0');
+          else
          state_reg <= state_next;
          s_reg <= s_next;
          n_reg <= n_next;
          b_reg <= b_next;
+      end if;
       end if;
    end process;
    -- next-state logic & data path functional units/routing

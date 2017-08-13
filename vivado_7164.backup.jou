@@ -1,0 +1,161 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Mon Aug  7 16:19:32 2017
+# Process ID: 7164
+# Current directory: C:/Users/cao2/Desktop/soci/soci/soc_ic
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent5972 C:\Users\cao2\Desktop\soci\soci\soc_ic\soc_ic.xpr
+# Log file: C:/Users/cao2/Desktop/soci/soci/soc_ic/vivado.log
+# Journal file: C:/Users/cao2/Desktop/soci/soci/soc_ic\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.xpr
+update_compile_order -fileset sources_1
+launch_runs impl_3 -to_step write_bitstream
+wait_on_run impl_3
+create_run synth_3 -flow {Vivado Synthesis 2017} -strategy {Vivado Synthesis Defaults}
+current_run [get_runs synth_3]
+set_property part xc7k325tffg900-2 [current_project]
+set_property is_enabled false [get_files  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/soc_ic/Basys3_Master.xdc]
+set_property is_enabled true [get_files  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc]
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+open_run synth_3 -name synth_3
+close_design
+synth_design -rtl -name rtl_1
+set_property IOSTANDARD HSLVDCI_18 [get_ports [list Clock]]
+set_property IOSTANDARD HSLVDCI_18 [get_ports [list Clock]]
+set_property IOSTANDARD HSLVDCI_18 [get_ports [list Clock]]
+close [ open C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/automatic.xdc w ]
+add_files -fileset constrs_1 C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/automatic.xdc
+set_property target_constrs_file C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/automatic.xdc [current_fileset -constrset]
+save_constraints -force
+close_design
+set_property is_enabled false [get_files  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/automatic.xdc]
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+set_property is_enabled false [get_files  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/arbiter2.vhd]
+reset_run synth_3
+launch_runs impl_1
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+close [ open C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/ibufgds_inst.vhd w ]
+add_files C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/ibufgds_inst.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+synth_design -rtl -name rtl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+close_design
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top l1_cache [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+close [ open C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/b_c_arbiter6.vhd w ]
+add_files C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/b_c_arbiter6.vhd
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+launch_simulation
+source top.tcl
+close_sim
+reset_run synth_3
+launch_runs impl_1
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1
+wait_on_run impl_1
+reset_run synth_3
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
