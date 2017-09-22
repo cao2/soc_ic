@@ -490,6 +490,7 @@ begin
 			Empty   => emp14
 		);
 	cache0_req_fifo: entity work.fifo(rtl)
+	  
 		port map(
 			CLK     => Clock,
 			RST     => reset,

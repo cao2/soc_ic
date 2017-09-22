@@ -1,0 +1,7 @@
+set_property SRC_FILE_INFO {cfile:C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc rfile:../../../soc_ic.srcs/constrs_1/new/kinect7.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:1 export:INPUT save:INPUT read:READ} [current_design]
+set_property BITSTREAM.CONFIG.BPI_SYNC_MODE Type2 [current_design]
+set_property src_info {type:XDC file:1 line:5 export:INPUT save:INPUT read:READ} [current_design]
+set_property CONFIG_MODE BPI16 [current_design]
+set_property src_info {type:XDC file:1 line:13 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AD12 [get_ports Clock]

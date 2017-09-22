@@ -2,8 +2,8 @@
 # Vivado v2017.2 (64-bit)
 # SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
 # IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
-# Start of session at: Fri Aug 11 17:04:46 2017
-# Process ID: 4832
+# Start of session at: Fri Sep 22 11:47:41 2017
+# Process ID: 8740
 # Current directory: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_3
 # Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
 # Log file: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_3/top.vds
@@ -14,11 +14,10 @@ Command: synth_design -top top -part xc7k325tffg900-2
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7k325t-ffg900'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k325t-ffg900'
-INFO: [Common 17-86] Your Synthesis license expires in 0 day(s)
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 7468 
+INFO: Helper process launched with PID 8768 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 366.648 ; gain = 75.840
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 366.430 ; gain = 75.465
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'top' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/top.vhd:27]
 INFO: [Synth 8-638] synthesizing module 'proc' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/proc.vhd:40]
@@ -175,7 +174,7 @@ INFO: [Synth 8-256] done synthesizing module 'per_upreq_m' (12#1) [C:/Users/cao2
 INFO: [Synth 8-638] synthesizing module 'msg_fifo_m' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/msg_fifo_m.vhd:16]
 INFO: [Synth 8-256] done synthesizing module 'msg_fifo_m' (13#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/msg_fifo_m.vhd:16]
 INFO: [Synth 8-638] synthesizing module 'fifo_snp' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/fifo_snp.vhd:22]
-	Parameter FIFO_DEPTH bound to: 256 - type: integer 
+	Parameter FIFO_DEPTH bound to: 8 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'fifo_snp' (14#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/fifo_snp.vhd:22]
 INFO: [Synth 8-638] synthesizing module 'arbiter6_ack' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/arbiter6_ack.vhd:35]
 WARNING: [Synth 8-614] signal 's_ack1' is read in the process but is not in the sensitivity list [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/arbiter6_ack.vhd:41]
@@ -443,7 +442,7 @@ WARNING: [Synth 8-3331] design peripheral has unconnected port wsize_i[8]
 WARNING: [Synth 8-3331] design peripheral has unconnected port wsize_i[7]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 789.852 ; gain = 499.043
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 625.184 ; gain = 334.219
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -554,7 +553,7 @@ WARNING: [Synth 8-3295] tying undriven pin writereq_arbiter:din1[dat][470] to co
 WARNING: [Synth 8-3295] tying undriven pin writereq_arbiter:din1[dat][469] to constant 0 [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/cache.vhd:238]
 INFO: [Common 17-14] Message 'Synth 8-3295' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 789.852 ; gain = 499.043
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 625.184 ; gain = 334.219
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7k325tffg900-2
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -562,6 +561,14 @@ INFO: [Project 1-570] Preparing netlist for logic optimization
 Processing XDC Constraints
 Initializing timing engine
 Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc]
+CRITICAL WARNING: [Designutils 20-970] Unrecognized or unsupported command 'set_property mark_debug true [get_nets Clock}
+set_property mark_debug true [get_nets wrvalid]
+
+
+
+##USERCLK
+#set_property CLOCK_DEDICATED_ROUTE FALSE get_nets {Clock_IBUF}
+#set_property LOC BUFGCTRL_X0 ... (truncated) ' found in constraint file. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc:20]
 Finished Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/new/kinect7.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
@@ -570,23 +577,22 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.058 . Memory (MB): peak = 1502.688 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.043 . Memory (MB): peak = 1283.227 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:01:11 ; elapsed = 00:01:10 . Memory (MB): peak = 1502.688 ; gain = 1211.879
+Finished Constraint Validation : Time (s): cpu = 00:00:52 ; elapsed = 00:00:51 . Memory (MB): peak = 1283.227 ; gain = 992.262
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-5580] Multithreading enabled for synth_design using a maximum of 2 processes.
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7k325tffg900-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:01:11 ; elapsed = 00:01:10 . Memory (MB): peak = 1502.688 ; gain = 1211.879
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:52 ; elapsed = 00:00:51 . Memory (MB): peak = 1283.227 ; gain = 992.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:01:11 ; elapsed = 00:01:10 . Memory (MB): peak = 1502.688 ; gain = 1211.879
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:52 ; elapsed = 00:00:51 . Memory (MB): peak = 1283.227 ; gain = 992.262
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-4471] merging register 'treadreq2_reg[dat][31:0]' into 'tmp_snp_req_s_reg[dat][31:0]' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/cache.vhd:225]
 INFO: [Synth 8-4471] merging register 'twritereq2_reg[cmd][7:0]' into 'tmp_req_b_reg[cmd][7:0]' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/cache.vhd:244]
@@ -816,7 +822,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'uart_peripheral'
 WARNING: [Synth 8-327] inferring latch for variable 'rstrb_o_reg' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/mem.vhd:142]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:02:26 ; elapsed = 00:02:28 . Memory (MB): peak = 1502.688 ; gain = 1211.879
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:11 ; elapsed = 00:01:11 . Memory (MB): peak = 1283.227 ; gain = 992.262
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-223] decloning instance 'interconnect/mem_wb_arbiter' (b_arbiter2) to 'interconnect/gfx_wb_arbiter'
 INFO: [Synth 8-223] decloning instance 'interconnect/mem_wb_arbiter' (b_arbiter2) to 'interconnect/audio_wb_arbiter'
@@ -840,34 +846,18 @@ Report RTL Partitions:
 |11    |b_fifo__parameterized0__GBM1 |           1|     13573|
 |12    |b_fifo__parameterized0__GBM2 |           1|     13384|
 |13    |fifo__parameterized1         |           6|     10059|
-|14    |fifo_snp__GB0                |           1|     30088|
-|15    |fifo_snp__GB1                |           1|      7615|
-|16    |fifo_snp__GB2                |           1|      9743|
-|17    |fifo_snp__GB3                |           1|     22541|
-|18    |fifo_snp__GB4                |           1|     24894|
-|19    |fifo_snp__GB5                |           1|     24829|
-|20    |fifo_snp__GB6                |           1|     33586|
-|21    |fifo_snp__GB7                |           1|      8479|
-|22    |fifo_snp__GB8                |           1|     11018|
-|23    |fifo_snp__GB9                |           1|     13909|
-|24    |fifo_snp__GB10               |           1|     26579|
-|25    |fifo_snp__GB11               |           1|     28260|
-|26    |fifo_snp__GB12               |           1|     26139|
-|27    |fifo_snp__GB13               |           1|     31414|
-|28    |fifo_snp__GB14               |           1|     28850|
-|29    |fifo_snp__GB15               |           1|     16445|
-|30    |per_write_m__GBM0            |           1|     27243|
-|31    |per_write_m__GBM1            |           1|      8519|
-|32    |ic__GCB0                     |           1|     33642|
-|33    |ic__GCB1                     |           1|     18942|
-|34    |ic__GCB2                     |           1|     16320|
-|35    |ic__GCB3                     |           1|      7956|
-|36    |ic__GCB4                     |           1|     42164|
-|37    |case__4414__GD               |           1|      8160|
-|38    |ic__GCB6                     |           1|     38332|
-|39    |peripheral                   |           3|     20133|
-|40    |top__GCB0                    |           1|     34535|
-|41    |memory                       |           1|     17502|
+|14    |per_write_m__GBM0            |           1|     27243|
+|15    |per_write_m__GBM1            |           1|      8519|
+|16    |ic__GCB0                     |           1|     43647|
+|17    |ic__GCB1                     |           1|     16736|
+|18    |ic__GCB2                     |           1|     38332|
+|19    |ic__GCB3                     |           1|     33642|
+|20    |ic__GCB4                     |           1|     18942|
+|21    |ic__GCB5                     |           1|     16320|
+|22    |ic__GCB6                     |           1|      8054|
+|23    |peripheral                   |           3|     20133|
+|24    |top__GCB0                    |           1|     34535|
+|25    |memory                       |           1|     17502|
 +------+-----------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -876,25 +866,24 @@ Detailed RTL Component Info :
 +---Adders : 
 	   2 Input     32 Bit       Adders := 30    
 	   2 Input      9 Bit       Adders := 1     
-	   2 Input      8 Bit       Adders := 2     
 	   2 Input      5 Bit       Adders := 8     
 	   2 Input      4 Bit       Adders := 4     
-	   2 Input      3 Bit       Adders := 34    
+	   2 Input      3 Bit       Adders := 36    
 +---XORs : 
 	   2 Input     32 Bit         XORs := 15    
 +---Registers : 
 	              512 Bit    Registers := 96    
 	               36 Bit    Registers := 16    
-	               32 Bit    Registers := 1195  
+	               32 Bit    Registers := 699   
 	               31 Bit    Registers := 3     
 	               10 Bit    Registers := 20    
 	                9 Bit    Registers := 1     
-	                8 Bit    Registers := 1845  
+	                8 Bit    Registers := 1100  
 	                5 Bit    Registers := 4     
 	                4 Bit    Registers := 12    
-	                3 Bit    Registers := 37    
+	                3 Bit    Registers := 39    
 	                2 Bit    Registers := 12    
-	                1 Bit    Registers := 1252  
+	                1 Bit    Registers := 756   
 +---RAMs : 
 	              32K Bit         RAMs := 1     
 	              17K Bit         RAMs := 2     
@@ -905,7 +894,7 @@ Detailed RTL Component Info :
 	   2 Input     36 Bit        Muxes := 30    
 	   4 Input     36 Bit        Muxes := 4     
 	   3 Input     36 Bit        Muxes := 2     
-	   2 Input     32 Bit        Muxes := 3814  
+	   2 Input     32 Bit        Muxes := 1830  
 	   4 Input     32 Bit        Muxes := 24    
 	   3 Input     32 Bit        Muxes := 12    
 	   5 Input     32 Bit        Muxes := 6     
@@ -915,7 +904,7 @@ Detailed RTL Component Info :
 	   6 Input     10 Bit        Muxes := 4     
 	   3 Input     10 Bit        Muxes := 1     
 	   2 Input      9 Bit        Muxes := 1     
-	   2 Input      8 Bit        Muxes := 6050  
+	   2 Input      8 Bit        Muxes := 3062  
 	   4 Input      8 Bit        Muxes := 26    
 	   3 Input      8 Bit        Muxes := 19    
 	   6 Input      8 Bit        Muxes := 3     
@@ -933,13 +922,13 @@ Detailed RTL Component Info :
 	  10 Input      4 Bit        Muxes := 2     
 	   5 Input      4 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 1     
-	   2 Input      3 Bit        Muxes := 205   
+	   2 Input      3 Bit        Muxes := 217   
 	   5 Input      3 Bit        Muxes := 6     
 	   3 Input      3 Bit        Muxes := 13    
 	   7 Input      3 Bit        Muxes := 6     
 	   8 Input      3 Bit        Muxes := 4     
-	   6 Input      3 Bit        Muxes := 4     
 	  11 Input      3 Bit        Muxes := 1     
+	   6 Input      3 Bit        Muxes := 4     
 	   4 Input      3 Bit        Muxes := 6     
 	   3 Input      2 Bit        Muxes := 23    
 	   6 Input      2 Bit        Muxes := 2     
@@ -947,7 +936,7 @@ Detailed RTL Component Info :
 	   2 Input      2 Bit        Muxes := 24    
 	   4 Input      2 Bit        Muxes := 2     
 	   5 Input      2 Bit        Muxes := 3     
-	   2 Input      1 Bit        Muxes := 2352  
+	   2 Input      1 Bit        Muxes := 1360  
 	   4 Input      1 Bit        Muxes := 167   
 	   3 Input      1 Bit        Muxes := 132   
 	   5 Input      1 Bit        Muxes := 65    
@@ -1198,18 +1187,6 @@ Detailed RTL Component Info :
 	   2 Input      8 Bit        Muxes := 120   
 	   2 Input      3 Bit        Muxes := 12    
 	   2 Input      1 Bit        Muxes := 34    
-Module fifo_snp 
-Detailed RTL Component Info : 
-+---Adders : 
-	   2 Input      8 Bit       Adders := 2     
-+---Registers : 
-	               32 Bit    Registers := 514   
-	                8 Bit    Registers := 772   
-	                1 Bit    Registers := 517   
-+---Muxes : 
-	   2 Input     32 Bit        Muxes := 2064  
-	   2 Input      8 Bit        Muxes := 3108  
-	   2 Input      1 Bit        Muxes := 1048  
 Module per_write_m 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1235,103 +1212,50 @@ Detailed RTL Component Info :
 	   6 Input      1 Bit        Muxes := 3     
 	   3 Input      1 Bit        Muxes := 4     
 	   7 Input      1 Bit        Muxes := 5     
-Module wb_m__1 
+Module msg_fifo_m__1 
 Detailed RTL Component Info : 
 +---Registers : 
-	              512 Bit    Registers := 5     
-	               32 Bit    Registers := 5     
-	                8 Bit    Registers := 15    
-	                1 Bit    Registers := 6     
-+---Muxes : 
-	   2 Input    512 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 1     
-	   2 Input      8 Bit        Muxes := 3     
-	   6 Input      3 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 5     
-	   7 Input      1 Bit        Muxes := 3     
-	   6 Input      1 Bit        Muxes := 2     
-	   5 Input      1 Bit        Muxes := 2     
-	   4 Input      1 Bit        Muxes := 2     
-	   3 Input      1 Bit        Muxes := 3     
-Module wb_m 
-Detailed RTL Component Info : 
-+---Registers : 
-	              512 Bit    Registers := 5     
-	               32 Bit    Registers := 5     
-	                8 Bit    Registers := 15    
-	                1 Bit    Registers := 6     
-+---Muxes : 
-	   2 Input    512 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 1     
-	   2 Input      8 Bit        Muxes := 3     
-	   6 Input      3 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 5     
-	   7 Input      1 Bit        Muxes := 3     
-	   6 Input      1 Bit        Muxes := 2     
-	   5 Input      1 Bit        Muxes := 2     
-	   4 Input      1 Bit        Muxes := 2     
-	   3 Input      1 Bit        Muxes := 3     
-Module arbiter7 
-Detailed RTL Component Info : 
-+---Registers : 
-	              512 Bit    Registers := 1     
-	               32 Bit    Registers := 1     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 8     
-+---Muxes : 
-	   2 Input    512 Bit        Muxes := 14    
-	   2 Input     32 Bit        Muxes := 14    
-	   2 Input      8 Bit        Muxes := 42    
-	   2 Input      1 Bit        Muxes := 6     
-	   5 Input      1 Bit        Muxes := 1     
-	   6 Input      1 Bit        Muxes := 1     
-	   7 Input      1 Bit        Muxes := 1     
-	   8 Input      1 Bit        Muxes := 1     
-Module b_arbiter6 
-Detailed RTL Component Info : 
-+---Registers : 
-	              512 Bit    Registers := 1     
-	               32 Bit    Registers := 1     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 7     
-+---Muxes : 
-	   2 Input    512 Bit        Muxes := 12    
-	   2 Input     32 Bit        Muxes := 12    
-	   2 Input      8 Bit        Muxes := 36    
-	   2 Input      1 Bit        Muxes := 6     
-	   5 Input      1 Bit        Muxes := 1     
-	   6 Input      1 Bit        Muxes := 1     
-	   7 Input      1 Bit        Muxes := 1     
-Module bmsg_fifo_m__1 
-Detailed RTL Component Info : 
-+---Registers : 
-	              512 Bit    Registers := 1     
-	               32 Bit    Registers := 1     
+	               32 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
 	                1 Bit    Registers := 2     
-Module bmsg_fifo_m 
+Module msg_fifo_m__2 
 Detailed RTL Component Info : 
 +---Registers : 
-	              512 Bit    Registers := 1     
-	               32 Bit    Registers := 1     
+	               32 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
 	                1 Bit    Registers := 2     
-Module b_arbiter2 
+Module msg_fifo_m__3 
 Detailed RTL Component Info : 
 +---Registers : 
-	              512 Bit    Registers := 1     
-	               32 Bit    Registers := 1     
+	               32 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 6     
+	                1 Bit    Registers := 2     
+Module fifo_snp 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      3 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 18    
+	                8 Bit    Registers := 27    
+	                3 Bit    Registers := 2     
+	                1 Bit    Registers := 21    
 +---Muxes : 
-	   2 Input    512 Bit        Muxes := 4     
-	   4 Input    512 Bit        Muxes := 1     
-	   2 Input     32 Bit        Muxes := 4     
-	   4 Input     32 Bit        Muxes := 1     
-	   2 Input      8 Bit        Muxes := 12    
-	   4 Input      8 Bit        Muxes := 3     
-	   4 Input      1 Bit        Muxes := 4     
-	   2 Input      1 Bit        Muxes := 2     
+	   2 Input     32 Bit        Muxes := 80    
+	   2 Input      8 Bit        Muxes := 120   
+	   2 Input      3 Bit        Muxes := 12    
+	   2 Input      1 Bit        Muxes := 56    
+Module msg_fifo_m__4 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
+Module msg_fifo_m__5 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
 Module arbiter6__3 
 Detailed RTL Component Info : 
 +---Registers : 
@@ -1384,128 +1308,100 @@ Detailed RTL Component Info :
 	   5 Input      1 Bit        Muxes := 1     
 	   6 Input      1 Bit        Muxes := 1     
 	   7 Input      1 Bit        Muxes := 1     
-Module msg_fifo_m__1 
+Module b_arbiter2 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
+	              512 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
 	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
-Module msg_fifo_m__2 
+	                1 Bit    Registers := 6     
++---Muxes : 
+	   2 Input    512 Bit        Muxes := 4     
+	   4 Input    512 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 4     
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 12    
+	   4 Input      8 Bit        Muxes := 3     
+	   4 Input      1 Bit        Muxes := 4     
+	   2 Input      1 Bit        Muxes := 2     
+Module bmsg_fifo_m__1 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
+	              512 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
 	                8 Bit    Registers := 3     
 	                1 Bit    Registers := 2     
-Module msg_fifo_m__3 
+Module bmsg_fifo_m 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
+	              512 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
 	                8 Bit    Registers := 3     
 	                1 Bit    Registers := 2     
-Module msg_fifo_m__4 
+Module cache_req_m__1 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
-Module msg_fifo_m__5 
-Detailed RTL Component Info : 
-+---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
-Module msg_fifo_m 
-Detailed RTL Component Info : 
-+---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
-Module per_upreq_m__1 
-Detailed RTL Component Info : 
-+---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
+	               32 Bit    Registers := 14    
+	                8 Bit    Registers := 21    
+	                1 Bit    Registers := 8     
 +---Muxes : 
 	   2 Input     32 Bit        Muxes := 2     
 	   2 Input      8 Bit        Muxes := 3     
-	   2 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 9     
-	   4 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 1     
-Module per_upreq_m__2 
+	  10 Input      4 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 12    
+	   2 Input      1 Bit        Muxes := 16    
+	  10 Input      1 Bit        Muxes := 3     
+	   9 Input      1 Bit        Muxes := 2     
+	   8 Input      1 Bit        Muxes := 2     
+	   7 Input      1 Bit        Muxes := 2     
+	   6 Input      1 Bit        Muxes := 2     
+	   5 Input      1 Bit        Muxes := 2     
+	   3 Input      1 Bit        Muxes := 3     
+Module cache_req_m 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
+	               32 Bit    Registers := 14    
+	                8 Bit    Registers := 21    
+	                1 Bit    Registers := 8     
 +---Muxes : 
 	   2 Input     32 Bit        Muxes := 2     
 	   2 Input      8 Bit        Muxes := 3     
-	   2 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 9     
-	   4 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 1     
-Module arbiter6_ack__1 
+	  10 Input      4 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 12    
+	   2 Input      1 Bit        Muxes := 16    
+	  10 Input      1 Bit        Muxes := 3     
+	   9 Input      1 Bit        Muxes := 2     
+	   8 Input      1 Bit        Muxes := 2     
+	   7 Input      1 Bit        Muxes := 2     
+	   6 Input      1 Bit        Muxes := 2     
+	   5 Input      1 Bit        Muxes := 2     
+	   3 Input      1 Bit        Muxes := 3     
+Module arbiter6__7 
 Detailed RTL Component Info : 
 +---Registers : 
 	               32 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 7     
+	                1 Bit    Registers := 13    
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 26    
-	   2 Input      8 Bit        Muxes := 39    
-	   7 Input      3 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 24    
+	   2 Input      8 Bit        Muxes := 36    
 	   2 Input      1 Bit        Muxes := 6     
-	   8 Input      1 Bit        Muxes := 1     
-	   7 Input      1 Bit        Muxes := 3     
-	   6 Input      1 Bit        Muxes := 1     
 	   5 Input      1 Bit        Muxes := 1     
-	   4 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 1     
-Module per_upreq_m__3 
+	   6 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
+Module arbiter6 
 Detailed RTL Component Info : 
 +---Registers : 
 	               32 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
+	                1 Bit    Registers := 13    
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
-	   2 Input      8 Bit        Muxes := 3     
-	   2 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 9     
-	   4 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 1     
-Module arbiter6_ack 
-Detailed RTL Component Info : 
-+---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 7     
-+---Muxes : 
-	   2 Input     32 Bit        Muxes := 26    
-	   2 Input      8 Bit        Muxes := 39    
-	   7 Input      3 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 24    
+	   2 Input      8 Bit        Muxes := 36    
 	   2 Input      1 Bit        Muxes := 6     
-	   8 Input      1 Bit        Muxes := 1     
-	   7 Input      1 Bit        Muxes := 3     
-	   6 Input      1 Bit        Muxes := 1     
 	   5 Input      1 Bit        Muxes := 1     
-	   4 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 1     
-Module per_upreq_m 
-Detailed RTL Component Info : 
-+---Registers : 
-	               32 Bit    Registers := 2     
-	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 2     
-+---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
-	   2 Input      8 Bit        Muxes := 3     
-	   2 Input      2 Bit        Muxes := 2     
-	   2 Input      1 Bit        Muxes := 9     
-	   4 Input      1 Bit        Muxes := 1     
-	   3 Input      1 Bit        Muxes := 1     
+	   6 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 1     
 Module arbiter2_ack__1 
 Detailed RTL Component Info : 
 +---Registers : 
@@ -1551,70 +1447,165 @@ Detailed RTL Component Info :
 	   2 Input      1 Bit        Muxes := 10    
 	   4 Input      1 Bit        Muxes := 3     
 	   3 Input      1 Bit        Muxes := 3     
-Module arbiter6__7 
+Module arbiter6_ack__1 
 Detailed RTL Component Info : 
 +---Registers : 
 	               32 Bit    Registers := 2     
 	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 13    
+	                1 Bit    Registers := 7     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 24    
+	   2 Input     32 Bit        Muxes := 26    
+	   2 Input      8 Bit        Muxes := 39    
+	   7 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 6     
+	   8 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 3     
+	   6 Input      1 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module arbiter6_ack 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 26    
+	   2 Input      8 Bit        Muxes := 39    
+	   7 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 6     
+	   8 Input      1 Bit        Muxes := 1     
+	   7 Input      1 Bit        Muxes := 3     
+	   6 Input      1 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module per_upreq_m__1 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 9     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module per_upreq_m__2 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 9     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module per_upreq_m__3 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 9     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module per_upreq_m 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 3     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 9     
+	   4 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module b_arbiter6 
+Detailed RTL Component Info : 
++---Registers : 
+	              512 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input    512 Bit        Muxes := 12    
+	   2 Input     32 Bit        Muxes := 12    
 	   2 Input      8 Bit        Muxes := 36    
 	   2 Input      1 Bit        Muxes := 6     
 	   5 Input      1 Bit        Muxes := 1     
 	   6 Input      1 Bit        Muxes := 1     
 	   7 Input      1 Bit        Muxes := 1     
-Module arbiter6 
+Module arbiter7 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 2     
+	              512 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
 	                8 Bit    Registers := 3     
-	                1 Bit    Registers := 13    
+	                1 Bit    Registers := 8     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 24    
-	   2 Input      8 Bit        Muxes := 36    
+	   2 Input    512 Bit        Muxes := 14    
+	   2 Input     32 Bit        Muxes := 14    
+	   2 Input      8 Bit        Muxes := 42    
 	   2 Input      1 Bit        Muxes := 6     
 	   5 Input      1 Bit        Muxes := 1     
 	   6 Input      1 Bit        Muxes := 1     
 	   7 Input      1 Bit        Muxes := 1     
-Module cache_req_m__1 
+	   8 Input      1 Bit        Muxes := 1     
+Module wb_m__1 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 14    
-	                8 Bit    Registers := 21    
-	                1 Bit    Registers := 8     
+	              512 Bit    Registers := 5     
+	               32 Bit    Registers := 5     
+	                8 Bit    Registers := 15    
+	                1 Bit    Registers := 6     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
+	   2 Input    512 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 1     
 	   2 Input      8 Bit        Muxes := 3     
-	  10 Input      4 Bit        Muxes := 1     
-	   4 Input      1 Bit        Muxes := 12    
-	   2 Input      1 Bit        Muxes := 16    
-	  10 Input      1 Bit        Muxes := 3     
-	   9 Input      1 Bit        Muxes := 2     
-	   8 Input      1 Bit        Muxes := 2     
-	   7 Input      1 Bit        Muxes := 2     
+	   6 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 5     
+	   7 Input      1 Bit        Muxes := 3     
 	   6 Input      1 Bit        Muxes := 2     
 	   5 Input      1 Bit        Muxes := 2     
+	   4 Input      1 Bit        Muxes := 2     
 	   3 Input      1 Bit        Muxes := 3     
-Module cache_req_m 
+Module wb_m 
 Detailed RTL Component Info : 
 +---Registers : 
-	               32 Bit    Registers := 14    
-	                8 Bit    Registers := 21    
-	                1 Bit    Registers := 8     
+	              512 Bit    Registers := 5     
+	               32 Bit    Registers := 5     
+	                8 Bit    Registers := 15    
+	                1 Bit    Registers := 6     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
+	   2 Input    512 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 1     
 	   2 Input      8 Bit        Muxes := 3     
-	  10 Input      4 Bit        Muxes := 1     
-	   4 Input      1 Bit        Muxes := 12    
-	   2 Input      1 Bit        Muxes := 16    
-	  10 Input      1 Bit        Muxes := 3     
-	   9 Input      1 Bit        Muxes := 2     
-	   8 Input      1 Bit        Muxes := 2     
-	   7 Input      1 Bit        Muxes := 2     
+	   6 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 5     
+	   7 Input      1 Bit        Muxes := 3     
 	   6 Input      1 Bit        Muxes := 2     
 	   5 Input      1 Bit        Muxes := 2     
+	   4 Input      1 Bit        Muxes := 2     
 	   3 Input      1 Bit        Muxes := 3     
+Module msg_fifo_m 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
 Module ic 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -1635,10 +1626,10 @@ Detailed RTL Component Info :
 	   2 Input      8 Bit        Muxes := 7     
 	   3 Input      8 Bit        Muxes := 1     
 	   2 Input      7 Bit        Muxes := 1     
-	   7 Input      6 Bit        Muxes := 1     
 	   2 Input      6 Bit        Muxes := 4     
-	   6 Input      5 Bit        Muxes := 3     
+	   7 Input      6 Bit        Muxes := 1     
 	   2 Input      5 Bit        Muxes := 6     
+	   6 Input      5 Bit        Muxes := 3     
 	   3 Input      5 Bit        Muxes := 2     
 	   4 Input      5 Bit        Muxes := 1     
 	   2 Input      4 Bit        Muxes := 3     
@@ -1647,16 +1638,16 @@ Detailed RTL Component Info :
 	   6 Input      2 Bit        Muxes := 1     
 	   7 Input      2 Bit        Muxes := 1     
 	   3 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 76    
-	   7 Input      1 Bit        Muxes := 7     
 	  11 Input      1 Bit        Muxes := 13    
+	   2 Input      1 Bit        Muxes := 76    
+	   5 Input      1 Bit        Muxes := 5     
+	   7 Input      1 Bit        Muxes := 7     
+	  12 Input      1 Bit        Muxes := 5     
+	   9 Input      1 Bit        Muxes := 4     
 	   3 Input      1 Bit        Muxes := 9     
 	   4 Input      1 Bit        Muxes := 5     
-	   9 Input      1 Bit        Muxes := 4     
-	  12 Input      1 Bit        Muxes := 5     
-	   8 Input      1 Bit        Muxes := 1     
-	   5 Input      1 Bit        Muxes := 5     
 	  10 Input      1 Bit        Muxes := 3     
+	   8 Input      1 Bit        Muxes := 1     
 	   6 Input      1 Bit        Muxes := 4     
 Module rndgen 
 Detailed RTL Component Info : 
@@ -1867,12 +1858,13 @@ BRAMs: 890 (col length: RAMB18 140 RAMB36 70)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5580] Multithreading enabled for synth_design using a maximum of 2 processes.
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-5545] ROM "pwr_res2_s[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5545] ROM "pwr_res2_s[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "pwr_res1_s[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "pwr_res2_s[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "pwr_res2_s[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "pwr_res2_s[cmd]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "st" won't be mapped to RAM because address size (31) is larger than maximum supported(25)
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (proc__GC0:/\cpu_req_arbiter/s_ack6_reg )
@@ -1903,36 +1895,100 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (per_write
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (per_write_m__GBM1:/i_2/\lp_reg[3] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (per_write_m__GBM1:/i_2/\lp_reg[2] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (per_write_m__GBM1:/i_2/\lp_reg[1] )
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[30]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[29]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[28]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[27]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[26]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[25]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[24]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[23]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[22]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[21]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[20]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[19]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[18]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[17]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[16]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[15]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[14]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[13]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[12]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[11]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[10]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[9]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[8]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[7]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[6]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[5]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[4]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[3]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3886] merging instance 'interconnecti_49/st_reg[2]' (FDRE) to 'interconnecti_49/st_reg[1]'
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (interconnecti_49/\st_reg[1] )
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[30]' (FDRE) to 'interconnecti_36/st_reg[29]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[29]' (FDRE) to 'interconnecti_36/st_reg[28]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[28]' (FDRE) to 'interconnecti_36/st_reg[27]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[27]' (FDRE) to 'interconnecti_36/st_reg[26]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[26]' (FDRE) to 'interconnecti_36/st_reg[25]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[25]' (FDRE) to 'interconnecti_36/st_reg[24]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[24]' (FDRE) to 'interconnecti_36/st_reg[23]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[23]' (FDRE) to 'interconnecti_36/st_reg[22]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[22]' (FDRE) to 'interconnecti_36/st_reg[21]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[21]' (FDRE) to 'interconnecti_36/st_reg[20]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[20]' (FDRE) to 'interconnecti_36/st_reg[19]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[19]' (FDRE) to 'interconnecti_36/st_reg[18]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[18]' (FDRE) to 'interconnecti_36/st_reg[17]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[17]' (FDRE) to 'interconnecti_36/st_reg[16]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[16]' (FDRE) to 'interconnecti_36/st_reg[15]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[15]' (FDRE) to 'interconnecti_36/st_reg[14]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[14]' (FDRE) to 'interconnecti_36/st_reg[13]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[13]' (FDRE) to 'interconnecti_36/st_reg[12]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[12]' (FDRE) to 'interconnecti_36/st_reg[11]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[11]' (FDRE) to 'interconnecti_36/st_reg[10]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[10]' (FDRE) to 'interconnecti_36/st_reg[9]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[9]' (FDRE) to 'interconnecti_36/st_reg[8]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[8]' (FDRE) to 'interconnecti_36/st_reg[7]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[7]' (FDRE) to 'interconnecti_36/st_reg[6]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[6]' (FDRE) to 'interconnecti_36/st_reg[5]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[5]' (FDRE) to 'interconnecti_36/st_reg[4]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[4]' (FDRE) to 'interconnecti_36/st_reg[3]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[3]' (FDRE) to 'interconnecti_36/st_reg[2]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/st_reg[2]' (FDRE) to 'interconnecti_36/st_reg[1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (interconnecti_36/\st_reg[1] )
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][0]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][1]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][2]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][3]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][4]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][5]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][6]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][7]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][8]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][9]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][10]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][11]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][12]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][13]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][14]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][15]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][16]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][17]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][18]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][19]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][20]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][21]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][22]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][23]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][24]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][25]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][26]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][27]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][28]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][29]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][30]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[dat][31]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][0]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][1]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][2]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][3]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][4]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][5]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][6]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][7]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][8]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][9]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][10]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][11]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][12]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][13]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][14]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][15]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][16]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][17]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][18]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][19]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][20]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][21]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][22]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][23]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][24]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][25]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][26]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Synth 8-3886] merging instance 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][27]' (FDE) to 'interconnecti_36/gfx_fifo_p/tofifo_o_reg[adr][31]'
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (interconnecti_36/\gfx_fifo_p/tofifo_o_reg[cmd][7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (interconnecti_36/\gfx_fifo_p/tofifo_o_reg[val] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (interconnecti_36/\gfx_fifo_p/we_o_reg )
 INFO: [Synth 8-5545] ROM "p_0_out" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "snp_hit_o" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "snp_res_o[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -2051,15 +2107,20 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (\st_reg[3
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\rsize_o_reg[5] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\rsize_o_reg[9] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\rlen_o_reg[9] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\pwr_res2_s_reg[dat][479] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\pwr_res1_s_reg[dat][479] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (toproc0_res_arbiter/s_ack7_reg)
-INFO: [Synth 8-5545] ROM "p_2_in0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-5546] ROM "bus_res_mem_to_c0[val]" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5546] ROM "bus_res_mem_to_c0[val]" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-3332] Sequential element (st_reg[31]) is unused and will be removed from module toper_chan_m.
+WARNING: [Synth 8-3332] Sequential element (rlen_o_reg[9]) is unused and will be removed from module toper_chan_m.
+WARNING: [Synth 8-3332] Sequential element (rsize_o_reg[9]) is unused and will be removed from module toper_chan_m.
+WARNING: [Synth 8-3332] Sequential element (rsize_o_reg[5]) is unused and will be removed from module toper_chan_m.
+WARNING: [Synth 8-3332] Sequential element (slot_reg[31]) is unused and will be removed from module toper_chan_m.
 INFO: [Synth 8-5545] ROM "mem_write_ack1" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "p_2_in0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "mem_ack" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5546] ROM "bus_res_mem_to_c0[val]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "bus_res_mem_to_c0[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "bus_res_mem_to_c1[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "bus_res_mem_to_c1[val]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "uart_upres1[val]" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "uart_upres1[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "gfx_upres1[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "gfx_upres1[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "dst_eq1" won't be mapped to RAM because it is too sparse
@@ -2071,134 +2132,70 @@ INFO: [Synth 8-5546] ROM "audio_upres1[val]" won't be mapped to RAM because it i
 INFO: [Synth 8-5546] ROM "audio_upres1[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "usb_upres1[val]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "usb_upres1[val]" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5546] ROM "uart_upres1[val]" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5546] ROM "uart_upres1[val]" won't be mapped to RAM because it is too sparse
-INFO: [Synth 8-5545] ROM "mem_ack" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[31] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[30] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[29] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[28] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[27] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[26] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[25] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[24] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[23] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[22] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[21] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[20] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[19] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[18] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[17] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[16] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[15] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[14] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[13] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[12] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[11] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[10] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[9] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[8] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[7] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[6] driven by constant 0
-WARNING: [Synth 8-3917] design ic__GCB4 has port O84[5] driven by constant 0
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (gfx_upres_arbiter/s_ack2_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (audio_upres_arbiter/s_ack5_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (usb_upres_arbiter/s_ack4_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (uart_upres_arbiter/s_ack3_reg)
-INFO: [Synth 8-3886] merging instance 'slot_reg[0]' (FDE) to 'raddr_reg[0]'
-INFO: [Synth 8-3886] merging instance 'slot_reg[1]' (FDE) to 'raddr_reg[1]'
-INFO: [Synth 8-3886] merging instance 'slot_reg[2]' (FDE) to 'raddr_reg[2]'
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[31] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[30] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[29] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[28] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[27] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[26] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[25] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[24] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[23] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[22] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[21] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[20] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[19] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[18] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[17] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[16] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[15] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[14] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[13] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[12] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[11] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[10] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[9] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[8] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[7] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[6] driven by constant 0
+WARNING: [Synth 8-3917] design ic__GCB0 has port O88[5] driven by constant 0
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (mem_wb_arbiter/wb_flag_reg)
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/s_ack2_reg' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/s_ack1_reg' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][0]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][1]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][2]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][3]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][4]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][5]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][6]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][7]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][8]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][9]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][10]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][11]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][12]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][13]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][14]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][15]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][16]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][17]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][18]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][19]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][20]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][21]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][22]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][23]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][24]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][25]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][26]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][27]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][28]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][29]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][30]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][31]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][32]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][33]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][34]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][35]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][36]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][37]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][38]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][39]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][40]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][41]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][42]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][43]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][44]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][45]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][46]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][47]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][48]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][49]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][50]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][51]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][52]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][53]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Synth 8-3886] merging instance 'mem_wb_arbiter/dout_reg[dat][54]' (FDR) to 'mem_wb_arbiter/dout_reg[adr][0]'
-INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (uart_upres_arbiter/s_ack3_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (usb_upres_arbiter/s_ack4_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (audio_upres_arbiter/s_ack5_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gfx_upres_arbiter/s_ack2_reg)
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\slot_reg[31] )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\rsize_reg[5] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\rsize_reg[9] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\rlen_reg[9] )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (wlast_reg)
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\wtrb_reg[0] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_10/\lp_reg[0] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_10/\lp_reg[1] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_10/\lp_reg[2] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_10/\lp_reg[3] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_10/\lp_reg[4] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\state_reg[3]__0 )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\state_reg[3]__1 )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\wsize_reg[5] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\wsize_reg[9] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\wlen_reg[9] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (mem_wb_arbiter/\dout_reg[adr][31] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_4/\lp_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_4/\lp_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_4/\lp_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_4/\lp_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_4/\lp_reg[4] )
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (mem_wb_arbiter/\dout_reg[val] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (audio_upres_arbiter/ack5_reg)
+WARNING: [Synth 8-3332] Sequential element (s_ack2_reg) is unused and will be removed from module arbiter6__3.
+WARNING: [Synth 8-3332] Sequential element (ack2_reg) is unused and will be removed from module arbiter6__3.
+WARNING: [Synth 8-3332] Sequential element (ack5_reg) is unused and will be removed from module arbiter6__3.
+WARNING: [Synth 8-3332] Sequential element (ack3_reg) is unused and will be removed from module arbiter6__4.
+WARNING: [Synth 8-3332] Sequential element (s_ack5_reg) is unused and will be removed from module arbiter6__4.
+WARNING: [Synth 8-3332] Sequential element (ack5_reg) is unused and will be removed from module arbiter6__4.
+WARNING: [Synth 8-3332] Sequential element (s_ack4_reg) is unused and will be removed from module arbiter6__5.
+WARNING: [Synth 8-3332] Sequential element (ack4_reg) is unused and will be removed from module arbiter6__5.
+WARNING: [Synth 8-3332] Sequential element (s_ack3_reg) is unused and will be removed from module arbiter6__6.
+WARNING: [Synth 8-3332] Sequential element (ack3_reg) is unused and will be removed from module arbiter6__6.
 WARNING: [Synth 8-3332] Sequential element (wb_flag_reg) is unused and will be removed from module b_arbiter2.
 WARNING: [Synth 8-3332] Sequential element (ack1_reg) is unused and will be removed from module b_arbiter2.
 WARNING: [Synth 8-3332] Sequential element (ack2_reg) is unused and will be removed from module b_arbiter2.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[adr][31]) is unused and will be removed from module b_arbiter2.
-WARNING: [Synth 8-3332] Sequential element (s_ack3_reg) is unused and will be removed from module arbiter6__3.
-WARNING: [Synth 8-3332] Sequential element (ack3_reg) is unused and will be removed from module arbiter6__3.
-WARNING: [Synth 8-3332] Sequential element (s_ack4_reg) is unused and will be removed from module arbiter6__4.
-WARNING: [Synth 8-3332] Sequential element (ack4_reg) is unused and will be removed from module arbiter6__4.
-WARNING: [Synth 8-3332] Sequential element (ack3_reg) is unused and will be removed from module arbiter6__5.
-WARNING: [Synth 8-3332] Sequential element (s_ack5_reg) is unused and will be removed from module arbiter6__5.
-WARNING: [Synth 8-3332] Sequential element (ack5_reg) is unused and will be removed from module arbiter6__5.
-WARNING: [Synth 8-3332] Sequential element (s_ack2_reg) is unused and will be removed from module arbiter6__6.
-WARNING: [Synth 8-3332] Sequential element (ack2_reg) is unused and will be removed from module arbiter6__6.
-WARNING: [Synth 8-3332] Sequential element (ack5_reg) is unused and will be removed from module arbiter6__6.
+WARNING: [Synth 8-3332] Sequential element (dout_reg[val]) is unused and will be removed from module b_arbiter2.
 INFO: [Synth 8-5545] ROM "s_ack1" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "dout[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "dout[cmd]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -2208,52 +2205,50 @@ INFO: [Synth 8-5545] ROM "dout[cmd]" won't be mapped to RAM because address size
 INFO: [Synth 8-5545] ROM "s_ack1" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "dout[val]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "dout[cmd]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack6_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack5_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack4_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack3_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (gfx_upreq_m/\st_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (usb_upreq_m/\st_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (audio_upreq_m/\st_reg[10] )
+INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (uart_upreq_m/\st_reg[10] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (gfx_upreq_m/\req_o_reg[tag][7] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (audio_upreq_m/\req_o_reg[tag][7] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (usb_upreq_m/\req_o_reg[tag][7] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (uart_upreq_m/\req_o_reg[tag][7] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (per_upreq_arbiter/s_ack6_reg)
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (per_upreq_arbiter/s_ack1_reg)
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (gfx_upreq_m/\st_reg[10] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (usb_upreq_m/\st_reg[10] )
-INFO: [Common 17-14] Message 'Synth 8-3886' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (uart_upreq_m/\st_reg[10] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (audio_upreq_m/\st_reg[10] )
-WARNING: [Synth 8-3332] Sequential element (st_reg[10]) is unused and will be removed from module per_upreq_m__1.
-WARNING: [Synth 8-3332] Sequential element (req_o_reg[tag][7]) is unused and will be removed from module per_upreq_m__1.
-WARNING: [Synth 8-3332] Sequential element (st_reg[10]) is unused and will be removed from module per_upreq_m__2.
-WARNING: [Synth 8-3332] Sequential element (req_o_reg[tag][7]) is unused and will be removed from module per_upreq_m__2.
-WARNING: [Synth 8-3332] Sequential element (s_ack4_reg) is unused and will be removed from module arbiter6_ack__1.
-WARNING: [Synth 8-3332] Sequential element (s_ack5_reg) is unused and will be removed from module arbiter6_ack__1.
-WARNING: [Synth 8-3332] Sequential element (s_ack6_reg) is unused and will be removed from module arbiter6_ack__1.
-WARNING: [Synth 8-3332] Sequential element (st_reg[10]) is unused and will be removed from module per_upreq_m__3.
-WARNING: [Synth 8-3332] Sequential element (req_o_reg[tag][7]) is unused and will be removed from module per_upreq_m__3.
-WARNING: [Synth 8-3332] Sequential element (s_ack4_reg) is unused and will be removed from module arbiter6_ack.
-WARNING: [Synth 8-3332] Sequential element (s_ack5_reg) is unused and will be removed from module arbiter6_ack.
-WARNING: [Synth 8-3332] Sequential element (s_ack6_reg) is unused and will be removed from module arbiter6_ack.
-WARNING: [Synth 8-3332] Sequential element (st_reg[10]) is unused and will be removed from module per_upreq_m.
-WARNING: [Synth 8-3332] Sequential element (req_o_reg[tag][7]) is unused and will be removed from module per_upreq_m.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[val]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][7]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][6]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][5]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][4]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][3]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][2]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][1]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[cmd][0]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[tag][7]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[tag][6]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[tag][5]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[tag][4]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[tag][3]) is unused and will be removed from module arbiter2_ack__1.
-WARNING: [Synth 8-3332] Sequential element (dout_reg[tag][2]) is unused and will be removed from module arbiter2_ack__1.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack6_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack5_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack4_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (pwr_req_arbiter/s_ack3_reg)
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][7]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][6]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][5]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][4]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][3]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][2]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][1]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[cmd][0]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][7]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][6]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][5]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][4]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][3]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][2]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][1]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[tag][0]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][7]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][6]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][5]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][4]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][3]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][2]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][1]) is unused and will be removed from module cache_req_m__1.
+WARNING: [Synth 8-3332] Sequential element (touart_o_reg[id][0]) is unused and will be removed from module cache_req_m__1.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\pwr_res1_s_reg[dat][479] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (toproc0_res_arbiter/s_ack7_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\pwr_res2_s_reg[dat][479] )
 WARNING: [Synth 8-3936] Found unconnected internal register 'address_reg' and it is trimmed from '3' to '2' bits. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/AppData/Roaming/Xilinx/Vivado/peripharals/peripharals.srcs/sources_1/imports/2017paper/peripheral.vhd:111]
 INFO: [Synth 8-5545] ROM "state1" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "wready_o" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
@@ -2301,8 +2296,7 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (\uart_ent
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\uart_entity/pwr_res_o_reg[cmd][1] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\uart_entity/pwr_res_o_reg[cmd][2] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\uart_entity/pwr_res_o_reg[cmd][3] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\uart_entity/pwr_res_o_reg[cmd][6] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\uart_entity/pwr_res_o_reg[cmd][7] )
+INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 WARNING: [Synth 8-3936] Found unconnected internal register 'radx_reg' and it is trimmed from '32' to '10' bits. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/mem.vhd:55]
 WARNING: [Synth 8-3936] Found unconnected internal register 'address_reg' and it is trimmed from '32' to '10' bits. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/mem.vhd:149]
 WARNING: [Synth 8-3936] Found unconnected internal register 'wadx_reg' and it is trimmed from '32' to '10' bits. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/mem.vhd:59]
@@ -2310,10 +2304,8 @@ INFO: [Synth 8-5545] ROM "wready_o" won't be mapped to RAM because address size 
 INFO: [Synth 8-5545] ROM "rready_o" won't be mapped to RAM because address size (31) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "rready_o" won't be mapped to RAM because address size (31) is larger than maximum supported(25)
 INFO: [Synth 8-5545] ROM "lp" won't be mapped to RAM because address size (31) is larger than maximum supported(25)
-INFO: [Synth 8-3333] propagating constant 1 across sequential element (rv_reg)
-INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:05:26 ; elapsed = 00:05:30 . Memory (MB): peak = 1573.617 ; gain = 1282.809
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:57 ; elapsed = 00:03:11 . Memory (MB): peak = 1283.227 ; gain = 992.262
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -2358,119 +2350,87 @@ Report RTL Partitions:
 |11    |b_fifo__parameterized0__GBM1 |           2|      2217|
 |12    |b_fifo__parameterized0__GBM2 |           2|      3290|
 |13    |fifo__parameterized1         |           6|      2930|
-|14    |fifo_snp__GB0                |           1|     20476|
-|15    |fifo_snp__GB1                |           1|      1215|
-|16    |fifo_snp__GB2                |           1|      1536|
-|17    |fifo_snp__GB3                |           1|     17635|
-|18    |fifo_snp__GB4                |           1|      5746|
-|19    |fifo_snp__GB5                |           1|      3794|
-|20    |fifo_snp__GB6                |           1|     25468|
-|21    |fifo_snp__GB7                |           1|      1328|
-|22    |fifo_snp__GB8                |           1|      1730|
-|23    |fifo_snp__GB9                |           1|      2071|
-|24    |fifo_snp__GB10               |           1|      5426|
-|25    |fifo_snp__GB11               |           1|     12364|
-|26    |fifo_snp__GB12               |           1|      4469|
-|27    |fifo_snp__GB13               |           1|     11888|
-|28    |fifo_snp__GB14               |           1|     11990|
-|29    |fifo_snp__GB15               |           1|      4747|
-|30    |per_write_m__GBM0            |           4|      4967|
-|31    |per_write_m__GBM1            |           4|       357|
-|32    |ic__GCB0                     |           1|     28520|
-|33    |ic__GCB1                     |           1|       130|
-|34    |ic__GCB2                     |           1|      1134|
-|35    |ic__GCB3                     |           1|       419|
-|36    |ic__GCB4                     |           1|      8499|
-|37    |case__4414__GD               |           1|       567|
-|38    |ic__GCB6                     |           1|      5591|
-|39    |peripheral                   |           3|      1485|
-|40    |top__GCB0                    |           1|     10671|
-|41    |memory                       |           1|       627|
+|14    |per_write_m__GBM0            |           4|      4967|
+|15    |per_write_m__GBM1            |           4|       357|
+|16    |ic__GCB0                     |           1|     10922|
+|17    |ic__GCB1                     |           1|      1484|
+|18    |ic__GCB2                     |           1|      5587|
+|19    |ic__GCB3                     |           1|     28520|
+|20    |ic__GCB4                     |           1|       130|
+|21    |ic__GCB5                     |           1|      1134|
+|22    |ic__GCB6                     |           1|       421|
+|23    |peripheral                   |           3|      1485|
+|24    |top__GCB0                    |           1|     10671|
+|25    |memory                       |           1|       627|
 +------+-----------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:05:41 ; elapsed = 00:05:44 . Memory (MB): peak = 1683.746 ; gain = 1392.938
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:03:09 ; elapsed = 00:03:24 . Memory (MB): peak = 1308.328 ; gain = 1017.363
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:07:31 ; elapsed = 00:07:35 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Timing Optimization : Time (s): cpu = 00:03:48 ; elapsed = 00:04:03 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+------+-----------------------------+------------+----------+
-|      |RTL Partition                |Replication |Instances |
-+------+-----------------------------+------------+----------+
-|1     |b_fifo__GB0                  |           2|     11911|
-|2     |b_fifo__GB1                  |           2|      7172|
-|3     |b_fifo__GB2                  |           2|      1755|
-|4     |proc__GC0                    |           2|       652|
-|5     |toper_chan_m                 |           1|      4465|
-|6     |b_fifo__parameterized0__GBM0 |           2|      8194|
-|7     |b_fifo__parameterized0__GBM1 |           2|        55|
-|8     |b_fifo__parameterized0__GBM2 |           2|       583|
-|9     |fifo__parameterized1         |           1|      1203|
-|10    |fifo_snp__GB0                |           1|     20476|
-|11    |fifo_snp__GB1                |           1|      1215|
-|12    |fifo_snp__GB2                |           1|      1536|
-|13    |fifo_snp__GB5                |           1|      3794|
-|14    |fifo_snp__GB7                |           1|      1168|
-|15    |fifo_snp__GB8                |           1|      1522|
-|16    |fifo_snp__GB9                |           1|      1823|
-|17    |fifo_snp__GB10               |           1|      4777|
-|18    |fifo_snp__GB14               |           1|     11982|
-|19    |per_write_m__GBM0            |           1|      3733|
-|20    |per_write_m__GBM1            |           3|       352|
-|21    |ic__GCB0                     |           1|     26594|
-|22    |ic__GCB1                     |           1|        64|
-|23    |ic__GCB2                     |           1|       448|
-|24    |ic__GCB3                     |           1|       227|
-|25    |ic__GCB4                     |           1|      2047|
-|26    |case__4414__GD               |           1|       224|
-|27    |ic__GCB6                     |           1|      4480|
-|28    |peripheral                   |           1|      1143|
-|29    |top__GCB0                    |           1|     10484|
-|30    |memory                       |           1|       589|
-|31    |toper_chan_m__1              |           1|      4477|
-|32    |toper_chan_m__2              |           1|      4476|
-|33    |toper_chan_m__3              |           1|      4486|
-|34    |per_write_m__GBM0__1         |           3|      3745|
-|35    |peripheral__1                |           1|      1010|
-|36    |peripheral__2                |           1|      1010|
-|37    |per_write_m__GBM1__1         |           1|       342|
-|38    |fifo__parameterized1__1      |           2|      2927|
-|39    |fifo__parameterized1__2      |           3|      1655|
-|40    |top_GT0__1                   |           1|     21851|
-|41    |top_GT0__2                   |           1|     22662|
-|42    |top_GT0                      |           1|     17580|
-|43    |top_GT1                      |           1|     23307|
-|44    |top_GT2                      |           1|     26278|
-+------+-----------------------------+------------+----------+
++------+--------------------------------+------------+----------+
+|      |RTL Partition                   |Replication |Instances |
++------+--------------------------------+------------+----------+
+|1     |b_fifo__GB0                     |           2|     11911|
+|2     |b_fifo__GB1                     |           2|      7172|
+|3     |b_fifo__GB2                     |           2|      1755|
+|4     |proc__GC0                       |           2|       652|
+|5     |toper_chan_m                    |           1|      4465|
+|6     |b_fifo__parameterized0__GBM0    |           2|      8194|
+|7     |b_fifo__parameterized0__GBM1    |           1|        55|
+|8     |b_fifo__parameterized0__GBM2    |           2|       583|
+|9     |fifo__parameterized1            |           1|      1203|
+|10    |per_write_m__GBM0               |           1|      3733|
+|11    |per_write_m__GBM1               |           3|       352|
+|12    |ic__GCB0                        |           1|      4177|
+|13    |ic__GCB1                        |           1|       864|
+|14    |ic__GCB2                        |           1|      4476|
+|15    |ic__GCB3                        |           1|     26594|
+|16    |ic__GCB4                        |           1|        64|
+|17    |ic__GCB5                        |           1|       448|
+|18    |ic__GCB6                        |           1|       228|
+|19    |peripheral                      |           1|      1143|
+|20    |top__GCB0                       |           1|     10484|
+|21    |memory                          |           1|       589|
+|22    |toper_chan_m__1                 |           1|      4477|
+|23    |toper_chan_m__2                 |           1|      4476|
+|24    |toper_chan_m__3                 |           1|      4486|
+|25    |fifo__parameterized1__1         |           3|      1655|
+|26    |fifo__parameterized1__2         |           2|      2927|
+|27    |per_write_m__GBM0__1            |           3|      3745|
+|28    |peripheral__1                   |           1|      1010|
+|29    |peripheral__2                   |           1|      1010|
+|30    |per_write_m__GBM1__1            |           1|       342|
+|31    |b_fifo__parameterized0__GBM1__1 |           1|        55|
+|32    |top_GT0                         |           1|     21851|
+|33    |top_GT0__1                      |           1|     22699|
++------+--------------------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:08:29 ; elapsed = 00:08:32 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Technology Mapping : Time (s): cpu = 00:04:25 ; elapsed = 00:04:39 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
-+------+---------------+------------+----------+
-|      |RTL Partition  |Replication |Instances |
-+------+---------------+------------+----------+
-|1     |b_fifo__GB0    |           2|      9310|
-|2     |fifo_snp__GB0  |           1|      6832|
-|3     |fifo_snp__GB14 |           1|      5561|
-|4     |ic__GCB0       |           1|     12802|
-|5     |top__GCB0      |           1|      5646|
-|6     |top_GT0__1     |           1|     11756|
-|7     |top_GT0__2     |           1|     13394|
-|8     |top_GT0        |           1|      8163|
-|9     |top_GT1        |           1|     10663|
-|10    |top_GT2        |           1|     11784|
-+------+---------------+------------+----------+
++------+--------------+------------+----------+
+|      |RTL Partition |Replication |Instances |
++------+--------------+------------+----------+
+|1     |b_fifo__GB0   |           2|      9310|
+|2     |ic__GCB3      |           1|     12802|
+|3     |top__GCB0     |           1|      5646|
+|4     |top_GT0       |           1|     11756|
+|5     |top_GT0__1    |           1|     13394|
++------+--------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start IO Insertion
 ---------------------------------------------------------------------------------
@@ -2487,7 +2447,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:09:00 ; elapsed = 00:09:03 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished IO Insertion : Time (s): cpu = 00:04:44 ; elapsed = 00:04:58 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -2500,7 +2460,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:09:01 ; elapsed = 00:09:04 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Renaming Generated Instances : Time (s): cpu = 00:04:44 ; elapsed = 00:04:59 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -2512,25 +2472,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:09:12 ; elapsed = 00:09:15 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:04:48 ; elapsed = 00:05:03 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:09:12 ; elapsed = 00:09:16 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Renaming Generated Ports : Time (s): cpu = 00:04:48 ; elapsed = 00:05:03 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:09:31 ; elapsed = 00:09:34 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Handling Custom Attributes : Time (s): cpu = 00:04:49 ; elapsed = 00:05:04 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:09:31 ; elapsed = 00:09:35 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Renaming Generated Nets : Time (s): cpu = 00:04:50 ; elapsed = 00:05:04 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -2548,19 +2508,19 @@ Report Cell Usage:
 +------+---------+------+
 |1     |BUFG     |     1|
 |2     |CARRY4   |   394|
-|3     |LUT1     |  1114|
-|4     |LUT2     |   760|
-|5     |LUT3     | 12527|
-|6     |LUT4     |  1883|
-|7     |LUT5     |  7127|
-|8     |LUT6     | 26139|
-|9     |MUXF7    |  3901|
-|10    |MUXF8    |  1650|
+|3     |LUT1     |  1112|
+|4     |LUT2     |   598|
+|5     |LUT3     |  7107|
+|6     |LUT4     |  1098|
+|7     |LUT5     |  1341|
+|8     |LUT6     |  5274|
+|9     |MUXF7    |  1719|
+|10    |MUXF8    |   783|
 |11    |RAM32M   |    40|
 |12    |RAMB36E1 |     1|
 |13    |FDCE     |    29|
 |14    |FDPE     |     2|
-|15    |FDRE     | 36983|
+|15    |FDRE     | 17202|
 |16    |FDSE     |    36|
 |17    |IBUF     |     2|
 |18    |OBUF     |     1|
@@ -2570,35 +2530,35 @@ Report Instance Areas:
 +------+------------------------+--------------------------+------+
 |      |Instance                |Module                    |Cells |
 +------+------------------------+--------------------------+------+
-|1     |top                     |                          | 92590|
+|1     |top                     |                          | 36740|
 |2     |  audio_entity          |peripheral                |   763|
 |3     |    rndgen_ent          |rndgen                    |    70|
 |4     |  gfx_entity            |peripheral_0              |   695|
-|5     |  interconnect          |ic                        | 71300|
+|5     |  interconnect          |ic                        | 15443|
 |6     |    audio_fifo          |fifo__parameterized1      |   914|
 |7     |    audio_fifo_p        |msg_fifo_m                |    36|
 |8     |    audio_upreq_m       |per_upreq_m               |   116|
-|9     |    audio_upres_arbiter |arbiter6_15               |    15|
+|9     |    audio_upres_arbiter |arbiter6_15               |    19|
 |10    |    audio_write_p       |per_write_m               |   248|
 |11    |    c0_req_fifo_p       |msg_fifo_m_16             |    82|
 |12    |    c1_req_fifo_p       |msg_fifo_m_17             |    82|
 |13    |    cache0_req_fifo     |fifo__parameterized1_18   |  1988|
 |14    |    cache0_req_m        |cache_req_m               |   415|
-|15    |    cache1_req_fifo     |fifo__parameterized1_19   |  1988|
+|15    |    cache1_req_fifo     |fifo__parameterized1_19   |  1989|
 |16    |    cache1_req_m        |cache_req_m_20            |   484|
 |17    |    gfx_upreq_m         |per_upreq_m_21            |     7|
-|18    |    gfx_upres_arbiter   |arbiter6_22               |    13|
+|18    |    gfx_upres_arbiter   |arbiter6_22               |    11|
 |19    |    gfx_write_p         |per_write_m_23            |   234|
 |20    |    per_upreq_arbiter   |arbiter6_24               |    50|
 |21    |    pwr_req_arbiter     |arbiter6_25               |    78|
-|22    |    snp_res_fifo        |fifo_snp                  | 57644|
+|22    |    snp_res_fifo        |fifo_snp                  |  2018|
 |23    |    toaudio_arbiter     |arbiter2_ack              |    14|
 |24    |    toaudio_chan_p      |toper_chan_m              |   596|
 |25    |    togfx_arbiter       |arbiter6_ack              |   170|
 |26    |    togfx_chan_p        |toper_chan_m_26           |   550|
-|27    |    tomem_arbiter       |arbiter6_ack_27           |   194|
+|27    |    tomem_arbiter       |arbiter6_ack_27           |   193|
 |28    |    toproc0_res_arbiter |arbiter7                  |    78|
-|29    |    toproc1_res_arbiter |b_arbiter6                |   169|
+|29    |    toproc1_res_arbiter |b_arbiter6                |   167|
 |30    |    touart_arbiter      |arbiter2_ack_28           |    14|
 |31    |    touart_chan_p       |toper_chan_m_29           |   597|
 |32    |    tousb_arbiter       |arbiter2_ack_30           |    14|
@@ -2606,12 +2566,12 @@ Report Instance Areas:
 |34    |    uart_fifo           |fifo__parameterized1_32   |   914|
 |35    |    uart_fifo_p         |msg_fifo_m_33             |    36|
 |36    |    uart_upreq_m        |per_upreq_m_34            |    47|
-|37    |    uart_upres_arbiter  |arbiter6_35               |    13|
+|37    |    uart_upres_arbiter  |arbiter6_35               |    10|
 |38    |    uart_write_p        |per_write_m_36            |   248|
 |39    |    usb_fifo            |fifo__parameterized1_37   |   914|
 |40    |    usb_fifo_p          |msg_fifo_m_38             |    36|
 |41    |    usb_upreq_m         |per_upreq_m_39            |    49|
-|42    |    usb_upres_arbiter   |arbiter6_40               |    16|
+|42    |    usb_upres_arbiter   |arbiter6_40               |    15|
 |43    |    usb_write_p         |per_write_m_41            |   248|
 |44    |    wb0_m               |wb_m                      |    20|
 |45    |    wb1_m               |wb_m_42                   |    20|
@@ -2619,7 +2579,7 @@ Report Instance Areas:
 |47    |    wb_fifo2            |b_fifo__parameterized0_43 |     5|
 |48    |  mem                   |memory                    |   369|
 |49    |    mem_ent             |real_mem                  |    19|
-|50    |  power                 |pwr                       |  3830|
+|50    |  power                 |pwr                       |  3837|
 |51    |    pwr_req_fifo        |fifo__parameterized0      |  3213|
 |52    |  proc0_e               |proc                      |  7799|
 |53    |    cache_ent           |l1_cache_6                |  7799|
@@ -2650,11 +2610,11 @@ Report Instance Areas:
 |78    |  usb_entity            |peripheral_2              |   695|
 +------+------------------------+--------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:09:31 ; elapsed = 00:09:35 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Finished Writing Synthesis Report : Time (s): cpu = 00:04:50 ; elapsed = 00:05:04 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 35040 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:08:25 ; elapsed = 00:08:56 . Memory (MB): peak = 2511.145 ; gain = 1507.500
-Synthesis Optimization Complete : Time (s): cpu = 00:09:31 ; elapsed = 00:09:35 . Memory (MB): peak = 2511.145 ; gain = 2220.336
+Synthesis finished with 0 errors, 0 critical warnings and 35518 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:04:02 ; elapsed = 00:04:32 . Memory (MB): peak = 1651.527 ; gain = 702.520
+Synthesis Optimization Complete : Time (s): cpu = 00:04:50 ; elapsed = 00:05:05 . Memory (MB): peak = 1651.527 ; gain = 1360.563
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 437 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
@@ -2664,10 +2624,9 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 40 instances were transformed.
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 40 instances
 
-517 Infos, 593 Warnings, 0 Critical Warnings and 0 Errors encountered.
+516 Infos, 593 Warnings, 1 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:09:51 ; elapsed = 00:09:55 . Memory (MB): peak = 2511.145 ; gain = 2236.633
+synth_design: Time (s): cpu = 00:04:59 ; elapsed = 00:05:15 . Memory (MB): peak = 1651.527 ; gain = 1376.867
 INFO: [Common 17-1381] The checkpoint 'C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_3/top.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:12 ; elapsed = 00:00:08 . Memory (MB): peak = 2511.145 ; gain = 0.000
-report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.539 . Memory (MB): peak = 2511.145 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Fri Aug 11 17:14:55 2017...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.249 . Memory (MB): peak = 1651.527 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Fri Sep 22 11:53:05 2017...

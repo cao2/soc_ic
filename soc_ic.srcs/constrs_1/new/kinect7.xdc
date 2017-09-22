@@ -7,11 +7,20 @@ set_property CFGBVS VCCO [current_design]
 set_property CONFIG_VOLTAGE 2.5 [current_design]
 ##CLOCKS
 ##SYSCLK
+
 #set_property PACKAGE_PIN AD11 [get_ports clk1]
 #set_property IOSTANDARD LVDS [get_ports clk1]
 set_property PACKAGE_PIN AD12 [get_ports Clock]
 set_property IOSTANDARD LVCMOS15 [get_ports Clock]
 create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports Clock]
+
+
+
+######debug mark
+set_property mark_debug true [get_nets Clock}
+set_property mark_debug true [get_nets wrvalid]
+
+
 
 ##USERCLK
 #set_property CLOCK_DEDICATED_ROUTE FALSE get_nets {Clock_IBUF}
