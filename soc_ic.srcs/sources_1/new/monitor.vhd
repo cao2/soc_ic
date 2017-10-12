@@ -101,12 +101,12 @@ begin
 				end if;
 			elsif st = two then
 				if wvalid_i ='1' then
-					tmp_transsaction.cmd := wtreq;---set the c
+					tmp_transaction.cmd := WRITE_CMD;---set the c
 					---ommand => don't remmeber the specific code, 
 					---change whenever have time
 					---ATTENTION: addr need to be taken care of
 					---so is tag and id
-					tmp_transaction.addr := 0;
+					tmp_transaction.adr := "00";
 					---Note: there are also size, and length, ignored here
 					st:= three;
 				end if;
@@ -116,7 +116,7 @@ begin
 					---, do we need to check that?
 					if wlast_i='1' then
 						---read response here is done
-						tmp_transaction.cmd := wtres;
+						tmp_transaction.cmd := WRITE_CMD;
 						st := one;
 					end if;
 				end if;
@@ -140,19 +140,19 @@ begin
 					tmp_transaction.val:='1';
 					tmp_transaction.cmd:=inter2_i.cmd;
 					----these three fields need to be carfully considered
-					tmp_transaction.addr:=0;
-					tmp_transaction.tag:=0;
-					tmp_transaction.id:= 0;
+					tmp_transaction.adr:="00";
+					tmp_transaction.tag:="00";
+					tmp_transaction.id:= "00";
 					end if;
 				end if;
 			elsif st = two then
 				if rvalid_i ='1' then
-					tmp_transsaction.cmd := rdreq;---set the c
+					tmp_transaction.cmd := READ_CMD;---set the c
 					---ommand => don't remmeber the specific code, 
 					---change whenever have time
 					---ATTENTION: addr need to be taken care of
 					---so is tag and id
-					tmp_transaction.addr := 0;
+					tmp_transaction.adr := "00";
 					---Note: there are also size, and length, ignored here
 					st:= three;
 				end if;
@@ -162,7 +162,7 @@ begin
 					---, do we need to check that?
 					if rlast_i='1' then
 						---read response here is done
-						tmp_transaction.cmd := rdres;
+						tmp_transaction.cmd := READ_CMD;
 						st := one;
 					end if;
 				end if;
@@ -175,7 +175,7 @@ begin
 			---------customized protocol
 			inter2_o     <= inter2_i;
 			---------axi protocol
-			id_o         <= id_o;
+			id_o         <= id_i;
 			waddr_o      <= waddr_i;
 			wlen_o       <= wlen_i;
 			wsize_o      <= wsize_i;
