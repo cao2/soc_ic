@@ -19,6 +19,14 @@ package defs is
    dat       : std_logic_vector(31 downto 0);
 end record MSG_T;
 
+type TST_T is record
+   val       : std_logic;                     -- valid bit;
+   cmd       : std_logic_vector(7 downto 0);
+   tag       : std_logic_vector(1 downto 0);  -- src
+   id        : std_logic_vector(1 downto 0);  --sequence id
+   adr       : std_logic_vector(1 downto 0);
+end record MSG_T;
+
 type cacheline is record
 	val       : std_logic;                     -- valid bit;
    cmd       : std_logic_vector(7 downto 0);
