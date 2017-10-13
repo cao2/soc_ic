@@ -11,6 +11,8 @@ entity monitor is
 		clk           : in  STD_LOGIC;
 		rst           : in  STD_LOGIC;
 		----AXI interface
+		master_id : in std_logic_vector(IP_CT downto 0);
+		slave_id: in std_logic_vector(IP_CT downto 0);
 		id_i          : in  IP_T;
 		---write address channel
 		waddr_i       : in  ADR_T;
@@ -76,7 +78,8 @@ entity monitor is
 
 		inter2_i      : in  MSG_T;
 		inter2_o      : out MSG_T;
-		transaction_o : out TST_T
+		transaction_o : out TST_T;
+		transaction_o2 : out TST_T
 	);
 end monitor;
 
@@ -86,24 +89,22 @@ architecture rtl of monitor is
 	type state is (one, two, three, four, five);
 begin
 	
-	transaction_extractor_write : process(clk)
+	axi_wt_extractor_write : process(clk)
 		variable tmp_transaction : TST_T;
 		variable st: state := one;
 	begin
 		if rising_edge(clk) then
 			if st = one then
 				if interface_type = 0 then
-					----axi protocol
-					----read protocol
 					if wready_i ='1' then
 						st :=two;
 					end if;
 				end if;
 			elsif st = two then
 				if wvalid_i ='1' then
-					tmp_transaction.cmd := WRITE_CMD;---set the c
-					---ommand => don't remmeber the specific code, 
-					---change whenever have time
+				    tmp_transaction.sender := master_id;
+				    tmp_transaction.receiver := slave_id;
+					tmp_transaction.cmd := WRITE_CMD;
 					---ATTENTION: addr need to be taken care of
 					---so is tag and id
 					tmp_transaction.adr := "00";
@@ -114,21 +115,35 @@ begin
 				if wdataready_i ='1' then
 					---Note: the data is available here
 					---, do we need to check that?
-					if wlast_i='1' then
+					if wdvalid_i ='1' and wlast_i='1' then
+					   st := four;
 						---read response here is done
-						tmp_transaction.cmd := WRITE_CMD;
-						st := one;
+						transaction_o <= tmp_transaction;
 					end if;
 				end if;
+			elsif st = four then
+			transaction_o.val<='0';
+			if wrvalid_i='1' then
+			 if wrsp_i ="00" then
+			     tmp_transaction.sender:=slave_id;
+			     tmp_transaction.receiver:=master_id;
+			     tmp_transaction.cmd := WRITE_CMD;
+                 transaction_o <= tmp_transaction;
+                 st := one;
+             end if;
+			end if;
 			end if;
 		end if;
 	end process;
-	transaction_extractor : process(clk)
+	
+	
+	axi_rd_extractor : process(clk)
 		variable tmp_transaction : TST_T;
 		variable st: state := one;
 	begin
 		if rising_edge(clk) then
 			if st = one then
+			    transaction_o2.val <='0';
 				if interface_type = 0 then
 					----axi protocol
 					----read protocol
@@ -143,6 +158,7 @@ begin
 					tmp_transaction.adr:="00";
 					tmp_transaction.tag:="00";
 					tmp_transaction.id:= "00";
+					transaction_o2 <= tmp_transaction;
 					end if;
 				end if;
 			elsif st = two then
@@ -153,19 +169,27 @@ begin
 					---ATTENTION: addr need to be taken care of
 					---so is tag and id
 					tmp_transaction.adr := "00";
+					tmp_transaction.sender := master_id;
+					tmp_transaction.receiver := slave_id;
+					transaction_o2 <= tmp_transaction;
 					---Note: there are also size, and length, ignored here
 					st:= three;
 				end if;
 			elsif st = three then
+			    transaction_o2.val <='0';
 				if rdready_i ='1' then
-					---Note: the data is available here
-					---, do we need to check that?
-					if rlast_i='1' then
-						---read response here is done
-						tmp_transaction.cmd := READ_CMD;
-						st := one;
-					end if;
+				   st := four;
 				end if;
+			elsif st=four then
+			  ---Note: the data is available here
+                                ---, do we need to check that?
+                                if rdvalid_i='1' and rlast_i='1' and  rres_i="00" then
+                                    ---read response here is done
+                                    tmp_transaction.sender := slave_id;
+                                    tmp_transaction.receiver := master_id;
+                                    transaction_o2 <= tmp_transaction;
+                                    st := one;
+                                end if;
 			end if;
 		end if;
 	end process;

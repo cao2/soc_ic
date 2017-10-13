@@ -9,6 +9,7 @@ package defs is
   constant CMD_WIDTH : positive := 8;
   constant ADR_WIDTH : positive := 32;
   constant DAT_WIDTH : positive := 32;
+  constant IP_CT: positive := 3;
 
   type MSG_T is record
    val       : std_logic;                     -- valid bit;
@@ -21,11 +22,13 @@ end record MSG_T;
 
 type TST_T is record
    val       : std_logic;                     -- valid bit;
+   sender : std_logic_vector(IP_CT downto 0);
+   receiver: std_logic_vector(IP_CT downto 0);
    cmd       : std_logic_vector(7 downto 0);
    tag       : std_logic_vector(1 downto 0);  -- src
    id        : std_logic_vector(1 downto 0);  --sequence id
    adr       : std_logic_vector(1 downto 0);
-end record MSG_T;
+end record TST_T;
 
 type cacheline is record
 	val       : std_logic;                     -- valid bit;
@@ -83,6 +86,7 @@ constant ZERO_c : cacheline := ('0',
 
 --  constant ZERO_MSG : MSG_T := (others => '0');
 --  constant ZERO_BMSG : BMSG_T := (others => '0');
+  
   
   constant READ_CMD  : CMD_T := "01000000"; --x"40";
   constant WRITE_CMD : CMD_T := "10000000"; --x"80";

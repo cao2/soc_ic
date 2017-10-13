@@ -1,0 +1,425 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Fri Oct 13 18:07:16 2017
+# Process ID: 6728
+# Current directory: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4
+# Command line: vivado.exe -log monitor.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source monitor.tcl
+# Log file: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4/monitor.vds
+# Journal file: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4\vivado.jou
+#-----------------------------------------------------------
+source monitor.tcl -notrace
+Command: synth_design -top monitor -part xc7z020clg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020-clg484'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020-clg484'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 2920 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 364.258 ; gain = 82.160
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'monitor' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:86]
+	Parameter interface_type bound to: 1 - type: integer 
+WARNING: [Synth 8-3848] Net tmp_transaction[val] in module/entity monitor does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:93]
+WARNING: [Synth 8-3848] Net tmp_transaction[tag] in module/entity monitor does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:93]
+WARNING: [Synth 8-3848] Net tmp_transaction[id] in module/entity monitor does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:93]
+INFO: [Synth 8-256] done synthesizing module 'monitor' (1#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:86]
+WARNING: [Synth 8-3331] design monitor has unconnected port rst
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 404.336 ; gain = 122.238
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 404.336 ; gain = 122.238
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc]
+WARNING: [Vivado 12-584] No ports matched 'Clock'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:87]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:87]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'Clock'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:88]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:88]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'Clock'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:89]
+CRITICAL WARNING: [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_ports Clock]'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:89]
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+WARNING: [Vivado 12-584] No ports matched 'rx_in'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:92]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:92]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rx_in'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:93]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:93]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'tx_out'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:96]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:96]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'tx_out'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:97]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:97]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'reset'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:219]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:219]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'reset'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:220]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:220]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 725.957 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+INFO: [Synth 8-4471] merging register 'tmp_transaction_reg[id][1:0]' into 'tmp_transaction_reg[tag][1:0]' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:155]
+INFO: [Synth 8-4471] merging register 'transaction_o2_reg[id][1:0]' into 'transaction_o2_reg[tag][1:0]' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:146]
+WARNING: [Synth 8-6014] Unused sequential element transaction_o2_reg[id] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:146]
+WARNING: [Synth 8-6014] Unused sequential element tmp_transaction_reg[id] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:155]
+INFO: [Synth 8-802] inferred FSM for state register 'st_reg' in module 'monitor'
+INFO: [Synth 8-802] inferred FSM for state register 'st_reg' in module 'monitor'
+WARNING: [Synth 8-6014] Unused sequential element st_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:97]
+WARNING: [Synth 8-6014] Unused sequential element st_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:145]
+INFO: [Synth 8-5544] ROM "tmp_transaction[sender]" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+WARNING: [Synth 8-6014] Unused sequential element st_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:97]
+WARNING: [Synth 8-6014] Unused sequential element st_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:97]
+WARNING: [Synth 8-6014] Unused sequential element st_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:145]
+WARNING: [Synth 8-6014] Unused sequential element st_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd:145]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 6     
+	               10 Bit    Registers := 4     
+	                8 Bit    Registers := 7     
+	                4 Bit    Registers := 11    
+	                2 Bit    Registers := 10    
+	                1 Bit    Registers := 16    
++---Muxes : 
+	   3 Input      8 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 8     
+	   3 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 20    
+	   5 Input      1 Bit        Muxes := 2     
+	   4 Input      1 Bit        Muxes := 3     
+	   3 Input      1 Bit        Muxes := 7     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module monitor 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 6     
+	               10 Bit    Registers := 4     
+	                8 Bit    Registers := 7     
+	                4 Bit    Registers := 11    
+	                2 Bit    Registers := 10    
+	                1 Bit    Registers := 16    
++---Muxes : 
+	   3 Input      8 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 8     
+	   3 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 20    
+	   5 Input      1 Bit        Muxes := 2     
+	   4 Input      1 Bit        Muxes := 3     
+	   3 Input      1 Bit        Muxes := 7     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3331] design monitor has unconnected port rst
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[adr][0]__0' (FDRE) to 'tmp_transaction_reg[adr][1]__0'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\tmp_transaction_reg[adr][1]__0 )
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[tag][0]' (FDRE) to 'tmp_transaction_reg[tag][1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\tmp_transaction_reg[tag][1] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\tmp_transaction_reg[val] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_51/\st_reg[2] )
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[adr][0]' (FDRE) to 'tmp_transaction_reg[adr][1]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\tmp_transaction_reg[adr][1] )
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[cmd][0]' (FDRE) to 'tmp_transaction_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[cmd][1]' (FDRE) to 'tmp_transaction_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[cmd][2]' (FDRE) to 'tmp_transaction_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[cmd][3]' (FDRE) to 'tmp_transaction_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[cmd][4]' (FDRE) to 'tmp_transaction_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[cmd][5]' (FDRE) to 'tmp_transaction_reg[cmd][6]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\tmp_transaction_reg[cmd][6] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (\tmp_transaction_reg[cmd][7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_37/\st_reg[2] )
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[adr][0]' (FDRE) to 'transaction_o2_reg[adr][1]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[tag][0]' (FDRE) to 'transaction_o2_reg[tag][1]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[adr][0]' (FDE) to 'transaction_o_reg[adr][1]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[cmd][0]' (FDRE) to 'transaction_o_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[cmd][1]' (FDRE) to 'transaction_o_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[cmd][2]' (FDRE) to 'transaction_o_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[cmd][3]' (FDRE) to 'transaction_o_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[cmd][4]' (FDRE) to 'transaction_o_reg[cmd][6]'
+INFO: [Synth 8-3886] merging instance 'transaction_o_reg[cmd][5]' (FDRE) to 'transaction_o_reg[cmd][6]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[val] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[adr][1] )
+WARNING: [Synth 8-3332] Sequential element (st_reg[2]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (st_reg[2]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[val]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][7]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][6]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[cmd][7]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[cmd][6]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[adr][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[adr][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[val]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[tag][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o2_reg[tag][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[adr][1]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o2_reg[adr][1]) is unused and will be removed from module monitor.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3332] Sequential element (st_reg[1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (st_reg[0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (st_reg[1]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (st_reg[0]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[receiver][3]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[receiver][2]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[receiver][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[receiver][0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[sender][3]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[sender][2]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[sender][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[sender][0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[tag][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[tag][0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[id][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[id][0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][6]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][7]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][5]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][4]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][3]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][2]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][1]__0) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (tmp_transaction_reg[cmd][0]__0) is unused and will be removed from module monitor.
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[receiver][0]__0' (FDE) to 'transaction_o_reg[receiver][0]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[receiver][1]__0' (FDE) to 'transaction_o_reg[receiver][1]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[receiver][2]__0' (FDE) to 'transaction_o_reg[receiver][2]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[receiver][3]__0' (FDE) to 'transaction_o_reg[receiver][3]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[sender][0]__0' (FDE) to 'transaction_o_reg[sender][0]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[sender][1]__0' (FDE) to 'transaction_o_reg[sender][1]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[sender][2]__0' (FDE) to 'transaction_o_reg[sender][2]'
+INFO: [Synth 8-3886] merging instance 'tmp_transaction_reg[sender][3]__0' (FDE) to 'transaction_o_reg[sender][3]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[receiver][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[receiver][1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[receiver][2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[receiver][3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[sender][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[sender][1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[sender][2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[sender][3] )
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[receiver][0]' (FDE) to 'transaction_o2_reg[receiver][1]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[receiver][1]' (FDE) to 'transaction_o2_reg[receiver][2]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[receiver][2]' (FDE) to 'transaction_o2_reg[receiver][3]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[receiver][3]' (FDE) to 'transaction_o2_reg[sender][3]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[sender][0]' (FDE) to 'transaction_o2_reg[sender][3]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[sender][1]' (FDE) to 'transaction_o2_reg[sender][3]'
+INFO: [Synth 8-3886] merging instance 'transaction_o2_reg[sender][2]' (FDE) to 'transaction_o2_reg[sender][3]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o2_reg[sender][3] )
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[receiver][0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[receiver][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[receiver][2]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[receiver][3]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[sender][0]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[sender][1]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[sender][2]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[sender][3]) is unused and will be removed from module monitor.
+WARNING: [Synth 8-3332] Sequential element (transaction_o2_reg[sender][3]) is unused and will be removed from module monitor.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----+------+
+|      |Cell |Count |
++------+-----+------+
+|1     |BUFG |     1|
+|2     |FDRE |   294|
+|3     |IBUF |   286|
+|4     |OBUF |   331|
++------+-----+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |   912|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 56 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:20 . Memory (MB): peak = 725.957 ; gain = 122.238
+Synthesis Optimization Complete : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 725.957 ; gain = 443.859
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 286 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+69 Infos, 69 Warnings, 9 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:27 ; elapsed = 00:00:29 . Memory (MB): peak = 725.957 ; gain = 451.617
+INFO: [Common 17-1381] The checkpoint 'C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4/monitor.dcp' has been generated.
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 725.957 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Fri Oct 13 18:07:50 2017...
