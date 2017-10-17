@@ -95,6 +95,7 @@ begin
 	begin
 		if rising_edge(clk) then
 			if st = one then
+			transaction_o.val <='0';
 				if interface_type = 0 then
 					if wready_i = '1' then
 						st := two;
