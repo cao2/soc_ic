@@ -1,13 +1,13 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
----------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.2 (win64) Build 1909853 Thu Jun 15 18:39:09 MDT 2017
-| Date         : Fri Oct 13 18:07:50 2017
+| Date         : Tue Oct 17 19:25:02 2017
 | Host         : ENB222-PC2 running 64-bit Service Pack 1  (build 7601)
-| Command      : report_utilization -file monitor_utilization_synth.rpt -pb monitor_utilization_synth.pb
-| Design       : monitor
+| Command      : report_utilization -file monitor_customized_utilization_synth.rpt -pb monitor_customized_utilization_synth.pb
+| Design       : monitor_customized
 | Device       : 7z020clg484-1
 | Design State : Synthesized
----------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 
 Utilization Design Information
 
@@ -33,8 +33,8 @@ Table of Contents
 | Slice LUTs*             |    0 |     0 |     53200 |  0.00 |
 |   LUT as Logic          |    0 |     0 |     53200 |  0.00 |
 |   LUT as Memory         |    0 |     0 |     17400 |  0.00 |
-| Slice Registers         |  294 |     0 |    106400 |  0.28 |
-|   Register as Flip Flop |  294 |     0 |    106400 |  0.28 |
+| Slice Registers         |   89 |     0 |    106400 |  0.08 |
+|   Register as Flip Flop |   89 |     0 |    106400 |  0.08 |
 |   Register as Latch     |    0 |     0 |    106400 |  0.00 |
 | F7 Muxes                |    0 |     0 |     26600 |  0.00 |
 | F8 Muxes                |    0 |     0 |     13300 |  0.00 |
@@ -57,7 +57,7 @@ Table of Contents
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
 | 0     |          Yes |         Set |            - |
-| 294   |          Yes |       Reset |            - |
+| 89    |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -90,7 +90,7 @@ Table of Contents
 +-----------------------------+------+-------+-----------+--------+
 |          Site Type          | Used | Fixed | Available |  Util% |
 +-----------------------------+------+-------+-----------+--------+
-| Bonded IOB                  |  617 |     0 |       200 | 308.50 |
+| Bonded IOB                  |  202 |     0 |       200 | 101.00 |
 | Bonded IPADs                |    0 |     0 |         2 |   0.00 |
 | Bonded IOPADs               |    0 |     0 |       130 |   0.00 |
 | PHY_CONTROL                 |    0 |     0 |         4 |   0.00 |
@@ -146,9 +146,10 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| OBUF     |  331 |                  IO |
-| FDRE     |  294 |        Flop & Latch |
-| IBUF     |  286 |                  IO |
+| OBUF     |   90 |                  IO |
+| IBUF     |   90 |                  IO |
+| FDRE     |   89 |        Flop & Latch |
+| OBUFT    |   22 |                  IO |
 | BUFG     |    1 |               Clock |
 +----------+------+---------------------+
 

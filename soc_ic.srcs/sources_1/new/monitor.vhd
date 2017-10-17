@@ -10,7 +10,7 @@ entity monitor_axi_read is
 		----AXI interface
 		master_id     : in  std_logic_vector(IP_CT downto 0);
 		slave_id      : in  std_logic_vector(IP_CT downto 0);
-		id_i          : in  IP_T;
+		id_i          : in  std_logic_vector(7 downto 0);
 		---write address channel
 
 		---read address channel
@@ -27,7 +27,7 @@ entity monitor_axi_read is
 		rdready_i     : in  std_logic;
 		rres_i        : in  std_logic_vector(1 downto 0);
 		----output 
-		id_o          : out IP_T;
+		id_o          :  out  std_logic_vector(7 downto 0);
 		---read address channel
 		raddr_o       : out std_logic_vector(31 downto 0);
 		rlen_o        : out std_logic_vector(9 downto 0);

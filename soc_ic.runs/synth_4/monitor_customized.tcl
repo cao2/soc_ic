@@ -16,7 +16,7 @@ set_property ip_output_repo c:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.cache/
 set_property ip_cache_permissions {read write} [current_project]
 read_vhdl -library xil_defaultlib {
   C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/soc/defs.vhd
-  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor.vhd
+  C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd
 }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -30,9 +30,9 @@ read_xdc C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/ze
 set_property used_in_implementation false [get_files C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc]
 
 
-synth_design -top monitor -part xc7z020clg484-1
+synth_design -top monitor_customized -part xc7z020clg484-1
 
 
-write_checkpoint -force -noxdef monitor.dcp
+write_checkpoint -force -noxdef monitor_customized.dcp
 
-catch { report_utilization -file monitor_utilization_synth.rpt -pb monitor_utilization_synth.pb }
+catch { report_utilization -file monitor_customized_utilization_synth.rpt -pb monitor_customized_utilization_synth.pb }

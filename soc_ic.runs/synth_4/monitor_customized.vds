@@ -1,0 +1,362 @@
+#-----------------------------------------------------------
+# Vivado v2017.2 (64-bit)
+# SW Build 1909853 on Thu Jun 15 18:39:09 MDT 2017
+# IP Build 1909766 on Thu Jun 15 19:58:00 MDT 2017
+# Start of session at: Tue Oct 17 19:24:29 2017
+# Process ID: 1484
+# Current directory: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4
+# Command line: vivado.exe -log monitor_customized.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source monitor_customized.tcl
+# Log file: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4/monitor_customized.vds
+# Journal file: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4\vivado.jou
+#-----------------------------------------------------------
+source monitor_customized.tcl -notrace
+Command: synth_design -top monitor_customized -part xc7z020clg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020-clg484'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020-clg484'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 8132 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 365.137 ; gain = 82.578
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'monitor_customized' [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:19]
+WARNING: [Synth 8-6014] Unused sequential element tmp_t_reg[val] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:30]
+WARNING: [Synth 8-6014] Unused sequential element tmp_t_reg[sender] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:30]
+WARNING: [Synth 8-6014] Unused sequential element tmp_t_reg[receiver] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:30]
+WARNING: [Synth 8-6014] Unused sequential element tmp_t_reg[cmd] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:30]
+WARNING: [Synth 8-6014] Unused sequential element tmp_t_reg[id] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:30]
+WARNING: [Synth 8-6014] Unused sequential element tmp_t_reg[adr] was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:30]
+WARNING: [Synth 8-6014] Unused sequential element adr_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:34]
+WARNING: [Synth 8-6014] Unused sequential element id_reg was removed.  [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:42]
+WARNING: [Synth 8-3848] Net transaction_o[sender] in module/entity monitor_customized does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:15]
+WARNING: [Synth 8-3848] Net transaction_o[receiver] in module/entity monitor_customized does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:15]
+WARNING: [Synth 8-3848] Net transaction_o[cmd] in module/entity monitor_customized does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:15]
+WARNING: [Synth 8-3848] Net transaction_o[tag] in module/entity monitor_customized does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:15]
+WARNING: [Synth 8-3848] Net transaction_o[id] in module/entity monitor_customized does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:15]
+WARNING: [Synth 8-3848] Net transaction_o[adr] in module/entity monitor_customized does not have driver. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:15]
+INFO: [Synth 8-256] done synthesizing module 'monitor_customized' (1#1) [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/new/monitor_customized.vhd:19]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][7]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][6]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][5]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][4]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[tag][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[tag][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[id][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[id][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[adr][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[adr][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port rst
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[0]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 404.465 ; gain = 121.906
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 404.465 ; gain = 121.906
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc]
+WARNING: [Vivado 12-584] No ports matched 'Clock'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:87]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:87]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'Clock'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:88]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:88]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'Clock'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:89]
+CRITICAL WARNING: [Vivado 12-4739] create_clock:No valid object(s) found for '-objects [get_ports Clock]'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:89]
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+WARNING: [Vivado 12-584] No ports matched 'rx_in'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:92]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:92]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rx_in'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:93]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:93]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'tx_out'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:96]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:96]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'tx_out'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:97]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:97]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'reset'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:219]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:219]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'reset'. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:220]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc:220]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/constrs_1/imports/zedboard_master_XDC_RevC_D_v3/zedboard_master_XDC_RevC_D_v3.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 723.469 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:13 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module monitor_customized 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
+	                1 Bit    Registers := 2     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[sender][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[receiver][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][7]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][6]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][5]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][4]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[cmd][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[tag][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[tag][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[id][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[id][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[adr][1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port transaction_o[adr][0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port rst
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port master_id[0]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[3]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[2]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[1]
+WARNING: [Synth 8-3331] design monitor_customized has unconnected port slave_id[0]
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\transaction_o_reg[val] )
+WARNING: [Synth 8-3332] Sequential element (transaction_o_reg[val]) is unused and will be removed from module monitor_customized.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:24 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:24 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:24 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+------+------+
+|      |Cell  |Count |
++------+------+------+
+|1     |BUFG  |     1|
+|2     |FDRE  |    89|
+|3     |IBUF  |    90|
+|4     |OBUF  |    90|
+|5     |OBUFT |    22|
++------+------+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |   292|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 32 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:14 ; elapsed = 00:00:19 . Memory (MB): peak = 723.469 ; gain = 121.906
+Synthesis Optimization Complete : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 723.469 ; gain = 440.910
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 90 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+13 Infos, 86 Warnings, 9 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:26 ; elapsed = 00:00:28 . Memory (MB): peak = 723.469 ; gain = 449.059
+INFO: [Common 17-1381] The checkpoint 'C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.runs/synth_4/monitor_customized.dcp' has been generated.
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 723.469 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 17 19:25:02 2017...

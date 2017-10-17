@@ -10,7 +10,7 @@ entity monitor_axi_write is
 		----AXI interface
 		master_id     : in  std_logic_vector(IP_CT downto 0);
 		slave_id      : in  std_logic_vector(IP_CT downto 0);
-		id_i          : in  IP_T;
+		id_i          :  in  std_logic_vector(7 downto 0);
 		---write address channel
 		waddr_i       : in  ADR_T;
 		wlen_i        : in  std_logic_vector(9 downto 0);
@@ -28,7 +28,7 @@ entity monitor_axi_write is
 		wrvalid_i     : in  std_logic;
 		wrsp_i        : in  std_logic_vector(1 downto 0);
 		----output 
-		id_o          : out IP_T;
+		id_o          :  out  std_logic_vector(7 downto 0);
 		---write address channel
 		waddr_o       : out ADR_T;
 		wlen_o        : out std_logic_vector(9 downto 0);
