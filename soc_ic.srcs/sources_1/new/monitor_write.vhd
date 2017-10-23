@@ -71,6 +71,7 @@ begin
 				end if;
 			elsif st = two then
 				if wvalid_i = '1' then
+				    tmp_transaction.val :='1';
 					tmp_transaction.sender   := master_id;
 					tmp_transaction.receiver := slave_id;
 					tmp_transaction.cmd      := WRITE_CMD;
