@@ -1,2 +1,12 @@
 Vivado Simulator 2017.2
 Time resolution is 1 ps
+408000000080000000
+40800000C8800000C8
+408000000180000001
+Note: rwt ended in cpu cpu0, clock cycles is 130
+Time: 1295 ps  Iteration: 2  Process: /top/proc0_e/rwt_ent/clk_counter  File: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/cpu_test.vhd
+40800000C9800000C9
+Note: rwt ended in cpu cpu1, clock cycles is 228
+Time: 2275 ps  Iteration: 2  Process: /top/proc1_e/rwt_ent/clk_counter  File: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/soci/soci/soc_rnd/soc_rnd.srcs/sources_1/imports/2017paper/cpu_test.vhd
+Note: SIM END
+Time: 2275 ps  Iteration: 5  Process: /top/stimuli  File: C:/Users/cao2/Desktop/soci/soci/soc_ic/soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/top.vhd

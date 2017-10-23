@@ -30,26 +30,26 @@ begin
 
 
 
---  rnd_gen: entity work.rndgen(rtl)
---  port map(
---    clk => clk, -- TODO connect clock, rst, and enable signals
---    rst => rst,
---    en => en,
---    seed_i => 0
---    --rnd_o => 
---  );
+  rnd_gen: entity work.rndgen(rtl)
+  port map(
+    clk => clk, -- TODO connect clock, rst, and enable signals
+    rst => rst,
+    en => en,
+    seed_i => 0
+    --rnd_o => 
+  );
   
   
---	set_tag: process(rst)
---	begin
---		if rst='1' then
---			if id_i = CPU0 then
---      			tag <= CPU0_TAG;
---     		elsif id_i=CPU1 then
---     			tag <= CPU1_TAG;
---     		end if;
---		end if;
---	end process;
+	set_tag: process(rst)
+	begin
+		if rst='1' then
+			if id_i = CPU0 then
+      			tag <= CPU0_TAG;
+     		elsif id_i=CPU1 then
+     			tag <= CPU1_TAG;
+     		end if;
+		end if;
+	end process;
 	
    rndgen_ent : entity work.rndgen(rtl) port map (
      clk    => clk,
@@ -59,22 +59,22 @@ begin
      rnd_o  => r
      );
 
---  done_o <= (not en) or sim_end;
+  done_o <= (not en) or sim_end;
 
  
---  clk_counter : process(clk, en, sim_end)
---    variable count : natural := 0;
---    variable b : boolean := true;
---  begin
---    if en = '1' and sim_end = '1' and b then
---      info("rwt ended in cpu " & str(id_i) & ", clock cycles is " & str(count));
---      b := false;
---    elsif en = '1' and (rising_edge(clk)) then
---      count := count + 1;
---    end if;
---  end process;
+  clk_counter : process(clk, en, sim_end)
+    variable count : natural := 0;
+    variable b : boolean := true;
+  begin
+    if en = '1' and sim_end = '1' and b then
+      info("rwt ended in cpu " & str(id_i) & ", clock cycles is " & str(count));
+      b := false;
+    elsif en = '1' and (rising_edge(clk)) then
+      count := count + 1;
+    end if;
+  end process;
   
---  --* t7: TEST(RW)
+  --* t7: TEST(RW)
 --  rwt_p : process(rst, clk)
 --    variable st, st_nxt : natural := 1;
 --    variable st_prev : integer := -1;
@@ -205,30 +205,31 @@ begin  -- architecture pwrtx
 	end if;
 	end process;
 	
-  -- rndgen_ent : entity work.rndgen(rtl) port map (
-  --   clk    => clk,
-  --   rst    => rst,
-  --   en     => en,
-  --   seed_i => to_integer(unsigned(TEST(PWR))),
-  --   rnd_o  => r
-  --   );
+	
+   rndgen_ent : entity work.rndgen(rtl) port map (
+     clk    => clk,
+     rst    => rst,
+     en     => en,
+     seed_i => to_integer(unsigned(TEST(PWR))),
+     rnd_o  => r
+     );
 
---  done_o <= (not en) or sim_end;
+  done_o <= (not en) or sim_end;
   
---  clk_counter : process(clk, en)
---    variable count : natural := 0;
---    variable b : boolean := true;
---  begin
---    if en = '1' and sim_end = '1' and b then
---      info("pwrt ended in cpu " & str(id_i) & ", clock cycles is " & str(count));
---      b := false;
---      -- done_o <= '1';
---    elsif sim_end = '0' and en = '1' and (rising_edge(clk)) then
---      count := count + 1;
---    end if;
---  end process;
+  clk_counter : process(clk, en)
+    variable count : natural := 0;
+    variable b : boolean := true;
+  begin
+    if en = '1' and sim_end = '1' and b then
+      info("pwrt ended in cpu " & str(id_i) & ", clock cycles is " & str(count));
+      b := false;
+      -- done_o <= '1';
+    elsif sim_end = '0' and en = '1' and (rising_edge(clk)) then
+      count := count + 1;
+    end if;
+  end process;
   
-  --* t6: TEST(PWR)
+--  * t6: TEST(PWR)
 -- pwrt_p : process(rst, clk, en)
 --   variable st, st_nxt : natural := 1;
 --   variable st_prev : integer := -1;

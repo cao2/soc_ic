@@ -133,8 +133,8 @@ signal tmp_res    : MSG_T;
 	signal treadreq1, treadreq2, treadreq3                                                             : MSG_T;
 	signal rdack1, rdack2, rdack3, wtack1, wtack2, wtack3, wtack4, wtack5, wtack6, ack7, ack8, ack9 : std_logic;
 	signal frontinfo: std_logic_vector(17 downto 0);
-	signal tmp_snp_req_s : MSG_T;
-    signal tmp_snp_req   : cacheline;
+	--signal tmp_snp_req_s : MSG_T;
+    --signal tmp_snp_req   : cacheline;
 begin
 
 	
@@ -292,7 +292,6 @@ begin
 		if rising_edge(Clock) then
 			if reset = '1' then
                     srf_we <= '0';
-        
                 elsif snp_req_i.val = '1' then
 				srf_in <= snp_req_i;
 				srf_we <= '1';
@@ -331,7 +330,7 @@ begin
 		variable st      : integer := 0;
 		variable prev_st : integer := -1;
 		variable idx     : integer := 0;
-		
+		variable saved_adr : std_logic_vector(31 downto 0);
 		variable tmp_front: std_logic_vector(35 downto 0);
 	begin
 		
@@ -378,7 +377,7 @@ begin
 						end if;
 					else                -- it's a miss
 						snp_c_req1 <= (readres.val,readres.cmd, readres.tag,readres.id,readres.adr, readres.dat(31 downto 0));
-						--snpreq     := cpu_mem_res;
+						saved_adr := readres.adr;
 						st         := 5;
 					end if;
 				end if;
@@ -404,7 +403,7 @@ begin
 			elsif st = 6 then           -- get_snp_resp
 				if snp_res_i.val = '1' then
 					-- if we get a snoop response  and the address is the same  => 
-					if snp_res_i.adr = snpreq.adr and (snp_res_i.tag = CPU0_TAG or snp_res_i.tag = CPU1_TAG) then
+					if snp_res_i.adr =saved_adr and (snp_res_i.tag = CPU0_TAG or snp_res_i.tag = CPU1_TAG) then
 						if snp_hit_i = '1' then
 							st := 7;
 							if snp_res_i.cmd=WRITE_CMD then
@@ -421,6 +420,8 @@ begin
 						end if;
 					end if;
 				end if;
+				
+				
 			elsif st = 7 then
 				if wtack3 = '1' then
 					writereq3.val <= '0';
@@ -441,6 +442,8 @@ begin
 		variable tmp_hit       : std_logic;
 		variable idx: integer;
 		variable tmp_front: std_logic_vector(35 downto 0);
+		variable tmp_snp_req: cacheline;
+		variable tmp_snp_req_s: MSG_T;
 	begin
 		
 		if rising_edge(Clock) then
@@ -458,7 +461,7 @@ begin
 				end if;
 			elsif state = 1 then
 				if readreq2.val = '1' then
-					tmp_snp_req_s <= readreq2;
+					tmp_snp_req_s := readreq2;
 					treadreq2 <= readreq2;
 				end if;
 				srf_re <= '0';
@@ -469,21 +472,21 @@ begin
 			elsif state = 2 then
 				if readres.val = '1' then
 					tmp_hit       := rd_hit;
-					tmp_snp_req                  <= readres;
+					tmp_snp_req   := (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat,readres.frontinfo);
 					if readres.cmd = WRITE_CMD then
 						-- modify the data
 						-- invalidate the data
 						idx :=to_integer(unsigned(readres.adr(3 downto 0)));
-						tmp_snp_req.dat(511-idx*16 downto 511-idx*16-31) <= tmp_snp_req_s.dat;
-						
+						tmp_snp_req.dat(511-idx*16 downto 511-idx*16-31) := tmp_snp_req_s.dat;
 						--set the invalid to 0
-						tmp_snp_req.frontinfo(33+idx) <='0';
-						
+						tmp_snp_req.frontinfo(33+idx) :='0';
 					else                -- read command
 					-- set the exclusive bit to 1
-						tmp_snp_req.frontinfo(34 downto 34)<="0";
+						tmp_snp_req.frontinfo(34 downto 34):="0";
 					end if;
+					--twritereq4 <= tmp_snp_req;
 					twritereq4 <= tmp_snp_req;
+					---twritereq4 <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, tmp_snp_req.dat,tmp_snp_req.frontinfo);
 					addr          := tmp_snp_req.adr;
 					state         := 3;
 				end if;
@@ -492,9 +495,9 @@ begin
 					twritereq4.val <= '0';
 					state         := 4;
 				end if;
-			elsif state = 4 then        -- TODO should states 4 and 2 be merged?
+			elsif state = 4 then       
 				if writeack = '1' then
-					snp_res_o <= tmp_snp_req;
+					snp_res_o <= (tmp_snp_req.val, tmp_snp_req.cmd, tmp_snp_req.tag, tmp_snp_req.id, tmp_snp_req.adr, tmp_snp_req.dat,tmp_snp_req.frontinfo);
 					snp_hit_o <= tmp_hit;
 					state     := 0;
 				end if;
@@ -534,14 +537,14 @@ begin
 					treadreq3 <= readreq3;
 				end if;
 				if rdack3 = '1' then
-					treadreq3.val <='1';
+					treadreq3.val <='0';
 					state := 6;
 				end if;
 			elsif state = 6 then
 				if readres.val = '1' then -- if hit
 					tmp_up_res <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
 					if rd_hit = '1' then
-						up_snp_res_o <= tmp_up_res;
+						up_snp_res_o <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
 						up_snp_hit_o <= '1';
 						state        := 0;
 					-- -here we may need to modify it :: meaning the exclusive bit, the valid bit and everything, not sure we should worry this for
@@ -549,7 +552,7 @@ begin
 					-- maybe not  =>  if it is read, we dont care, not cache coherency=> if write, already done in read process
 					else                -- it's a miss
 					-- --report "miss form cache 0, now send to cache1";
-						snp_c_req2 <= tmp_up_res;
+						snp_c_req2 <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
 						state      := 2;
 					end if;
 				end if;
@@ -656,9 +659,9 @@ begin
 		if rising_edge(clock) then
 			readres<=ZERO_c;
 				if readreq.val = '1' then
-					idx     := to_integer(unsigned(readreq.adr(14 downto 0)));
+					idx     := to_integer(unsigned(readreq.adr(8 downto 0)));
 					offset :=idx mod 16;
-					idx := idx-offset;
+					idx := idx/16;
 					memcont := ROM_array(idx);
 					readres <= (readreq.val, readreq.cmd, readreq.tag, readreq.id, 
 					readreq.adr, memcont(511 downto 0),memcont(547 downto 512));
@@ -669,7 +672,7 @@ begin
 --                    readres.adr <= readreq.adr;
 --                    readres.dat <= memcont(511 downto 0);
 --                    readres.frontinfo <= memcont(547 downto 512);
-					if memcont(547+offset downto 547+offset) = "0" then -- 31 to 14
+					if memcont(547-offset downto 547-offset) = "0" then -- 31 to 14
 						rd_hit <= '0';
 					elsif  readreq.cmd = READ_CMD and memcont(546 downto 546) = "0" then
 					    rd_hit <='0';
@@ -707,7 +710,7 @@ begin
 		if rising_edge(clock) then
 			writeack <='0';			
 			if writereq.val = '1' then
-					idx     := to_integer(unsigned(writereq.adr(14 downto 0)));
+					idx     := to_integer(unsigned(writereq.adr(4 downto 0)));
 					ROM_array(idx)<=writereq.frontinfo&writereq.dat;
 					writeack <='1';
 			end if;

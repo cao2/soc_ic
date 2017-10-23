@@ -727,7 +727,7 @@ begin
 							tdata(lp * 32 + 31 downto lp * 32) := rdata;
 						end if;
 						lp      := lp + 1;
-						if rlast = '1' then
+						if rlast = '1' or lp= 16 then
 							state := 3;
 							lp    := 0;
 						end if;

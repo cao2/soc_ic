@@ -28,6 +28,8 @@ vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/imports/cao2/Desktop/oven/s
 vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/new/real_mem.vhd"
 vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/mem.vhd"
 vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/imports/cao2/Downloads/uart/uart/mod_m_counter.vhd"
+vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/new/monitor_cacheline.vhd"
+vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/new/monitor_customized.vhd"
 vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/imports/cao2/AppData/Roaming/Xilinx/Vivado/peripharals/peripharals.srcs/sources_1/imports/2017paper/peripheral.vhd"
 vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/proc.vhd"
 vhdl xil_defaultlib  "../../../soc_ic.srcs/sources_1/imports/cao2/Desktop/2017paper/pwr.vhd"

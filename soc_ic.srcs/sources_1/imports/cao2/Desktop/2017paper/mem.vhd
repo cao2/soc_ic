@@ -153,10 +153,10 @@ begin
         end if;
 
       elsif st = 2 then
+        rdvalid_o <= '0';
         if rdready_i = '1' then
-          
           if lp < 16 then
-            rdvalid_o <= '1';
+            
             rv<='1';
             radx<=address;
             st := 6;
@@ -167,6 +167,7 @@ begin
      elsif st=6 then 
 --            rdata_o   <= ROM_array(slot)(address + lp);
             if r_ack ='1' then
+                rdvalid_o <= '1';
                 rdata_o <= rda;
                 lp      := lp + 1;
                 rres_o <= "00";

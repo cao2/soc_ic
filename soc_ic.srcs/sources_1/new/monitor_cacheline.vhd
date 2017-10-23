@@ -3,20 +3,20 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 use work.defs.all;
 use ieee.numeric_std.ALL;
-entity monitor_customized is
+entity monitor_cacheline is
 	Port(
 		clk           : in  STD_LOGIC;
 		rst           : in  STD_LOGIC;
 
 		master_id     : in IP_T;
 		slave_id      : in  IP_T;
-		msg_i         : in  MSG_T;
-		msg_o         : out MSG_T;
+		msg_i         : in  cacheline;
+		msg_o         : out cacheline;
 		transaction_o : out TST_T
 	);
-end monitor_customized;
+end monitor_cacheline;
 
-architecture Behavioral of monitor_customized is
+architecture Behavioral of monitor_cacheline is
 begin
 	process(clk)
 		variable adr   : std_logic_vector(31 downto 0) := (others => '0');

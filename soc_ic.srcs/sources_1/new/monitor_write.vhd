@@ -101,15 +101,18 @@ begin
 				end if;
 			elsif st = three then
 				if wdataready_i = '1' then
+				    st := four;
+				    end if;
+		    elsif st=four then
 					---Note: the data is available here
 					---, do we need to check that?
 					if wdvalid_i = '1' and wlast_i = '1' then
-						st            := four;
+						st            := five;
 						---read response here is done
 						transaction_o <= tmp_transaction;
 					end if;
-				end if;
-			elsif st = four then
+				
+			elsif st = five then
 				transaction_o.val <= '0';
 				if wrvalid_i = '1' then
 					if wrsp_i = "00" then

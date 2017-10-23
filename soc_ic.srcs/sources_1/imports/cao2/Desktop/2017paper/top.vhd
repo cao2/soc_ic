@@ -16,16 +16,18 @@ use UNISIM.vcomponents.all;
 -- Xilinx HDL Libraries Guide, version 14.7
 
 entity top is
-	Port(Clock   : in  std_logic;
+	Port(
+	---Clock   : in  std_logic;
 --	       clk1 : in std_logic;
-	     reset   : in  std_logic;
+	    --- reset   : in  std_logic;
 	     tx_out  : out std_logic;
 	     rx_in     : in std_logic
 	);
 end top;
 
 architecture tb of top is
-
+    signal clock : std_logic;
+    signal reset: std_logic;
 	-- Clock frequency and signal
 	constant tb_period  : time      := 10 ps;
 	signal tb_clk       : std_logic := '0';
@@ -242,7 +244,48 @@ architecture tb of top is
 	signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done : std_logic;
 	signal full_snpres                                                       : std_logic;
 --	signal Clock : std_logic;
+    signal up_snp_req1: MSG_T;
+    signal up_snp_res1: MSG_T;
+    signal snp_req11, snp_req21: MSG_T;
+    signal snp_res11, snp_res21: cacheline;
+    signal snp_req_1_mon,snp_req_2_mon: TST_T;
+    
+   
 begin
+--        snp_req_1_monitor: entity work.monitor_customized(Behavioral) port map(
+--            clk => Clock,
+--            rst =>reset,
+--            master_id => CPU0,
+--            slave_id => CPU1,
+--            msg_i => snp_req1,
+--            msg_o => snp_req11,
+--            transaction_o => snp_req_1_mon
+--        );
+--        snp_rep_2_monitor: entity work.monitor_customized(Behavioral) port map(
+--                    clk => Clock,
+--                    rst =>reset,
+--                    master_id => CPU1,
+--                    slave_id => CPU0,
+--                    msg_i => snp_req2,
+--                    msg_o => snp_req21,
+--                    transaction_o => snp_req_2_mon
+--                );
+--        snp_res_1_monitor: entity work.monitor_cacheline(Behavioral) port map(
+--                    clk => Clock,
+--                    rst =>reset,
+--                    master_id => CPU1,
+--                    slave_id => CPU0,
+--                    msg_i => snp_res1,
+--                    msg_o => snp_res11
+--                ); 
+--         snp_res_2_monitor: entity work.monitor_cacheline(Behavioral) port map(
+--                                   clk => Clock,
+--                                   rst =>reset,
+--                                   master_id => CPU0,
+--                                   slave_id => CPU1,
+--                                   msg_i => snp_res2,
+--                                   msg_o => snp_res21
+--                               );
 --        IBUFGDS_inst : IBUFGDS
 --generic map (
 --DIFF_TERM => FALSE, -- Differential Termination
@@ -512,7 +555,7 @@ begin
 		port map(
 			Clock        => Clock,
 			reset        => reset,
-			id_i         => GFX,
+			id_i         => UART,
 			tx_out       => tx_out,
 			rx_in        => rx_in,
 			-- write address channel
@@ -646,7 +689,7 @@ begin
 		port map(
 			Clock        => Clock,
 			reset        => reset,
-			id_i         => UART,
+			id_i         => GFX,
 			-- write address channel
 			waddr_i      => waddr_uart,
 			wlen_i       => wlen_uart,
@@ -716,9 +759,9 @@ begin
 			rres_o       => rres
 		);
 
---  -- -- Clock generation, starts at 0
---  tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
---  Clock <= tb_clk;
+  -- -- Clock generation, starts at 0
+  tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
+  Clock <= tb_clk;
 
 --  logger_p : process(tb_clk)
 --    file trace_file : TEXT open write_mode is "trace1.txt";
@@ -951,82 +994,82 @@ begin
 --    wait;
 --  end process;
 
---  --cpu2_w_mon : process
---  --  variable m, t : time := 0 ps;
---  --  variable zeros553 : std_logic_vector(5547 downto 0) := (others => '0');
---  --  variable zeros73 : MSG_T := (others => '0');
---  --begin
---  --  if is_tset(TEST(CPU2W)) then
---  --    wait until cpu_res2 /= zeros73;
---  --    report "TEST(CPU2W) OK";
---  --  ---- TODO ... more tests here ...
---  --    --m := 510 ps;
---  --    --wait for m - t;
---  --    --t := m;
---  --    --assert cpu_res2 /= zeros73 report "cpu2_w_mon, msg 8: cpu_res2 is 0" severity error;
---  --  end if;
---  --  wait;
---  --end process;
-
---  --cpu1_r_mon : process
---  --  variable m, t : time := 0 ps;
---  --  variable zeros553 : std_logic_vector(5547 downto 0) := (others => '0');
---  --  variable zeros73 : std_logic_vector(72 downto 0) := (others => '0');
---  --begin
---  --  if is_tset(TEST(CPU1R)) then
---  --    m := 70 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert cpu_req1 /= zeros73 report "cpu1_r_mon, msg 1: cpu_req1 is 0" severity error;
-
---  --    m := 140 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert snp_req2 /= zeros73 report "cpu1_r_mon, msg 2: snp_req2 is 0" severity error;
-
---  --    m := 220 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert snp_res2 /= zeros73 report "cpu1_r_mon, msg 3: snp_res2 is 0" severity error;
-
---  --    m := 230 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert bus_req1 /= zeros73 report "cpu1_r_mon, msg 4: bus_req1 is 0" severity error;
-
---  --    m := 280 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert rvalid /= '0' report "cpu1_r_mon, msg 5: rvalid is 0" severity error;
-
---  --    m := 300 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert rdvalid /= '0' report "cpu1_r_mon, msg 6: rdvalid is 0" severity error;
-
---  --    m := 440 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert bus_res1 /= zeros73 report "cpu1_r_mon, msg 7: bus_res1 is 0" severity error;
-
---  --    m := 550 ps;
---  --    wait for m - t;
---  --    t := m;
---  --    assert cpu_res1 /= zeros73 report "cpu1_r_mon, msg 8: cpu_res1 is 0" severity error;
---  --  --check_inv(t, 550 ps, cpu_res1 /= zeros73, "cpu1_r_mon, msg 8: cpu_res1 is 0");
---  --  end if;
---  --  wait;
---  --end process;
-
---  stimuli : process
+--  cpu2_w_mon : process
+--    variable m, t : time := 0 ps;
+--    variable zeros553 : std_logic_vector(5547 downto 0) := (others => '0');
+--    --variable zeros73 : MSG_T := (others => '0');
 --  begin
-
---    reset <= '1';
---    wait for 15 ps;
---    reset <= '0';
---    wait until tb_sim_ended = '1';
---    report "SIM END";
+--    if is_tset(TEST(CPU2W)) then
+--      wait until cpu_res2 /= zeros73;
+--      report "TEST(CPU2W) OK";
+--    ---- TODO ... more tests here ...
+--      --m := 510 ps;
+--      --wait for m - t;
+--      --t := m;
+--      --assert cpu_res2 /= zeros73 report "cpu2_w_mon, msg 8: cpu_res2 is 0" severity error;
+--    end if;
+--    wait;
 --  end process;
 
---  tb_sim_ended <= proc0_done and proc1_done and usb_done and uart_done and gfx_done and audio_done;
+--  cpu1_r_mon : process
+--    variable m, t : time := 0 ps;
+--    variable zeros553 : std_logic_vector(5547 downto 0) := (others => '0');
+--    variable zeros73 : std_logic_vector(72 downto 0) := (others => '0');
+--  begin
+--    if is_tset(TEST(CPU1R)) then
+--      m := 70 ps;
+--      wait for m - t;
+--      t := m;
+--      assert cpu_req1 /= zeros73 report "cpu1_r_mon, msg 1: cpu_req1 is 0" severity error;
+
+--      m := 140 ps;
+--      wait for m - t;
+--      t := m;
+--      assert snp_req2 /= zeros73 report "cpu1_r_mon, msg 2: snp_req2 is 0" severity error;
+
+--      m := 220 ps;
+--      wait for m - t;
+--      t := m;
+--      assert snp_res2 /= zeros73 report "cpu1_r_mon, msg 3: snp_res2 is 0" severity error;
+
+--      m := 230 ps;
+--      wait for m - t;
+--      t := m;
+--      assert bus_req1 /= zeros73 report "cpu1_r_mon, msg 4: bus_req1 is 0" severity error;
+
+--      m := 280 ps;
+--      wait for m - t;
+--      t := m;
+--      assert rvalid /= '0' report "cpu1_r_mon, msg 5: rvalid is 0" severity error;
+
+--      m := 300 ps;
+--      wait for m - t;
+--      t := m;
+--      assert rdvalid /= '0' report "cpu1_r_mon, msg 6: rdvalid is 0" severity error;
+
+--      m := 440 ps;
+--      wait for m - t;
+--      t := m;
+--      assert bus_res1 /= zeros73 report "cpu1_r_mon, msg 7: bus_res1 is 0" severity error;
+
+--      m := 550 ps;
+--      wait for m - t;
+--      t := m;
+--      assert cpu_res1 /= zeros73 report "cpu1_r_mon, msg 8: cpu_res1 is 0" severity error;
+--    --check_inv(t, 550 ps, cpu_res1 /= zeros73, "cpu1_r_mon, msg 8: cpu_res1 is 0");
+--    end if;
+--    wait;
+--  end process;
+
+  stimuli : process
+  begin
+
+    reset <= '1';
+    wait for 15 ps;
+    reset <= '0';
+    wait until tb_sim_ended = '1';
+    report "SIM END";
+  end process;
+
+  tb_sim_ended <= proc0_done and proc1_done and usb_done and uart_done and gfx_done and audio_done;
 end tb;

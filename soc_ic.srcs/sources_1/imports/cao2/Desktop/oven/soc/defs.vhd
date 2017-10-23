@@ -10,7 +10,16 @@ package defs is
   constant ADR_WIDTH : positive := 32;
   constant DAT_WIDTH : positive := 32;
   constant IP_CT: positive := 3;
-
+ subtype IP_VECT_T is std_logic_vector(11 downto 0);
+   type IP_T is (CPU0, CPU1, CACHE0, CACHE1,
+                 SA, MEM, GFX, PMU,
+                 AUDIO, USB, UART,
+                 NONE);
+   type IP_VECT_ARRAY_T is array(IP_T) of IP_VECT_T;
+   constant ip_enc : IP_VECT_ARRAY_T := (x"001", x"002", x"004", x"008",
+                                         x"010", x"020", x"040", x"080",
+                                         x"100", x"200", x"400",
+                                         x"000");
   type MSG_T is record
    val       : std_logic;                     -- valid bit;
    cmd       : std_logic_vector(7 downto 0);
@@ -22,10 +31,10 @@ end record MSG_T;
 
 type TST_T is record
    val       : std_logic;                     -- valid bit;
-   sender : std_logic_vector(IP_CT downto 0);
-   receiver: std_logic_vector(IP_CT downto 0);
+   sender : IP_T;
+   receiver: IP_T;
    cmd       : std_logic_vector(7 downto 0);
-   tag       : std_logic_vector(1 downto 0);  -- src
+   tag       : std_logic_vector(7 downto 0);  -- src
    id        : std_logic_vector(1 downto 0);  --sequence id
    adr       : std_logic_vector(1 downto 0);
 end record TST_T;
@@ -115,16 +124,7 @@ constant ZERO_c : cacheline := ('0',
   constant CPU1_TAG  : IPTAG_T := x"05";
   -- TODO ips should b in order but b careful changing as it may break stg else!
 
-  subtype IP_VECT_T is std_logic_vector(11 downto 0);
-  type IP_T is (CPU0, CPU1, CACHE0, CACHE1,
-                SA, MEM, GFX, PMU,
-                AUDIO, USB, UART,
-                NONE);
-  type IP_VECT_ARRAY_T is array(IP_T) of IP_VECT_T;
-  constant ip_enc : IP_VECT_ARRAY_T := (x"001", x"002", x"004", x"008",
-                                        x"010", x"020", x"040", x"080",
-                                        x"100", x"200", x"400",
-                                        x"000");
+ 
 
   --constant TOMEM_ADR : ADR_T := x"80"; --1XXX...
   --constant TOGFX_ADR : ADR_T := x"00"; --X00X...
