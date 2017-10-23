@@ -244,15 +244,141 @@ architecture tb of top is
 	signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done : std_logic;
 	signal full_snpres                                                       : std_logic;
 --	signal Clock : std_logic;
+
+
+
+------MONITOR SIGNALS
+	signal waddr1  : ADR_T;
+	signal wlen1   : std_logic_vector(9 downto 0);
+	signal wsize1  : std_logic_vector(9 downto 0);
+	signal wvalid1 : std_logic;
+	signal wready1 : std_logic;
+	-- -write data channel
+	signal wdata1      : DAT_T;
+	signal wtrb1       : std_logic_vector(3 downto 0);
+	signal wlast1      : std_logic;
+	signal wdvalid1    : std_logic;
+	signal wdataready1 : std_logic;
+	-- -write response channel
+	signal wrready1 : std_logic;
+	signal wrvalid1 : std_logic;
+	signal wrsp1    : std_logic_vector(1 downto 0);
+
+	-- -read address channel
+	signal raddr1  : ADR_T;
+	signal rlen1  : std_logic_vector(9 downto 0);
+	signal rsize1  : std_logic_vector(9 downto 0);
+	signal rvalid1 : std_logic;
+	signal rready1 : std_logic;
+	-- -read data channel
+	signal rdata1   : DAT_T;
+	signal rstrb1   : std_logic_vector(3 downto 0);
+	signal rlast1   : std_logic;
+	signal rdvalid1 : std_logic;
+	signal rdready1 : std_logic;
+	signal rres1    : std_logic_vector(1 downto 0);
+
+
     signal up_snp_req1: MSG_T;
     signal up_snp_res1: MSG_T;
     signal snp_req11, snp_req21: MSG_T;
     signal snp_res11, snp_res21: cacheline;
-    signal snp_req_1_mon,snp_req_2_mon,up_snp_req_mon, up_snp_res_mon: TST_T;
+   
     signal up_snp_req11, up_snp_res11 : MSG_T;
+     signal snp_req_1_mon,snp_req_2_mon,up_snp_req_mon, up_snp_res_mon: TST_T;
+     signal mem_read_mon, mem_write_mon, axi_read_mon, axi_write_mon, uart_read_mon, uart_write_mon: TST_T;
+     signal usb_read_mon, usb_write_mon: TST_T;
    
 begin
-    up_snp_req_monitor: entity work.monitor_customized(Behavioral) port map(
+	mem_monitor_read: entity work.monitor(Behavioral) port map(
+		clk          => Clock,
+		rst          => reset,
+		----AXI interface
+		master_id     => SA,
+		slave_id      =>MEM,
+		--id_i          => ,
+		---write address channel
+
+		---read address channel
+		raddr_i       => raddr,
+		rlen_i        =>rlen,
+		rsize_i       =>rsize,
+		rvalid_i     =>rvalid,
+		rready_i     =>rready,
+		---read data channel
+		rdata_i    =>rdata,
+		rstrb_i     =>rstrb,
+		rlast_i      =>rlast,
+		rdvalid_i    =>rdvalid,
+		rdready_i    =>rdready,
+		rres_i       =>rres,
+		----output 
+		--id_o         =>,
+		---read address channel
+		
+		raddr_o       => raddr1,
+		rlen_o        =>rlen1,
+		rsize_o       =>rsize1,
+		rvalid_o     =>rvalid1,
+		rready_o     =>rready1,
+		---read data channel
+		rdata_o    =>rdata1,
+		rstrb_o     =>rstrb1,
+		rlast_o      =>rlast1,
+		rdvalid_o    =>rdvalid1,
+		rdready_o    =>rdready1,
+		rres_o       =>rres1,
+		
+		transaction_o => mem_read_mon
+	);
+	mem_monitor_write: entity work.monitor(Behavioral) port map(
+		clk          => Clock,
+		rst          => reset,
+		----AXI interface
+		master_id     => SA,
+		slave_id      =>MEM,
+		--id_i          => ,
+
+		---write address channel
+		waddr_i    => waddr,
+		wlen_i     =>wlen,
+		wsize_i    =>wsize,
+		wvalid_i   =>wvalid,
+		wready_i   =>wready,
+		---write data channel
+		wdata_i    =>wdata,
+		wtrb_i     =>wtrb, --TODO not implemented
+		wlast_i    =>wlast,
+		wdvalid_i  =>wdvalid,
+		wdataready_i  =>wdataready,
+		---write response channel
+		wrready_i    =>wrready,
+		wrvalid_i    =>wrvalid,
+		wrsp_i       =>wrsp,
+		
+		--OUTPUT
+		---write address channel
+		waddr_o    => waddr1,
+		wlen_o     =>wlen1,
+		wsize_o    =>wsize1,
+		wvalid_o   =>wvalid1,
+		wready_o   =>wready1,
+		---write data channel
+		wdata_o    =>wdata1,
+		wtrb_o     =>wtrb1, --TODO not implemented
+		wlast_o    =>wlast1,
+		wdvalid_o  =>wdvalid1,
+		wdataready_o  =>wdataready1,
+		---write response channel
+		wrready_o    =>wrready1,
+		wrvalid_o    =>wrvalid1,
+		wrsp_o       =>wrsp1,
+		
+		transaction_o => mem_write_mon
+	);
+   
+
+  up_snp_req_monitor: entity work.monitor_customized(Behavioral) port map(
             clk => Clock,
             rst =>reset,
             master_id => SA,
@@ -423,27 +549,27 @@ begin
 	     wlen             => wlen,
 	     wsize            => wsize,
 	     wvalid           => wvalid,
-	     wready           => wready,
+	     wready           => wready1,
 	     wdata            => wdata,
 	     wtrb             => wtrb,
 	     wlast            => wlast,
 	     wdvalid          => wdvalid,
-	     wdataready       => wdataready,
+	     wdataready       => wdataready1,
 	     wrready          => wrready,
-	     wrvalid_i        => wrvalid, -- write resp
-	     wrsp             => wrsp,
+	     wrvalid_i        => wrvalid1, -- write resp
+	     wrsp             => wrsp1,
 	     -- read
 	     raddr            => raddr,
 	     rlen             => rlen,
 	     rsize            => rsize,
 	     rvalid_o       => rvalid,
-	     rready           => rready,
-	     rdata            => rdata,
-	     rstrb            => rstrb,
-	     rlast            => rlast,
-	     rdvalid_i       => rdvalid,
+	     rready           => rready1,
+	     rdata            => rdata1,
+	     rstrb            => rstrb1,
+	     rlast            => rlast1,
+	     rdvalid_i       => rdvalid1,
 	     rdready          => rdready,
-	     rres             => rres,
+	     rres             => rres1,
 
 	     waddr_gfx        => waddr_gfx,
 	     wlen_gfx         => wlen_gfx,
@@ -751,29 +877,29 @@ begin
 		port map(
 			Clock        => Clock,
 			reset        => reset,
-			waddr_i      => waddr,
-			wlen_i       => wlen,
-			wsize_i      => wsize,
-			wvalid_i     => wvalid,
+			waddr_i      => waddr1,
+			wlen_i       => wlen1,
+			wsize_i      => wsize1,
+			wvalid_i     => wvalid1,
 			wready_o     => wready,
-			wdata_i      => wdata,
-			wtrb_i       => wtrb,
-			wlast_i      => wlast,
-			wdvalid_i    => wdvalid,
+			wdata_i      => wdata1,
+			wtrb_i       => wtrb1,
+			wlast_i      => wlast1,
+			wdvalid_i    => wdvalid1,
 			wdataready_o => wdataready,
-			wrready_i    => wrready,
+			wrready_i    => wrready1,
 			wrvalid_o    => wrvalid,
 			wrsp_o       => wrsp,
-			raddr_i      => raddr,
-			rlen_i       => rlen,
-			rsize_i      => rsize,
-			rvalid_i     => rvalid,
+			raddr_i      => raddr1,
+			rlen_i       => rlen1,
+			rsize_i      => rsize1,
+			rvalid_i     => rvalid1,
 			rready_o     => rready,
 			rdata_o      => rdata,
 			rstrb_o      => rstrb,
 			rlast_o      => rlast,
 			rdvalid_o    => rdvalid,
-			rdready_i    => rdready,
+			rdready_i    => rdready1,
 			rres_o       => rres
 		);
 
