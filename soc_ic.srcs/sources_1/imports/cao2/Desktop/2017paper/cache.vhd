@@ -479,7 +479,7 @@ begin
 						idx :=to_integer(unsigned(readres.adr(3 downto 0)));
 						tmp_snp_req.dat(511-idx*16 downto 511-idx*16-31) := tmp_snp_req_s.dat;
 						--set the invalid to 0
-						tmp_snp_req.frontinfo(33+idx) :='0';
+						tmp_snp_req.frontinfo(33-idx) :='0';
 					else                -- read command
 					-- set the exclusive bit to 1
 						tmp_snp_req.frontinfo(34 downto 34):="0";

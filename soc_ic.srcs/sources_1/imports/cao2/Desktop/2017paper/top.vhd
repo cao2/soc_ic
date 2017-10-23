@@ -290,13 +290,13 @@ architecture tb of top is
      signal usb_read_mon, usb_write_mon: TST_T;
    
 begin
-	mem_monitor_read: entity work.monitor(Behavioral) port map(
+	mem_monitor_read: entity work.monitor_axi_read(rtl) port map(
 		clk          => Clock,
 		rst          => reset,
 		----AXI interface
 		master_id     => SA,
 		slave_id      =>MEM,
-		--id_i          => ,
+		id_i          => (others=>'0'),
 		---write address channel
 
 		---read address channel
@@ -331,13 +331,13 @@ begin
 		
 		transaction_o => mem_read_mon
 	);
-	mem_monitor_write: entity work.monitor(Behavioral) port map(
+	mem_monitor_write: entity work.monitor_axi_write(rtl) port map(
 		clk          => Clock,
 		rst          => reset,
 		----AXI interface
 		master_id     => SA,
 		slave_id      =>MEM,
-		--id_i          => ,
+		id_i          => (others=>'0'),
 
 		---write address channel
 		waddr_i    => waddr,

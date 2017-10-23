@@ -8,8 +8,8 @@ entity monitor_axi_write is
 		clk           : in  STD_LOGIC;
 		rst           : in  STD_LOGIC;
 		----AXI interface
-		master_id     : in  std_logic_vector(IP_CT downto 0);
-		slave_id      : in  std_logic_vector(IP_CT downto 0);
+		master_id     : in  IP_T;
+		slave_id      : in  IP_T;
 		id_i          :  in  std_logic_vector(7 downto 0);
 		---write address channel
 		waddr_i       : in  ADR_T;

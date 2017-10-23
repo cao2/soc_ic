@@ -8,8 +8,8 @@ entity monitor_axi_read is
 		clk           : in  STD_LOGIC;
 		rst           : in  STD_LOGIC;
 		----AXI interface
-		master_id     : in  std_logic_vector(IP_CT downto 0);
-		slave_id      : in  std_logic_vector(IP_CT downto 0);
+		master_id     : in  IP_T;
+		slave_id      : in  IP_T;
 		id_i          : in  std_logic_vector(7 downto 0);
 		---write address channel
 
@@ -64,10 +64,11 @@ begin
 				end if;
 			elsif st = two then
 				if rvalid_i = '1' then
+				tmp_transaction.val := '1';
 					tmp_transaction.sender   := master_id;
 					tmp_transaction.receiver := slave_id;
 					tmp_transaction.cmd      := WRITE_CMD;
-
+                    
 					if raddr_i = adr then
 						tmp_transaction.adr := "00";
 					elsif unsigned(raddr_i) - unsigned(adr) = 1 or unsigned(adr) - unsigned(raddr_i) = 1 then
