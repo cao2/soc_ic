@@ -248,44 +248,62 @@ architecture tb of top is
     signal up_snp_res1: MSG_T;
     signal snp_req11, snp_req21: MSG_T;
     signal snp_res11, snp_res21: cacheline;
-    signal snp_req_1_mon,snp_req_2_mon: TST_T;
-    
+    signal snp_req_1_mon,snp_req_2_mon,up_snp_req_mon, up_snp_res_mon: TST_T;
+    signal up_snp_req11, up_snp_res11 : MSG_T;
    
 begin
---        snp_req_1_monitor: entity work.monitor_customized(Behavioral) port map(
---            clk => Clock,
---            rst =>reset,
---            master_id => CPU0,
---            slave_id => CPU1,
---            msg_i => snp_req1,
---            msg_o => snp_req11,
---            transaction_o => snp_req_1_mon
---        );
---        snp_rep_2_monitor: entity work.monitor_customized(Behavioral) port map(
---                    clk => Clock,
---                    rst =>reset,
---                    master_id => CPU1,
---                    slave_id => CPU0,
---                    msg_i => snp_req2,
---                    msg_o => snp_req21,
---                    transaction_o => snp_req_2_mon
---                );
---        snp_res_1_monitor: entity work.monitor_cacheline(Behavioral) port map(
---                    clk => Clock,
---                    rst =>reset,
---                    master_id => CPU1,
---                    slave_id => CPU0,
---                    msg_i => snp_res1,
---                    msg_o => snp_res11
---                ); 
---         snp_res_2_monitor: entity work.monitor_cacheline(Behavioral) port map(
---                                   clk => Clock,
---                                   rst =>reset,
---                                   master_id => CPU0,
---                                   slave_id => CPU1,
---                                   msg_i => snp_res2,
---                                   msg_o => snp_res21
---                               );
+    up_snp_req_monitor: entity work.monitor_customized(Behavioral) port map(
+            clk => Clock,
+            rst =>reset,
+            master_id => SA,
+            slave_id => CACHE0,
+            msg_i => up_snp_req,
+            msg_o => up_snp_req11,
+            transaction_o => up_snp_req_mon
+        );
+        up_snp_res_monitor: entity work.monitor_customized(Behavioral) port map(
+                    clk => Clock,
+                    rst =>reset,
+                    master_id => CACHE0,
+                    slave_id => SA,
+                    msg_i => up_snp_res,
+                    msg_o => up_snp_res11,
+                    transaction_o => up_snp_res_mon
+                );
+        snp_req_1_monitor: entity work.monitor_customized(Behavioral) port map(
+            clk => Clock,
+            rst =>reset,
+            master_id => CPU0,
+            slave_id => CPU1,
+            msg_i => snp_req1,
+            msg_o => snp_req11,
+            transaction_o => snp_req_1_mon
+        );
+        snp_rep_2_monitor: entity work.monitor_customized(Behavioral) port map(
+                    clk => Clock,
+                    rst =>reset,
+                    master_id => CPU1,
+                    slave_id => CPU0,
+                    msg_i => snp_req2,
+                    msg_o => snp_req21,
+                    transaction_o => snp_req_2_mon
+                );
+        snp_res_1_monitor: entity work.monitor_cacheline(Behavioral) port map(
+                    clk => Clock,
+                    rst =>reset,
+                    master_id => CPU1,
+                    slave_id => CPU0,
+                    msg_i => snp_res1,
+                    msg_o => snp_res11
+                ); 
+         snp_res_2_monitor: entity work.monitor_cacheline(Behavioral) port map(
+                                   clk => Clock,
+                                   rst =>reset,
+                                   master_id => CPU0,
+                                   slave_id => CPU1,
+                                   msg_i => snp_res2,
+                                   msg_o => snp_res21
+                               );
 --        IBUFGDS_inst : IBUFGDS
 --generic map (
 --DIFF_TERM => FALSE, -- Differential Termination
@@ -303,18 +321,18 @@ begin
 	
 	     id_i      => CPU0,
 	
-	     snp_req_i  => snp_req1, -- snoop req from cache 2
+	     snp_req_i  => snp_req11, -- snoop req from cache 2
 	     snp_hit_o => snp_hit1,
 	     snp_res_o => snp_res1,
 	
-	     up_snp_req_i  => up_snp_req, -- upstream snoop req 
+	     up_snp_req_i  => up_snp_req11, -- upstream snoop req 
 	     up_snp_hit_o => up_snp_hit,
 	     up_snp_res_o => up_snp_res,
 	     full_snpres_i=> full_snpres,
 	
 	     snp_req_o => snp_req2, -- fwd snp req to other cache
 	     snp_hit_i => snp_hit2,
-	     snp_res_i => snp_res2,
+	     snp_res_i => snp_res21,
 	
 	     bus_req_o  => bus_req1, -- mem or pwr req to ic
 	     bus_res_i   => bus_res1, -- mem or pwr resp from ic    
@@ -334,7 +352,7 @@ begin
 	
 	     id_i      => CPU1,
 	
-	     snp_req_i  => snp_req2, -- snoop req from cache 2
+	     snp_req_i  => snp_req21, -- snoop req from cache 2
 	     snp_hit_o => snp_hit2,
 	     snp_res_o => snp_res2,
 	
@@ -345,7 +363,7 @@ begin
 		 full_snpres_i=>'0',
 	     snp_req_o => snp_req1, -- fwd snp req to other cache
 	     snp_hit_i => snp_hit1,
-	     snp_res_i => snp_res1,
+	     snp_res_i => snp_res11,
 	
 	     bus_req_o  => bus_req2, -- mem or pwr req to ic
 	     bus_res_i   => bus_res2, -- mem or pwr resp from ic    
@@ -525,7 +543,7 @@ begin
 	     rdready_audio    => rdready_audio,
 	     rres_audio       => rres_audio,
 
-	     up_snp_res_i     => up_snp_res,
+	     up_snp_res_i     => up_snp_res11,
 	     up_snp_hit_i     => up_snp_hit,
 
 	     cache1_req_i     => bus_req1,
