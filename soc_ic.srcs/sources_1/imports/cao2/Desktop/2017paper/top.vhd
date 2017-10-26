@@ -17,17 +17,17 @@ use UNISIM.vcomponents.all;
 
 entity top is
 	Port(
-		---Clock   : in  std_logic;
+		Clock   : in  std_logic;
 		--	       clk1 : in std_logic;
-		--- reset   : in  std_logic;
+		reset   : in  std_logic;
 		tx_out : out std_logic;
 		rx_in  : in  std_logic
 	);
 end top;
 
 architecture tb of top is
-	signal clock        : std_logic;
-	signal reset        : std_logic;
+	--signal clock        : std_logic;
+	--signal reset        : std_logic;
 	-- Clock frequency and signal
 	constant tb_period  : time      := 10 ps;
 	signal tb_clk       : std_logic := '0';
@@ -411,12 +411,48 @@ architecture tb of top is
 	signal bus_req11, bus_req21                                                                                                         : MSG_T;
 	signal bus_res11, bus_res21                                                                                                         : BMSG_T;
 	signal up_snp_req11, up_snp_res11                                                                                                   : MSG_T;
+	signal mon_snp_res_1, mon_snp_res_2, mon_cpu_req1, mon_cpu_res1, mon_cpu_req2, mon_cpu_res2: TST_T;
 	signal snp_req_1_mon, snp_req_2_mon, up_snp_req_mon, up_snp_res_mon                                                                 : TST_T;
-	signal mon_mem_read, mon_mem_write, mon_axi_read, mon_axi_write, mon_uart_read, mon_uart_write                                      : TST_T;
-	signal mon_usb_read, mon_usb_write                                                                                                  : TST_T;
+	signal mon_mem_read, mon_mem_write, mon_audio_read, mon_audio_write, mon_uart_read, mon_uart_write                                      : TST_T;
+	signal mon_usb_read, mon_usb_write,mon_gfx_read, mon_gfx_write                                                                                                 : TST_T;
 	signal mon_bus_req1, mon_bus_req2, mon_bus_res1, mon_bus_res2                                                                       : TST_T;
 	signal mon_gfx_upreq, mon_gfx_upres, mon_usb_upreq, mon_usb_upres, mon_uart_upreq, mon_uart_upres, mon_audio_upreq, mon_audio_upres : TST_T;
 begin
+  
+  transaction_logger_p : process(tb_clk)
+  file trace_file : TEXT open write_mode is "transaction.txt";
+  variable l : line;
+  constant SEP : String(1 to 1) := ",";
+begin
+  if GEN_TRACE1 then
+    if rising_edge(tb_clk) then
+      ---- cpu
+       write(l, slv(mon_cpu_req1));
+       write(l, SEP);
+       write(l, slv(mon_cpu_res1));
+       write(l, SEP);
+       write(l, slv(mon_cpu_req2));
+       write(l, SEP);
+       write(l, slv(mon_cpu_res2));
+       write(l, SEP);
+       write(l, slv(snp_req_1_mon));
+       write(l, SEP);
+       write(l, slv(snp_req_2_mon));
+       write(l, SEP);
+       write(l, slv(mon_snp_res_1));
+       write(l, SEP);
+        write(l, slv(mon_snp_res_2));
+       write(l, SEP);
+       
+      write(l, slv(mon_snp_res_1));--0
+      write(l, SEP);
+      
+
+      writeline(trace_file, l); 
+    end if;
+  end if;
+end process;
+
 	gfx_upreq_monitor : entity work.monitor_customized(Behavioral)
 		port map(
 			clk           => Clock,
@@ -539,7 +575,7 @@ begin
 			slave_id      => CACHE1,
 			msg_i         => bus_res2,
 			msg_o         => bus_res21,
-			transaction_o => mon_bus_req2
+			transaction_o => mon_bus_res2
 		);
 	mem_monitor_read : entity work.monitor_axi_read(rtl)
 		port map(
@@ -632,7 +668,7 @@ begin
 			rst           => reset,
 			----AXI interface
 			master_id     => SA,
-			slave_id      => MEM,
+			slave_id      => GFX,
 			id_i          => (others => '0'),
 			---write address channel
 
@@ -672,7 +708,7 @@ begin
 			rst           => reset,
 			----AXI interface
 			master_id     => SA,
-			slave_id      => MEM,
+			slave_id      => GFX,
 			id_i          => (others => '0'),
 			---write address channel
 			waddr_i       => waddr_gfx,
@@ -710,47 +746,47 @@ begin
 			transaction_o => mon_gfx_write
 		);
 
-	usf_monitor_read : entity work.monitor_axi_read(rtl)
+	audio_monitor_read : entity work.monitor_axi_read(rtl)
 		port map(
 			clk           => Clock,
 			rst           => reset,
 			----AXI interface
 			master_id     => SA,
-			slave_id      => MEM,
+			slave_id      => AUDIO,
 			id_i          => (others => '0'),
 			---write address channel
 
 			---read address channel
-			raddr_i       => raddr_usf,
-			rlen_i        => rlen_usf,
-			rsize_i       => rsize_usf,
-			rvalid_i      => rvalid_usf,
-			rready_i      => rready_usf,
+			raddr_i       => raddr_audio,
+			rlen_i        => rlen_audio,
+			rsize_i       => rsize_audio,
+			rvalid_i      => rvalid_audio,
+			rready_i      => rready_audio,
 			---read data channel
-			rdata_i       => rdata_usf,
-			rstrb_i       => rstrb_usf,
-			rlast_i       => rlast_usf,
-			rdvalid_i     => rdvalid_usf,
-			rdready_i     => rdready_usf,
-			rres_i        => rres_usf,
+			rdata_i       => rdata_audio,
+			rstrb_i       => rstrb_audio,
+			rlast_i       => rlast_audio,
+			rdvalid_i     => rdvalid_audio,
+			rdready_i     => rdready_audio,
+			rres_i        => rres_audio,
 			----output 
 			--id_o         =>,
 			---read address channel
-			raddr_o       => raddr_usf1,
-			rlen_o        => rlen_usf1,
-			rsize_o       => rsize_usf1,
-			rvalid_o      => rvalid_usf1,
-			rready_o      => rready_usf1,
+			raddr_o       => raddr_audio1,
+			rlen_o        => rlen_audio1,
+			rsize_o       => rsize_audio1,
+			rvalid_o      => rvalid_audio1,
+			rready_o      => rready_audio1,
 			---read data channel
-			rdata_o       => rdata_usf1,
-			rstrb_o       => rstrb_usf1,
-			rlast_o       => rlast_usf1,
-			rdvalid_o     => rdvalid_usf1,
-			rdready_o     => rdready_usf1,
-			rres_o        => rres_usf1,
-			transaction_o => mon_usf_read
+			rdata_o       => rdata_audio1,
+			rstrb_o       => rstrb_audio1,
+			rlast_o       => rlast_audio1,
+			rdvalid_o     => rdvalid_audio1,
+			rdready_o     => rdready_audio1,
+			rres_o        => rres_audio1,
+			transaction_o => mon_audio_read
 		);
-	usf_monitor_write : entity work.monitor_axi_write(rtl)
+	audio_monitor_write : entity work.monitor_axi_write(rtl)
 		port map(
 			clk           => Clock,
 			rst           => reset,
@@ -759,39 +795,39 @@ begin
 			slave_id      => MEM,
 			id_i          => (others => '0'),
 			---write address channel
-			waddr_i       => waddr_usf,
-			wlen_i        => wlen_usf,
-			wsize_i       => wsize_usf,
-			wvalid_i      => wvalid_usf,
-			wready_i      => wready_usf,
+			waddr_i       => waddr_audio,
+			wlen_i        => wlen_audio,
+			wsize_i       => wsize_audio,
+			wvalid_i      => wvalid_audio,
+			wready_i      => wready_audio,
 			---write data channel
-			wdata_i       => wdata_usf,
-			wtrb_i        => wtrb_usf,  --TODO not implemented
-			wlast_i       => wlast_usf,
-			wdvalid_i     => wdvalid_usf,
-			wdataready_i  => wdataready_usf,
+			wdata_i       => wdata_audio,
+			wtrb_i        => wtrb_audio,  --TODO not implemented
+			wlast_i       => wlast_audio,
+			wdvalid_i     => wdvalid_audio,
+			wdataready_i  => wdataready_audio,
 			---write response channel
-			wrready_i     => wrready_usf,
-			wrvalid_i     => wrvalid_usf,
-			wrsp_i        => wrsp_usf,
+			wrready_i     => wrready_audio,
+			wrvalid_i     => wrvalid_audio,
+			wrsp_i        => wrsp_audio,
 			--OUTPUT
 			---write address channel
-			waddr_o       => waddr_usf1,
-			wlen_o        => wlen_usf1,
-			wsize_o       => wsize_usf1,
-			wvalid_o      => wvalid_usf1,
-			wready_o      => wready_usf1,
+			waddr_o       => waddr_audio1,
+			wlen_o        => wlen_audio1,
+			wsize_o       => wsize_audio1,
+			wvalid_o      => wvalid_audio1,
+			wready_o      => wready_audio1,
 			---write data channel
-			wdata_o       => wdata_usf1,
-			wtrb_o        => wtrb_usf1, --TODO not implemented
-			wlast_o       => wlast_usf1,
-			wdvalid_o     => wdvalid_usf1,
-			wdataready_o  => wdataready_usf1,
+			wdata_o       => wdata_audio1,
+			wtrb_o        => wtrb_audio1, --TODO not implemented
+			wlast_o       => wlast_audio1,
+			wdvalid_o     => wdvalid_audio1,
+			wdataready_o  => wdataready_audio1,
 			---write response channel
-			wrready_o     => wrready_usf1,
-			wrvalid_o     => wrvalid_usf1,
-			wrsp_o        => wrsp_usf1,
-			transaction_o => mon_usf_write
+			wrready_o     => wrready_audio1,
+			wrvalid_o     => wrvalid_audio1,
+			wrsp_o        => wrsp_audio1,
+			transaction_o => mon_audio_write
 		);
 
 	usb_monitor_read : entity work.monitor_axi_read(rtl)
@@ -1009,7 +1045,8 @@ begin
 			master_id => CPU1,
 			slave_id  => CPU0,
 			msg_i     => snp_res1,
-			msg_o     => snp_res11
+			msg_o     => snp_res11,
+			transaction_o => mon_snp_res_1
 		);
 	snp_res_2_monitor : entity work.monitor_cacheline(Behavioral)
 		port map(
@@ -1018,7 +1055,8 @@ begin
 			master_id => CPU0,
 			slave_id  => CPU1,
 			msg_i     => snp_res2,
-			msg_o     => snp_res21
+			msg_o     => snp_res21,
+			transaction_o => mon_snp_res_2
 		);
 	--        IBUFGDS_inst : IBUFGDS
 	--generic map (
@@ -1265,8 +1303,7 @@ begin
 			Clock        => Clock,
 			reset        => reset,
 			id_i         => GFX,
-			tx_out       => tx_out,
-			rx_in        => rx_in,
+			
 			-- write address channel
 			waddr_i      => waddr_gfx1,
 			wlen_i       => wlen_gfx1,
@@ -1399,6 +1436,8 @@ begin
 			Clock        => Clock,
 			reset        => reset,
 			id_i         => UART,
+			tx_out       => tx_out,
+            rx_in        => rx_in,
 			-- write address channel
 			waddr_i      => waddr_uart1,
 			wlen_i       => wlen_uart1,
@@ -1469,212 +1508,212 @@ begin
 		);
 
 	-- -- Clock generation, starts at 0
-	tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
-	Clock  <= tb_clk;
+--	tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
+--	Clock  <= tb_clk;
 
-	--  logger_p : process(tb_clk)
-	--    file trace_file : TEXT open write_mode is "trace1.txt";
-	--    variable l : line;
-	--    constant SEP : String(1 to 1) := ",";
-	--  begin
-	--    if GEN_TRACE1 then
-	--      if rising_edge(tb_clk) then
-	--        ---- cpu
-	--        write(l, slv(cpu_req1));--0
-	--        write(l, SEP);
-	--        write(l, slv(cpu_res1));--1
-	--        write(l, SEP);
-	--        write(l, slv(cpu_req2));--02
-	--        write(l, SEP);
-	--        write(l, slv(cpu_res2));--03
-	--        write(l, SEP);
+	  logger_p : process(tb_clk)
+	    file trace_file : TEXT open write_mode is "trace1.txt";
+	    variable l : line;
+	    constant SEP : String(1 to 1) := ",";
+	  begin
+	    if GEN_TRACE1 then
+	      if rising_edge(tb_clk) then
+	        ---- cpu
+	        write(l, slv(cpu_req1));--0
+	        write(l, SEP);
+	        write(l, slv(cpu_res1));--1
+	        write(l, SEP);
+	        write(l, slv(cpu_req2));--02
+	        write(l, SEP);
+	        write(l, slv(cpu_res2));--03
+	        write(l, SEP);
 
-	--        ---- snp
-	--        write(l, slv(snp_req1));--04
-	--        write(l, SEP);
-	--        write(l, slv(snp_res1));--05
-	--        write(l, SEP);
-	--        write(l, snp_hit1);--06
-	--        write(l, SEP);
+	        ---- snp
+	        write(l, slv(snp_req1));--04
+	        write(l, SEP);
+	        write(l, slv(snp_res1));--05
+	        write(l, SEP);
+	        write(l, snp_hit1);--06
+	        write(l, SEP);
 
-	--        write(l, slv(snp_req2));--07
-	--        write(l, SEP);
-	--        write(l, slv(snp_res2));--08
-	--        write(l, SEP);
-	--        write(l, snp_hit2);--09
-	--        write(l, SEP);
+	        write(l, slv(snp_req2));--07
+	        write(l, SEP);
+	        write(l, slv(snp_res2));--08
+	        write(l, SEP);
+	        write(l, snp_hit2);--09
+	        write(l, SEP);
 
-	--        ---- up_snp
-	--        write(l, slv(up_snp_req));--010
-	--        write(l, SEP);
-	--        write(l, slv(up_snp_res));--011
-	--        write(l, SEP);
-	--        write(l, up_snp_hit);--012
-	--        write(l, SEP);
+	        ---- up_snp
+	        write(l, slv(up_snp_req));--010
+	        write(l, SEP);
+	        write(l, slv(up_snp_res));--011
+	        write(l, SEP);
+	        write(l, up_snp_hit);--012
+	        write(l, SEP);
 
-	--        ---- cache_req
-	--        write(l, slv(bus_req1));--013
-	--        write(l, SEP);
-	--        write(l, slv(bus_res1));--014
-	--        write(l, SEP);
+	        ---- cache_req
+	        write(l, slv(bus_req1));--013
+	        write(l, SEP);
+	        write(l, slv(bus_res1));--014
+	        write(l, SEP);
 
-	--        write(l, slv(bus_req2));--015
-	--        write(l, SEP);
-	--        write(l, slv(bus_res2));--016
-	--        write(l, SEP);
+	        write(l, slv(bus_req2));--015
+	        write(l, SEP);
+	        write(l, slv(bus_res2));--016
+	        write(l, SEP);
 
-	--        ---- ic
-	--        ---- read
-	--        write(l, rvalid);--017
-	--        write(l, SEP);
-	--        write(l, raddr);--018
-	--        write(l, SEP);
-	--        write(l, rdvalid);--019
-	--        write(l, SEP);
-	--        write(l, rlast);--020
-	--        write(l, SEP);
-	--        ---- write
-	--        write(l, wvalid);--021
-	--        write(l, SEP);
-	--        write(l, waddr);--022
-	--        write(l, SEP);
-	--        write(l, wdvalid);--023
-	--        write(l, SEP);
-	--        write(l, wlast);--024
-	--        write(l, SEP);
+	        ---- ic
+	        ---- read
+	        write(l, rvalid);--017
+	        write(l, SEP);
+	        write(l, raddr);--018
+	        write(l, SEP);
+	        write(l, rdvalid);--019
+	        write(l, SEP);
+	        write(l, rlast);--020
+	        write(l, SEP);
+	        ---- write
+	        write(l, wvalid);--021
+	        write(l, SEP);
+	        write(l, waddr);--022
+	        write(l, SEP);
+	        write(l, wdvalid);--023
+	        write(l, SEP);
+	        write(l, wlast);--024
+	        write(l, SEP);
 
-	--        ---- gfx
-	--        ---- read
-	--        write(l, rvalid_gfx);--025
-	--        write(l, SEP);
-	--        write(l, raddr_gfx);--026
-	--        write(l, SEP);
-	--        write(l, rdvalid_gfx);--027
-	--        write(l, SEP);
-	--        write(l, rlast_gfx);--028
-	--        write(l, SEP);
-	--        ---- write
-	--        write(l, wvalid_gfx);--029
-	--        write(l, SEP);
-	--        write(l, waddr_gfx);--030
-	--        write(l, SEP);
-	--        write(l, wdvalid_gfx);--031
-	--        write(l, SEP);
-	--        write(l, wlast_gfx);--032
-	--        write(l, SEP);
+	        ---- gfx
+	        ---- read
+	        write(l, rvalid_gfx);--025
+	        write(l, SEP);
+	        write(l, raddr_gfx);--026
+	        write(l, SEP);
+	        write(l, rdvalid_gfx);--027
+	        write(l, SEP);
+	        write(l, rlast_gfx);--028
+	        write(l, SEP);
+	        ---- write
+	        write(l, wvalid_gfx);--029
+	        write(l, SEP);
+	        write(l, waddr_gfx);--030
+	        write(l, SEP);
+	        write(l, wdvalid_gfx);--031
+	        write(l, SEP);
+	        write(l, wlast_gfx);--032
+	        write(l, SEP);
 
-	--        ---- uart
-	--        ---- read
-	--        write(l, rvalid_uart);--33
-	--        write(l, SEP);
-	--        write(l, raddr_uart);--34
-	--        write(l, SEP);
-	--        write(l, rdvalid_uart);--35
-	--        write(l, SEP);
-	--        write(l, rlast_uart);
-	--        write(l, SEP);
-	--        ---- write
-	--        write(l, wvalid_uart);
-	--        write(l, SEP);
-	--        write(l, waddr_uart);
-	--        write(l, SEP);
-	--        write(l, wdvalid_uart);
-	--        write(l, SEP);
-	--        write(l, wlast_uart);
-	--        write(l, SEP);
+	        ---- uart
+	        ---- read
+	        write(l, rvalid_uart);--33
+	        write(l, SEP);
+	        write(l, raddr_uart);--34
+	        write(l, SEP);
+	        write(l, rdvalid_uart);--35
+	        write(l, SEP);
+	        write(l, rlast_uart);
+	        write(l, SEP);
+	        ---- write
+	        write(l, wvalid_uart);
+	        write(l, SEP);
+	        write(l, waddr_uart);
+	        write(l, SEP);
+	        write(l, wdvalid_uart);
+	        write(l, SEP);
+	        write(l, wlast_uart);
+	        write(l, SEP);
 
-	--        ---- usb
-	--        ---- read
-	--        write(l, rvalid_usb);
-	--        write(l, SEP);
-	--        write(l, raddr_usb);
-	--        write(l, SEP);
-	--        write(l, rdvalid_usb);
-	--        write(l, SEP);
-	--        write(l, rlast_usb);
-	--        write(l, SEP);
-	--        ---- write
-	--        write(l, wvalid_usb);
-	--        write(l, SEP);
-	--        write(l, waddr_usb);
-	--        write(l, SEP);
-	--        write(l, wdvalid_usb);
-	--        write(l, SEP);
-	--        write(l, wlast_usb);
-	--        write(l, SEP);
+	        ---- usb
+	        ---- read
+	        write(l, rvalid_usb);
+	        write(l, SEP);
+	        write(l, raddr_usb);
+	        write(l, SEP);
+	        write(l, rdvalid_usb);
+	        write(l, SEP);
+	        write(l, rlast_usb);
+	        write(l, SEP);
+	        ---- write
+	        write(l, wvalid_usb);
+	        write(l, SEP);
+	        write(l, waddr_usb);
+	        write(l, SEP);
+	        write(l, wdvalid_usb);
+	        write(l, SEP);
+	        write(l, wlast_usb);
+	        write(l, SEP);
 
-	--        ---- audio
-	--        ---- read
-	--        write(l, rvalid_audio);
-	--        write(l, SEP);
-	--        write(l, raddr_audio);
-	--        write(l, SEP);
-	--        write(l, rdvalid_audio);
-	--        write(l, SEP);
-	--        write(l, rlast_audio);
-	--        write(l, SEP);
-	--        ---- write
-	--        write(l, wvalid_audio);
-	--        write(l, SEP);
-	--        write(l, waddr_audio);
-	--        write(l, SEP);
-	--        write(l, wdvalid_audio);
-	--        write(l, SEP);
-	--        write(l, wlast_audio);
-	--        write(l, SEP);
+	        ---- audio
+	        ---- read
+	        write(l, rvalid_audio);
+	        write(l, SEP);
+	        write(l, raddr_audio);
+	        write(l, SEP);
+	        write(l, rdvalid_audio);
+	        write(l, SEP);
+	        write(l, rlast_audio);
+	        write(l, SEP);
+	        ---- write
+	        write(l, wvalid_audio);
+	        write(l, SEP);
+	        write(l, waddr_audio);
+	        write(l, SEP);
+	        write(l, wdvalid_audio);
+	        write(l, SEP);
+	        write(l, wlast_audio);
+	        write(l, SEP);
 
-	--        -- upreq and upres
-	--        write(l, slv(gfx_upreq));
-	--        write(l, SEP);
-	--        write(l, slv(gfx_upres));
-	--        write(l, SEP);
+	        -- upreq and upres
+	        write(l, slv(gfx_upreq));
+	        write(l, SEP);
+	        write(l, slv(gfx_upres));
+	        write(l, SEP);
 
-	--        write(l, slv(uart_upreq));
-	--        write(l, SEP);
-	--        write(l, slv(uart_upres));
-	--        write(l, SEP);
+	        write(l, slv(uart_upreq));
+	        write(l, SEP);
+	        write(l, slv(uart_upres));
+	        write(l, SEP);
 
-	--        write(l, slv(usb_upreq));
-	--        write(l, SEP);
-	--        write(l, slv(usb_upres));
-	--        write(l, SEP);
+	        write(l, slv(usb_upreq));
+	        write(l, SEP);
+	        write(l, slv(usb_upres));
+	        write(l, SEP);
 
-	--        write(l, slv(audio_upreq));
-	--        write(l, SEP);
-	--        write(l, slv(audio_upres));
-	--        write(l, SEP);
+	        write(l, slv(audio_upreq));
+	        write(l, SEP);
+	        write(l, slv(audio_upres));
+	        write(l, SEP);
 
-	--        ---- pwr sigs
-	--        -- from ic
-	--        write(l, slv(ic_pwr_req));
-	--        write(l, SEP);
-	--        write(l, slv(ic_pwr_res));
-	--        write(l, SEP);
+	        ---- pwr sigs
+	        -- from ic
+	        write(l, slv(ic_pwr_req));
+	        write(l, SEP);
+	        write(l, slv(ic_pwr_res));
+	        write(l, SEP);
 
-	--        -- from peripherals
-	--        write(l, slv(pwr_gfx_req));
-	--        write(l, SEP);
-	--        write(l, slv(pwr_gfx_res));
-	--        write(l, SEP);
+	        -- from peripherals
+	        write(l, slv(pwr_gfx_req));
+	        write(l, SEP);
+	        write(l, slv(pwr_gfx_res));
+	        write(l, SEP);
 
-	--        write(l, slv(pwr_uart_req));
-	--        write(l, SEP);
-	--        write(l, slv(pwr_uart_res));
-	--        write(l, SEP);
+	        write(l, slv(pwr_uart_req));
+	        write(l, SEP);
+	        write(l, slv(pwr_uart_res));
+	        write(l, SEP);
 
-	--        write(l, slv(pwr_usb_req));
-	--        write(l, SEP);
-	--        write(l, slv(pwr_usb_res));
-	--        write(l, SEP);
+	        write(l, slv(pwr_usb_req));
+	        write(l, SEP);
+	        write(l, slv(pwr_usb_res));
+	        write(l, SEP);
 
-	--        write(l, slv(pwr_audio_req));
-	--        write(l, SEP);
-	--        write(l, slv(pwr_audio_res));
+	        write(l, slv(pwr_audio_req));
+	        write(l, SEP);
+	        write(l, slv(pwr_audio_res));
 
-	--        writeline(trace_file, l); 
-	--      end if;
-	--    end if;
-	--  end process;
+	        writeline(trace_file, l); 
+	      end if;
+	    end if;
+	  end process;
 
 	--  pwrt_mon_p : process
 	--    variable c : natural := 0;
@@ -1770,14 +1809,14 @@ begin
 	--    wait;
 	--  end process;
 
-	stimuli : process
-	begin
-		reset <= '1';
-		wait for 15 ps;
-		reset <= '0';
-		wait until tb_sim_ended = '1';
-		report "SIM END";
-	end process;
+--	stimuli : process
+--	begin
+--		reset <= '1';
+--		wait for 15 ps;
+--		reset <= '0';
+--		wait until tb_sim_ended = '1';
+--		report "SIM END";
+--	end process;
 
 	tb_sim_ended <= proc0_done and proc1_done and usb_done and uart_done and gfx_done and audio_done;
 end tb;

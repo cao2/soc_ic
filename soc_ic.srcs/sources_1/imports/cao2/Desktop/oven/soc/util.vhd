@@ -66,8 +66,11 @@ package util is
   function sint(v : std_logic_vector) return integer;
 
   function slv(m : MSG_T) return std_logic_vector;
+  function slv(m: cacheline) return std_logic_vector;
+  function slv(m: TST_T) return std_logic_vector;
   function slv(m : BMSG_T) return std_logic_vector;
   
+  function stt(m: IP_T) return std_logic_vector;
   --procedure clr(signal vector : out std_logic_vector);
 end util;
 
@@ -286,10 +289,22 @@ package body util is
   begin
     return to_integer(signed(v));
   end;
-
+ function stt(m: IP_T) return std_logic_vector is
+ begin
+    return std_logic_vector(to_unsigned(IP_T'POS(m),5));
+ end;
   function slv(m : MSG_T) return std_logic_vector is
   begin
     return m.val & m.cmd & m.tag & m.id & m.adr & m.dat;
+  end;
+  
+   function slv(m : cacheline) return std_logic_vector is
+  begin
+    return m.val & m.cmd & m.tag & m.id & m.adr & m.dat;
+  end;
+   function slv(m : TST_T) return std_logic_vector is
+  begin
+    return m.val & stt(m.sender)&stt(m.receiver) & m.cmd & m.tag & m.id & m.adr ;
   end;
 
   function slv(m : BMSG_T) return std_logic_vector is
