@@ -34,32 +34,33 @@ end arbiter6_ack;
 -- version 2
 architecture rtl of arbiter6_ack is
 
-    signal s_ack1, s_ack2,s_ack3,s_ack4, s_ack5,s_ack6 : std_logic;
+    
     signal s_token : integer :=0;
 		
 begin  
  	process (clock)
  		variable nilreq : MSG_T := ZERO_MSG;
  		variable state : integer:=0;
+ 		variable s_ack1, s_ack2,s_ack3,s_ack4, s_ack5,s_ack6 : std_logic;
     begin
        if rising_edge(clock) then
         	 if reset = '1' then
                   s_token <= 0;
-                  s_ack1 <= '0';
-                  s_ack2 <= '0';
-                  s_ack3 <= '0';
-                  s_ack4 <= '0';
-                  s_ack5 <= '0';
-                  s_ack6 <= '0';
+                  s_ack1 := '0';
+                  s_ack2 := '0';
+                  s_ack3 := '0';
+                  s_ack4 := '0';
+                  s_ack5 := '0';
+                  s_ack6 := '0';
                   dout <=  nilreq;
               elsif state = 0 then
 					dout <= nilreq;
-	            s_ack1 <= '0';
-	            s_ack2 <= '0';   
-	            s_ack3 <= '0'; 
-	            s_ack4 <= '0';
-	            s_ack5 <= '0';   
-	            s_ack6 <= '0'; 
+	            s_ack1 := '0';
+	            s_ack2 := '0';   
+	            s_ack3 := '0'; 
+	            s_ack4 := '0';
+	            s_ack5 := '0';   
+	            s_ack6 := '0'; 
 	            if din1.val = '1' then
 	            	if s_ack1 = '0' then
 	            		dout <= din1;
@@ -94,37 +95,37 @@ begin
 	    elsif state =1 then
 			dout <= nilreq;
 			if ack_i ='1' then
-	    		s_ack1 <= '1';
+	    		s_ack1 := '1';
 				state :=0;
 			end if;
 	    elsif state =2 then
 		 dout <= nilreq;
 	    		if ack_i ='1' then
-	    		s_ack2 <= '1';
+	    		s_ack2 := '1';
 				state :=0;
 			end if;								
 	    elsif state =3 then
 		 dout <= nilreq;
 	    		if ack_i ='1' then
-	    		s_ack3 <= '1';
+	    		s_ack3 := '1';
 				state :=0;
 			end if;
 	    elsif state =4 then
 		 dout <= nilreq;
 	    	if ack_i ='1' then
-	    		s_ack4 <= '1';
+	    		s_ack4 := '1';
 				state :=0;
 			end if;
 	    elsif state =5 then
 		 dout <= nilreq;
 	    	if ack_i ='1' then
-	    		s_ack5 <= '1';
+	    		s_ack5 := '1';
 				state :=0;
 			end if;
 	    elsif state =6 then
 		 dout <= nilreq;
 	    	if ack_i ='1' then
-	    		s_ack6 <= '1';
+	    		s_ack6 := '1';
 				state :=0;
 			end if;
 	    end if;
