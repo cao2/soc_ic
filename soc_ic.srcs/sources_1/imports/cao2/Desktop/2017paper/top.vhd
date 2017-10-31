@@ -400,27 +400,31 @@ architecture tb of top is
 	signal rdvalid1 : std_logic;
 	signal rdready1 : std_logic;
 	signal rres1    : std_logic_vector(1 downto 0);
+signal up_snp_req1          : MSG_T;
+     signal up_snp_res1          : MSG_T;
+     signal snp_req11, snp_req21 : MSG_T;
+     signal snp_res11, snp_res21 : cacheline;
+    
+     signal cpu_res11, cpu_res21, cpu_req11, cpu_req21                                                          : MSG_T;
+    
+     signal uart_upreq1, uart_upres1, audio_upreq1, audio_upres1                                                                         : MSG_T;
+     signal gfx_upreq1, gfx_upres1, usb_upreq1, usb_upres1                                                                               : MSG_T;
+     signal bus_req11, bus_req21                                                                                                         : MSG_T;
+     signal bus_res11, bus_res21                                                                                                         : BMSG_T;
+     signal up_snp_req11, up_snp_res11                                                                                                   : MSG_T;
+     signal mon_snp_res_1, mon_snp_res_2, mon_cpu_req1, mon_cpu_res1, mon_cpu_req2, mon_cpu_res2                                         : TST_T;
+     signal snp_req_1_mon, snp_req_2_mon, up_snp_req_mon, up_snp_res_mon                                                                 : TST_T;
+     signal mon_mem_read, mon_mem_write, mon_audio_read, mon_audio_write, mon_uart_read, mon_uart_write                                  : TST_T;
+     signal mon_usb_read, mon_usb_write, mon_gfx_read, mon_gfx_write                                                                     : TST_T;
+     signal mon_bus_req1, mon_bus_req2, mon_bus_res1, mon_bus_res2                                                                       : TST_T;
+     signal mon_gfx_upreq, mon_gfx_upres, mon_usb_upreq, mon_usb_upres, mon_uart_upreq, mon_uart_upres, mon_audio_upreq, mon_audio_upres : TST_T;
 
-	signal up_snp_req1          : MSG_T;
-	signal up_snp_res1          : MSG_T;
-	signal snp_req11, snp_req21 : MSG_T;
-	signal snp_res11, snp_res21 : cacheline;
-
-	signal uart_upreq1, uart_upres1, audio_upreq1, audio_upres1                                                                         : MSG_T;
-	signal gfx_upreq1, gfx_upres1, usb_upreq1, usb_upres1                                                                               : MSG_T;
-	signal bus_req11, bus_req21                                                                                                         : MSG_T;
-	signal bus_res11, bus_res21                                                                                                         : BMSG_T;
-	signal up_snp_req11, up_snp_res11                                                                                                   : MSG_T;
-	signal mon_snp_res_1, mon_snp_res_2, mon_cpu_req1, mon_cpu_res1, mon_cpu_req2, mon_cpu_res2                                         : TST_T;
-	signal snp_req_1_mon, snp_req_2_mon, up_snp_req_mon, up_snp_res_mon                                                                 : TST_T;
-	signal mon_mem_read, mon_mem_write, mon_audio_read, mon_audio_write, mon_uart_read, mon_uart_write                                  : TST_T;
-	signal mon_usb_read, mon_usb_write, mon_gfx_read, mon_gfx_write                                                                     : TST_T;
-	signal mon_bus_req1, mon_bus_req2, mon_bus_res1, mon_bus_res2                                                                       : TST_T;
-	signal mon_gfx_upreq, mon_gfx_upres, mon_usb_upreq, mon_usb_upres, mon_uart_upreq, mon_uart_upres, mon_audio_upreq, mon_audio_upres : TST_T;
+    signal mem_rid, mem_rtag: std_logic_vector(7 downto 0);
+    signal mem_wid, mem_wtag: std_logic_vector(7 downto 0);
 begin
 
 	transaction_logger_p : process(tb_clk)
-		file trace_file : TEXT open write_mode is "transaction.txt";
+		file trace_file : TEXT open write_mode is "trace.tst";
 		variable l      : line;
 		constant SEP    : String(1 to 1) := ",";
 	begin
@@ -491,11 +495,56 @@ begin
 				write(l, SEP);
 				write(l, slv(mon_uart_upres)); ----32
 				write(l, SEP);
-
+                write(l, snp_hit1);     --33
+                write(l, SEP);
+                write(l, snp_hit2);     --34
+                write(l, SEP);
+                write(l, up_snp_hit);     --35
+                                                            
 				writeline(trace_file, l);
 			end if;
 		end if;
 	end process;
+    cpu_req1_monitor : entity work.monitor_customized(Behavioral)
+      port map(
+       clk           => Clock,
+       rst           => reset,
+       master_id     => CPU0,
+       slave_id      => CACHE0,
+       msg_i         => cpu_req1,
+       msg_o         => cpu_req11,
+       transaction_o => mon_cpu_req1
+      );
+     cpu_res1_monitor : entity work.monitor_customized(Behavioral)
+      port map(
+       clk           => Clock,
+       rst           => reset,
+       master_id     => CACHE0,
+       slave_id      => CPU0,
+       msg_i         => cpu_res1,
+       msg_o         => cpu_res11,
+       transaction_o => mon_cpu_res1
+      );
+     cpu_req2_monitor : entity work.monitor_customized(Behavioral)
+      port map(
+       clk           => Clock,
+       rst           => reset,
+       master_id     => CPU1,
+       slave_id      => CACHE1,
+       msg_i         => cpu_req2,
+       msg_o         => cpu_req21,
+       transaction_o => mon_cpu_req2
+      );
+     cpu_res2_monitor : entity work.monitor_customized(Behavioral)
+      port map(
+       clk           => Clock,
+       rst           => reset,
+       master_id     => CACHE1,
+       slave_id      => CPU1,
+       msg_i         => cpu_res2,
+       msg_o         => cpu_res21,
+       transaction_o => mon_cpu_res2
+      );
 	gfx_upreq_monitor : entity work.monitor_customized(Behavioral)
 		port map(
 			clk           => Clock,
@@ -627,7 +676,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_rtag,
+			id_i          => mem_rid,
 			---write address channel
 
 			---read address channel
@@ -668,7 +718,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_wtag,
+                        id_i          => mem_wid,
 			---write address channel
 			waddr_i       => waddr,
 			wlen_i        => wlen,
@@ -712,7 +763,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => GFX,
-			id_i          => (others => '0'),
+			tag_i => mem_rtag,
+                        id_i          => mem_rid,
 			---write address channel
 
 			---read address channel
@@ -752,7 +804,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => GFX,
-			id_i          => (others => '0'),
+			tag_i => mem_wtag,
+                        id_i          => mem_wid,
 			---write address channel
 			waddr_i       => waddr_gfx,
 			wlen_i        => wlen_gfx,
@@ -796,7 +849,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => AUDIO,
-			id_i          => (others => '0'),
+			tag_i => mem_rtag,
+                        id_i          => mem_rid,
 			---write address channel
 
 			---read address channel
@@ -836,7 +890,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_wtag,
+                        id_i          => mem_wid,
 			---write address channel
 			waddr_i       => waddr_audio,
 			wlen_i        => wlen_audio,
@@ -880,7 +935,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_rtag,
+                        id_i          => mem_rid,
 			---write address channel
 
 			---read address channel
@@ -920,7 +976,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_wtag,
+                        id_i          => mem_wid,
 			---write address channel
 			waddr_i       => waddr_usb,
 			wlen_i        => wlen_usb,
@@ -964,7 +1021,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_rtag,
+                        id_i          => mem_rid,
 			---write address channel
 
 			---read address channel
@@ -1004,7 +1062,8 @@ begin
 			----AXI interface
 			master_id     => SA,
 			slave_id      => MEM,
-			id_i          => (others => '0'),
+			tag_i => mem_wtag,
+                        id_i          => mem_wid,
 			---write address channel
 			waddr_i       => waddr_uart,
 			wlen_i        => wlen_uart,
@@ -1065,18 +1124,18 @@ begin
 		port map(
 			clk           => Clock,
 			rst           => reset,
-			master_id     => CPU0,
-			slave_id      => CPU1,
+			master_id     => CACHE1,
+			slave_id      => CACHE0,
 			msg_i         => snp_req1,
 			msg_o         => snp_req11,
 			transaction_o => snp_req_1_mon
 		);
-	snp_rep_2_monitor : entity work.monitor_customized(Behavioral)
+	snp_req_2_monitor : entity work.monitor_customized(Behavioral)
 		port map(
 			clk           => Clock,
 			rst           => reset,
-			master_id     => CPU1,
-			slave_id      => CPU0,
+			master_id     => CACHE0,
+			slave_id      => CACHE1,
 			msg_i         => snp_req2,
 			msg_o         => snp_req21,
 			transaction_o => snp_req_2_mon
@@ -1085,8 +1144,8 @@ begin
 		port map(
 			clk           => Clock,
 			rst           => reset,
-			master_id     => CPU1,
-			slave_id      => CPU0,
+			master_id     => CACHE0,
+			slave_id      => CACHE1,
 			msg_i         => snp_res1,
 			msg_o         => snp_res11,
 			transaction_o => mon_snp_res_1
@@ -1095,8 +1154,8 @@ begin
 		port map(
 			clk           => Clock,
 			rst           => reset,
-			master_id     => CPU0,
-			slave_id      => CPU1,
+			master_id     => CACHE1,
+			slave_id      => CACHE0,
 			msg_i         => snp_res2,
 			msg_o         => snp_res21,
 			transaction_o => mon_snp_res_2
@@ -1199,6 +1258,10 @@ begin
 			uart_upres_o       => uart_upres,
 			uart_upreq_full_o  => uart_upreq_full,
 			full_snpres_o      => full_snpres, -- enabled if snp res fifo is full
+			mem_rid => mem_rid,
+			mem_rtag=> mem_rtag,
+			mem_wid => mem_wid,
+            mem_wtag=> mem_wtag,
 			-- write
 			waddr              => waddr,
 			wlen               => wlen,
@@ -1751,7 +1814,15 @@ begin
 				write(l, slv(pwr_audio_req));
 				write(l, SEP);
 				write(l, slv(pwr_audio_res));
-
+                write(l, SEP);
+                write(l, mem_rid);---75
+                write(l, SEP);
+                write(l, mem_rtag);---76
+                write(l, SEP);
+                write(l, mem_wid);--77
+                write(l, SEP);
+                write(l, mem_wtag);--78
+                               
 				writeline(trace_file, l);
 			end if;
 		end if;

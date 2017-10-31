@@ -10,6 +10,7 @@ entity monitor_axi_read is
 		----AXI interface
 		master_id     : in  IP_T;
 		slave_id      : in  IP_T;
+		tag_i : in std_logic_vector(7 downto 0);
 		id_i          : in  std_logic_vector(7 downto 0);
 		---write address channel
 
@@ -67,8 +68,9 @@ begin
 				tmp_transaction.val := '1';
 					tmp_transaction.sender   := master_id;
 					tmp_transaction.receiver := slave_id;
-					tmp_transaction.cmd      := WRITE_CMD;
-                    
+					tmp_transaction.cmd      := READ_CMD;
+                    tmp_transaction.tag :=tag_i;
+                    tmp_transaction.id:= id_i;
 					if raddr_i = adr then
 						tmp_transaction.adr := "00";
 					elsif unsigned(raddr_i) - unsigned(adr) = 1 or unsigned(adr) - unsigned(raddr_i) = 1 then
@@ -77,19 +79,21 @@ begin
 						tmp_transaction.adr := "10";
 					end if;
 
-					if id_i = id then
-						tmp_transaction.id := "00";
-					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
-						tmp_transaction.id := "01";
-					else
-						tmp_transaction.id := "10";
-					end if;
+--					if id_i = id then
+--						tmp_transaction.id := "00";
+--					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
+--						tmp_transaction.id := "01";
+--					else
+--						tmp_transaction.id := "10";
+--					end if;
 
 					tmp_transaction.adr := "00";
 					---Note: there are also size, and length, ignored here
 					st                  := three;
+					transaction_o<= tmp_transaction;
 				end if;
 			elsif st = three then
+			transaction_o.val<='0';
 				if rdready_i = '1' then
 					---Note: the data is available here
 					---, do we need to check that?
@@ -97,7 +101,7 @@ begin
 						if rres_i = "00" then
 							tmp_transaction.sender   := slave_id;
 							tmp_transaction.receiver := master_id;
-							tmp_transaction.cmd      := WRITE_CMD;
+							tmp_transaction.cmd      := READ_CMD;
 							transaction_o            <= tmp_transaction;
 							st                       := one;
 						end if;

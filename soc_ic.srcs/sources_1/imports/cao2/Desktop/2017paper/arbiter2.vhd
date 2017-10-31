@@ -23,53 +23,45 @@ end arbiter2;
 
 -- version 2
 architecture rtl of arbiter2 is
-
- 
-  signal wb_flag : std_logic;
+signal s_ack1, s_ack2 : std_logic;
+  signal s_token : integer :=0;
+  signal tdout: MSG_T;
   
-begin
-  process (clock)
-    variable cmd: std_logic_vector( 1 downto 0);
-    variable s_ack1, s_ack2 : std_logic;
-  begin
-    if rising_edge(clock) then
-    if reset = '1' then
-          wb_flag <= '0';
-          s_ack1 := '0';
-          s_ack2 := '0';
+begin  
+ process (clock)
+  variable st : STATE := one;
+ begin
+  if reset = '1' then
+          s_ack1 <= '0';
+          s_ack2 <= '0';
+         
           dout <=  ZERO_MSG;
-      else
-      cmd:= din1.val & din2.val;
-      dout <= ZERO_MSG;
-      s_ack1 := '0';
-      s_ack2 := '0';    
-      case cmd is    		      
-        when "01" =>
-          if s_ack2 = '0' then
-            dout <=  din2;
-            s_ack2 := '1';
-          end if;
-        when "10" =>
-          if s_ack1 = '0' then
-            dout <= din1;
-            s_ack1 := '1';
-          end if;
-        when "11" =>
-          if wb_flag = '1' and s_ack2 ='0' then
-            dout <= din2;
-            s_ack2 := '1';
-            wb_flag <= '0';
-          elsif wb_flag = '0' and s_ack1 ='0' then
-            dout <= din1;
-            s_ack1 := '1';
-            wb_flag <= '1';
-          end if;
-        when others =>
-      end case;
-    end if;
-    ack1 <= s_ack1;
-    ack2 <= s_ack2;
-    
-    end if;
-  end process;
+          tdout <= ZERO_MSG;
+    elsif rising_edge(clock) then
+    if st=one then
+     if din1.val = '1' and s_ack1 = '0'  then
+         tdout <= din1;
+         s_ack1 <= '1';
+     elsif din2.val  = '1' and s_ack2='0' then
+      
+         tdout <= din2;
+         s_ack2 <= '1';
+      
+     else
+       ---report "reset output";
+       tdout <= ZERO_MSG;
+       s_ack1 <= '0';
+       s_ack2 <= '0';
+       
+       st := two;
+     end if;
+   else
+       st:=one;
+   end if;
+       dout<= tdout;
+   ack1 <= s_ack1;
+   ack2 <= s_ack2;
+   
+   end if;
+ end process;
 end architecture rtl;   

@@ -140,7 +140,7 @@ begin
 	
 	ureq_fifo : entity work.fifo(rtl)   -- req from device
 		generic map(
-			FIFO_DEPTH => DEFAULT_FIFO_DEPTH
+			FIFO_DEPTH => 250
 		)
 		port map(
 			CLK     => Clock,
@@ -169,7 +169,7 @@ begin
 
 	snp_req_fifo : entity work.fifo(rtl)
 		generic map(
-			FIFO_DEPTH => DEFAULT_FIFO_DEPTH
+			FIFO_DEPTH => 18
 		)
 		port map(
 			CLK     => Clock,
@@ -255,7 +255,7 @@ begin
 		);
 	cpu_req_fifo : entity work.fifo(rtl)
 		generic map(
-			FIFO_DEPTH => 8
+			FIFO_DEPTH => 18
 		)
 		port map(
 			CLK     => Clock,
@@ -385,7 +385,7 @@ begin
 			elsif st = 3 then           -- get_resp_from_mcu
 				if wtack3 = '1' then
 					-- once the write is send out, won't wait for write acknowledge, cauze dont care anymore
-					twritereq3 <= ZERO_c;
+					twritereq3.val <= '0';
 					cpu_res1  <= tmp_cpu_res1;
 					st        := 4;
 				end if;
@@ -414,6 +414,7 @@ begin
 							-- the data inside snp-res-i need to be slightly changed, as the exclusive, need to change
 							twritereq3 <= (snp_res_i.val, snp_res_i.cmd, snp_res_i.tag, snp_res_i.id, snp_res_i.adr,snp_res_i.dat,tmp_front);
 							tmp       <= (snp_res_i.val, snp_res_i.cmd, snp_res_i.tag, snp_res_i.id, snp_res_i.adr,snp_res_i.dat(31 downto 0));
+							
 						else
 							bus_req_o <= (snp_res_i.val, snp_res_i.cmd, snp_res_i.tag, snp_res_i.id, snp_res_i.adr,snp_res_i.dat(31 downto 0));
 							st        := 0;
@@ -424,7 +425,7 @@ begin
 				
 			elsif st = 7 then
 				if wtack3 = '1' then
-					writereq3.val <= '0';
+					twritereq3.val <= '0';
 					-- once receive the data from other cache, write to its own memory, then don't care,
 					-- send the cpu response 
 					cpu_res1 <= tmp;
@@ -489,15 +490,20 @@ begin
 					---twritereq4 <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, tmp_snp_req.dat,tmp_snp_req.frontinfo);
 					addr          := tmp_snp_req.adr;
 					state         := 3;
+					
 				end if;
+				report "cache state 2";
 			elsif state = 3 then        -- get_ack
 				if wtack4 = '1' then
 					twritereq4.val <= '0';
 					state         := 4;
 				end if;
-			elsif state = 4 then       
+				report "cache state 3";
+			elsif state = 4 then  
+			 report "cache state 4";     
 				if writeack = '1' then
-					snp_res_o <= (tmp_snp_req.val, tmp_snp_req.cmd, tmp_snp_req.tag, tmp_snp_req.id, tmp_snp_req.adr, tmp_snp_req.dat,tmp_snp_req.frontinfo);
+				    
+					snp_res_o <= ('1', tmp_snp_req.cmd, tmp_snp_req.tag, tmp_snp_req.id, tmp_snp_req.adr, tmp_snp_req.dat,tmp_snp_req.frontinfo);
 					snp_hit_o <= tmp_hit;
 					state     := 0;
 				end if;
@@ -526,7 +532,7 @@ begin
                     snp_c_req2   <= ZERO_MSG;
 			elsif state = 0 then           -- wait_fifo
 				up_snp_res_o <= ZERO_MSG;
-				up_snp_hit_o <= '0';
+				--up_snp_hit_o <= '0';
 				if brf_re = '0' and brf_emp = '0' then
 					brf_re <= '1';
 					state  := 1;

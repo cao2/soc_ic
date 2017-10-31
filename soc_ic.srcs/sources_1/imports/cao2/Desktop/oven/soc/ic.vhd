@@ -37,7 +37,10 @@ entity ic is
 		uart_upres_o                                    : out MSG_T;
 		uart_upreq_full_o                               : out std_logic;
 		
-		
+		mem_rid : out std_logic_vector(7 downto 0);
+		mem_rtag: out std_logic_vector(7 downto 0);
+		mem_wid : out std_logic_vector(7 downto 0);
+        mem_wtag: out std_logic_vector(7 downto 0);		
 		full_snpres_o									: out std_logic;
 		-- -write address channel
 		waddr                                           : out ADR_T;
@@ -336,7 +339,7 @@ begin
 			rres_i            => rres_usb,
 			bus_res_c0_ack_i  => brs1_ack4,
 			bus_res_c1_ack_i  => brs2_ack4,
-			toper_i           => togfx_p,
+			toper_i           => tousb_p,
 			bus_res_c0_o      => bus_res1_4,
 			bus_res_c1_o      => bus_res2_4,
 			gfx_upres_ack_i   => gfx_upres_ack4,
@@ -371,7 +374,7 @@ begin
 			rres_i            => rres_audio,
 			bus_res_c0_ack_i  => brs1_ack2,
 			bus_res_c1_ack_i  => brs2_ack2,
-			toper_i           => togfx_p,
+			toper_i           => toaudio_p,
 			bus_res_c0_o      => bus_res1_5,
 			bus_res_c1_o      => bus_res2_5,
 			gfx_upres_ack_i   => '0',
@@ -407,7 +410,7 @@ begin
 			rres_i            => rres_uart,
 			bus_res_c0_ack_i  => brs1_ack3,
 			bus_res_c1_ack_i  => brs2_ack3,
-			toper_i           => togfx_p,
+			toper_i           => touart_p,
 			bus_res_c0_o      => bus_res1_3,
 			bus_res_c1_o      => bus_res2_3,
 			gfx_upres_ack_i   => gfx_upres_ack3,
@@ -552,6 +555,9 @@ begin
       );
   
 	snp_res_fifo : entity work.fifo_snp(rtl)
+	generic map(
+                FIFO_DEPTH => 150
+            )
 		port map(
 			CLK     => Clock,
 			RST     => reset,
@@ -702,6 +708,8 @@ begin
 				if rready = '1' then
 					-- mem_ack <= '0';
 					--report "state 16 of mem read";
+					mem_rid <= tep_mem.id;
+					mem_rtag <= tep_mem.tag;
 					rvalid_o <= '1';
 					raddr    <= tep_mem.adr;
 					slot     := to_integer(unsigned(tep_mem.adr(3 downto 0)));
@@ -881,15 +889,16 @@ begin
 	-- -- if flag is 1, then return mem write 2
 	begin
 		if rising_edge(Clock) then
-
-			if reset = '1' then
+        mem_wid <= tep_mem.id;
+        mem_wtag<= tep_mem.tag;
+		if reset = '1' then
 			flag := '0';
 		elsif state = 0 then
 				lp             := 0;
 				mem_write_ack1 <= '0';
 				mem_write_ack2 <= '0';
 				mem_write_ack3 <= '0';
-
+                
 				if mem_write1.val = '1' then
 					-- --report "state 0 of mem write";
 					state   := 1;
@@ -903,12 +912,14 @@ begin
 					tep_mem_l := mem_write3;
 					flag      := '0';
 				end if;
+				
 			elsif state = 1 then
 				if wready = '1' then    -- MERGE durw: [1/0]
 					wvalid <= '1';
 					waddr  <= tep_mem.adr;
 					wlen   <= "00000" & "00001"; -- MERGE durw: [10000/00001]
 					wsize  <= "00001" & "00000";
+					
 					-- wdata_audio := tep_mem.dat;
 					state := 2;
 				else

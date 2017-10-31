@@ -15,6 +15,7 @@ package defs is
                  SA, MEM, GFX, PMU,
                  AUDIO, USB, UART,
                  NONE);
+   type STATE is (one, two, three, four, five, six);
    type IP_VECT_ARRAY_T is array(IP_T) of IP_VECT_T;
    constant ip_enc : IP_VECT_ARRAY_T := (x"001", x"002", x"004", x"008",
                                          x"010", x"020", x"040", x"080",
@@ -35,7 +36,7 @@ type TST_T is record
    receiver: IP_T;
    cmd       : std_logic_vector(7 downto 0);
    tag       : std_logic_vector(7 downto 0);  -- src
-   id        : std_logic_vector(1 downto 0);  --sequence id
+   id        : std_logic_vector(7 downto 0);  --sequence id
    adr       : std_logic_vector(1 downto 0);
 end record TST_T;
 

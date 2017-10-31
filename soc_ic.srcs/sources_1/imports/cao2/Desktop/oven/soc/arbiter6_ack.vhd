@@ -61,73 +61,63 @@ begin
 	            s_ack4 := '0';
 	            s_ack5 := '0';   
 	            s_ack6 := '0'; 
-	            if din1.val = '1' then
-	            	if s_ack1 = '0' then
+	            if din1.val = '1' and s_ack1 ='0' then
 	            		dout <= din1;
 	            		state := 1;
-	                end if; 
-	            elsif din2.val = '1' then
-	            	if s_ack2 = '0' then
+	            elsif din2.val = '1' and s_ack2 ='0' then
 	            		dout <= din2;
 	            		state :=2;
-	                end if; 
-	         	elsif din3.val = '1' then
-	            	if s_ack3 = '0' then
+	         	elsif din3.val = '1' and s_ack3 ='0' then
 	            		dout <= din3;
 	            		state :=3;
-	                end if; 
-	            elsif din4.val = '1' then
-	            	if s_ack4 = '0' then
+	            elsif din4.val = '1' and s_ack4 ='0' then
 	            		dout <= din4;
 	            		state :=4;
-	                end if; 
-	            elsif din5.val = '1' then
-	            	if s_ack5 = '0' then
+	            elsif din5.val = '1' and s_ack5 ='0'  then
 	            		dout <= din5;
 	            		state :=5;
-	                end if; 
-	            elsif din6.val = '1' then
-	            	if s_ack6 = '0' then
+	            elsif din6.val = '1' and s_ack6 ='0'  then
 	            		dout <= din6;
 	            		state :=6;
-	                end if; 
 	            end if;
 	    elsif state =1 then
 			dout <= nilreq;
 			if ack_i ='1' then
 	    		s_ack1 := '1';
-				state :=0;
+				state :=7;
 			end if;
 	    elsif state =2 then
 		 dout <= nilreq;
 	    		if ack_i ='1' then
 	    		s_ack2 := '1';
-				state :=0;
+				state :=7;
 			end if;								
 	    elsif state =3 then
 		 dout <= nilreq;
 	    		if ack_i ='1' then
 	    		s_ack3 := '1';
-				state :=0;
+				state :=7;
 			end if;
 	    elsif state =4 then
 		 dout <= nilreq;
 	    	if ack_i ='1' then
 	    		s_ack4 := '1';
-				state :=0;
+				state :=7;
 			end if;
 	    elsif state =5 then
 		 dout <= nilreq;
 	    	if ack_i ='1' then
 	    		s_ack5 := '1';
-				state :=0;
+				state :=7;
 			end if;
 	    elsif state =6 then
 		 dout <= nilreq;
 	    	if ack_i ='1' then
 	    		s_ack6 := '1';
-				state :=0;
+				state :=7;
 			end if;
+		elsif state =7 then
+		  state :=0;
 	    end if;
         end if;
         ack1_o <= s_ack1;

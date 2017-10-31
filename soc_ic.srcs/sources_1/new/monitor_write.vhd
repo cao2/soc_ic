@@ -10,6 +10,7 @@ entity monitor_axi_write is
 		----AXI interface
 		master_id     : in  IP_T;
 		slave_id      : in  IP_T;
+		tag_i : in std_logic_vector(7 downto 0);
 		id_i          :  in  std_logic_vector(7 downto 0);
 		---write address channel
 		waddr_i       : in  ADR_T;
@@ -64,6 +65,7 @@ begin
 		variable id              : std_logic_vector(7 downto 0)  := (others => '0');
 	begin
 		if rising_edge(clk) then
+		
 			if st = one then
 				transaction_o.val <= '0';
 				if wready_i = '1' then
@@ -71,12 +73,9 @@ begin
 				end if;
 			elsif st = two then
 				if wvalid_i = '1' then
-				    tmp_transaction.val :='1';
-					tmp_transaction.sender   := master_id;
-					tmp_transaction.receiver := slave_id;
-					tmp_transaction.cmd      := WRITE_CMD;
+				    
 					---------see what to do
-					tmp_transaction.adr      := "00";
+					---tmp_transaction.adr      := "00";
 					if waddr_i = adr then
 						tmp_transaction.adr := "00";
 					elsif unsigned(waddr_i) - unsigned(adr) = 1 or unsigned(adr) - unsigned(waddr_i) = 1 then
@@ -85,17 +84,13 @@ begin
 						tmp_transaction.adr := "10";
 					end if;
 
-					if id_i = id then
-						tmp_transaction.id := "00";
-					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
-						tmp_transaction.id := "01";
-					else
-						tmp_transaction.id := "10";
-					end if;
-					--tmp_transaction.tag := tag_i;--this need to be added
-					
-					
-					
+--					if id_i = id then
+--						tmp_transaction.id := "00";
+--					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
+--						tmp_transaction.id := "01";
+--					else
+--						tmp_transaction.id := "10";
+--					end if;
 					
 					---Note: there are also size, and length, ignored here
 					st := three;
@@ -107,9 +102,14 @@ begin
 		    elsif st=four then
 					---Note: the data is available here
 					---, do we need to check that?
+					tmp_transaction.val :='1';
+                                        tmp_transaction.sender   := master_id;
+                                        tmp_transaction.receiver := slave_id;
+                                        tmp_transaction.cmd      := WRITE_CMD;
+                                        tmp_transaction.tag := tag_i;
+                                        tmp_transaction.id := id_i;
 					if wdvalid_i = '1' and wlast_i = '1' then
 						st            := five;
-						---read response here is done
 						transaction_o <= tmp_transaction;
 					end if;
 				
