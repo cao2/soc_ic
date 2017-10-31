@@ -10,8 +10,8 @@ entity monitor_axi_write is
 		----AXI interface
 		master_id     : in  IP_T;
 		slave_id      : in  IP_T;
-		tag_i : in std_logic_vector(7 downto 0);
-		id_i          :  in  std_logic_vector(7 downto 0);
+		tag_i         : in  std_logic_vector(7 downto 0);
+		id_i          : in  std_logic_vector(7 downto 0);
 		---write address channel
 		waddr_i       : in  ADR_T;
 		wlen_i        : in  std_logic_vector(9 downto 0);
@@ -29,7 +29,7 @@ entity monitor_axi_write is
 		wrvalid_i     : in  std_logic;
 		wrsp_i        : in  std_logic_vector(1 downto 0);
 		----output 
-		id_o          :  out  std_logic_vector(7 downto 0);
+		id_o          : out std_logic_vector(7 downto 0);
 		---write address channel
 		waddr_o       : out ADR_T;
 		wlen_o        : out std_logic_vector(9 downto 0);
@@ -48,7 +48,7 @@ entity monitor_axi_write is
 		wrsp_o        : out std_logic_vector(1 downto 0);
 		---read address channel
 
-		transaction_o : out TST_T
+		transaction_o : out AXI_T
 	);
 end monitor_axi_write;
 
@@ -59,13 +59,13 @@ architecture rtl of monitor_axi_write is
 begin
 
 	axi_wt_extractor_write : process(clk)
-		variable tmp_transaction : TST_T;
+		variable tmp_transaction : AXI_T;
 		variable st              : state                         := one;
 		variable adr             : std_logic_vector(31 downto 0) := (others => '0');
 		variable id              : std_logic_vector(7 downto 0)  := (others => '0');
 	begin
 		if rising_edge(clk) then
-		
+
 			if st = one then
 				transaction_o.val <= '0';
 				if wready_i = '1' then
@@ -73,7 +73,7 @@ begin
 				end if;
 			elsif st = two then
 				if wvalid_i = '1' then
-				    
+
 					---------see what to do
 					---tmp_transaction.adr      := "00";
 					if waddr_i = adr then
@@ -84,42 +84,42 @@ begin
 						tmp_transaction.adr := "10";
 					end if;
 
---					if id_i = id then
---						tmp_transaction.id := "00";
---					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
---						tmp_transaction.id := "01";
---					else
---						tmp_transaction.id := "10";
---					end if;
-					
+					--					if id_i = id then
+					--						tmp_transaction.id := "00";
+					--					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
+					--						tmp_transaction.id := "01";
+					--					else
+					--						tmp_transaction.id := "10";
+					--					end if;
+
 					---Note: there are also size, and length, ignored here
 					st := three;
 				end if;
 			elsif st = three then
 				if wdataready_i = '1' then
-				    st := four;
-				    end if;
-		    elsif st=four then
-					---Note: the data is available here
-					---, do we need to check that?
-					tmp_transaction.val :='1';
-                                        tmp_transaction.sender   := master_id;
-                                        tmp_transaction.receiver := slave_id;
-                                        tmp_transaction.cmd      := WRITE_CMD;
-                                        tmp_transaction.tag := tag_i;
-                                        tmp_transaction.id := id_i;
-					if wdvalid_i = '1' and wlast_i = '1' then
-						st            := five;
-						transaction_o <= tmp_transaction;
-					end if;
-				
+					st := four;
+				end if;
+			elsif st = four then
+				---Note: the data is available here
+				---, do we need to check that?
+				tmp_transaction.val      := '1';
+				tmp_transaction.sender   := master_id;
+				tmp_transaction.receiver := slave_id;
+				tmp_transaction.cmd      := '0';
+				tmp_transaction.tag      := tag_i;
+				tmp_transaction.id       := id_i;
+				if wdvalid_i = '1' and wlast_i = '1' then
+					st            := five;
+					transaction_o <= tmp_transaction;
+				end if;
+
 			elsif st = five then
 				transaction_o.val <= '0';
 				if wrvalid_i = '1' then
 					if wrsp_i = "00" then
 						tmp_transaction.sender   := slave_id;
 						tmp_transaction.receiver := master_id;
-						tmp_transaction.cmd      := WRITE_CMD;
+						tmp_transaction.cmd      := '1';
 						transaction_o            <= tmp_transaction;
 						st                       := one;
 					end if;

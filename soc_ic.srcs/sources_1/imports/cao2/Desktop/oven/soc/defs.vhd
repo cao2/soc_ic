@@ -9,7 +9,7 @@ package defs is
   constant CMD_WIDTH : positive := 8;
   constant ADR_WIDTH : positive := 32;
   constant DAT_WIDTH : positive := 32;
-  constant IP_CT: positive := 3;
+  constant IP_CT: positive := 4;
  subtype IP_VECT_T is std_logic_vector(11 downto 0);
    type IP_T is (CPU0, CPU1, CACHE0, CACHE1,
                  SA, MEM, GFX, PMU,
@@ -35,6 +35,16 @@ type TST_T is record
    sender : IP_T;
    receiver: IP_T;
    cmd       : std_logic_vector(7 downto 0);
+   tag       : std_logic_vector(7 downto 0);  -- src
+   id        : std_logic_vector(7 downto 0);  --sequence id
+   adr       : std_logic_vector(1 downto 0);
+end record TST_T;
+
+type AXI_T is record
+   val       : std_logic;                     -- valid bit;
+   sender : IP_T;
+   receiver: IP_T;
+   cmd       : std_logic;
    tag       : std_logic_vector(7 downto 0);  -- src
    id        : std_logic_vector(7 downto 0);  --sequence id
    adr       : std_logic_vector(1 downto 0);

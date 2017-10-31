@@ -414,8 +414,8 @@ signal up_snp_req1          : MSG_T;
      signal up_snp_req11, up_snp_res11                                                                                                   : MSG_T;
      signal mon_snp_res_1, mon_snp_res_2, mon_cpu_req1, mon_cpu_res1, mon_cpu_req2, mon_cpu_res2                                         : TST_T;
      signal snp_req_1_mon, snp_req_2_mon, up_snp_req_mon, up_snp_res_mon                                                                 : TST_T;
-     signal mon_mem_read, mon_mem_write, mon_audio_read, mon_audio_write, mon_uart_read, mon_uart_write                                  : TST_T;
-     signal mon_usb_read, mon_usb_write, mon_gfx_read, mon_gfx_write                                                                     : TST_T;
+     signal mon_mem_read, mon_mem_write, mon_audio_read, mon_audio_write, mon_uart_read, mon_uart_write                                  : AXI_T;
+     signal mon_usb_read, mon_usb_write, mon_gfx_read, mon_gfx_write                                                                     : AXI_T;
      signal mon_bus_req1, mon_bus_req2, mon_bus_res1, mon_bus_res2                                                                       : TST_T;
      signal mon_gfx_upreq, mon_gfx_upres, mon_usb_upreq, mon_usb_upres, mon_uart_upreq, mon_uart_upres, mon_audio_upreq, mon_audio_upres : TST_T;
 

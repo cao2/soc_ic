@@ -42,7 +42,7 @@ entity monitor_axi_read is
 		rdvalid_o     : out std_logic;
 		rdready_o     : out std_logic;
 		rres_o        : out std_logic_vector(1 downto 0);
-		transaction_o : out TST_T
+		transaction_o : out AXI_T
 	);
 end monitor_axi_read;
 architecture rtl of monitor_axi_read is
@@ -52,7 +52,7 @@ architecture rtl of monitor_axi_read is
 begin
 
 	axi_wt_extractor_write : process(clk)
-		variable tmp_transaction : TST_T;
+		variable tmp_transaction : AXI_T;
 		variable st              : state                         := one;
 		variable adr             : std_logic_vector(31 downto 0) := (others => '0');
 		variable id              : std_logic_vector(7 downto 0)  := (others => '0');
@@ -68,7 +68,7 @@ begin
 				tmp_transaction.val := '1';
 					tmp_transaction.sender   := master_id;
 					tmp_transaction.receiver := slave_id;
-					tmp_transaction.cmd      := READ_CMD;
+					tmp_transaction.cmd      := '0';
                     tmp_transaction.tag :=tag_i;
                     tmp_transaction.id:= id_i;
 					if raddr_i = adr then
@@ -101,7 +101,7 @@ begin
 						if rres_i = "00" then
 							tmp_transaction.sender   := slave_id;
 							tmp_transaction.receiver := master_id;
-							tmp_transaction.cmd      := READ_CMD;
+							tmp_transaction.cmd      := '1';
 							transaction_o            <= tmp_transaction;
 							st                       := one;
 						end if;
