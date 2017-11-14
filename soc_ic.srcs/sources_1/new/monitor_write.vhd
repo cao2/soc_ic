@@ -48,7 +48,8 @@ entity monitor_axi_write is
 		wrsp_o        : out std_logic_vector(1 downto 0);
 		---read address channel
 
-		transaction_o : out AXI_T
+		transaction_o : out AXI_T;
+		tst_t_o : out TST_T
 	);
 end monitor_axi_write;
 
@@ -68,6 +69,7 @@ begin
 
 			if st = one then
 				transaction_o.val <= '0';
+				tst_t_o.val <='0';
 				if wready_i = '1' then
 					st := two;
 				end if;
@@ -111,16 +113,29 @@ begin
 				if wdvalid_i = '1' and wlast_i = '1' then
 					st            := five;
 					transaction_o <= tmp_transaction;
+					tst_t_o <= (tmp_transaction.val, 
+                                        tmp_transaction.sender, 
+                                        tmp_transaction.receiver, 
+                                        WRITE_CMD,
+                                         tmp_traNsaction.tag,
+                                         tmp_transaction.id, tmp_transaction.adr);
 				end if;
 
 			elsif st = five then
 				transaction_o.val <= '0';
+				tst_t_o.val <='0';
 				if wrvalid_i = '1' then
 					if wrsp_i = "00" then
 						tmp_transaction.sender   := slave_id;
 						tmp_transaction.receiver := master_id;
 						tmp_transaction.cmd      := '1';
 						transaction_o            <= tmp_transaction;
+						tst_t_o <= (tmp_transaction.val, 
+                                            tmp_transaction.sender, 
+                                            tmp_transaction.receiver, 
+                                            WRITE_CMD,
+                                             tmp_traNsaction.tag,
+                                             tmp_transaction.id, tmp_transaction.adr);
 						st                       := one;
 					end if;
 				end if;

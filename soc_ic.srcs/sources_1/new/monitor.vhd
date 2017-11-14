@@ -42,7 +42,8 @@ entity monitor_axi_read is
 		rdvalid_o     : out std_logic;
 		rdready_o     : out std_logic;
 		rres_o        : out std_logic_vector(1 downto 0);
-		transaction_o : out AXI_T
+		transaction_o : out AXI_T;
+		tst_t_o: out TST_T
 	);
 end monitor_axi_read;
 architecture rtl of monitor_axi_read is
@@ -60,6 +61,7 @@ begin
 		if rising_edge(clk) then
 			if st = one then
 				transaction_o.val <= '0';
+				tst_t_o.val <='0';
 				if rready_i = '1' then
 					st := two;
 				end if;
@@ -91,9 +93,16 @@ begin
 					---Note: there are also size, and length, ignored here
 					st                  := three;
 					transaction_o<= tmp_transaction;
+					tst_t_o <= (tmp_transaction.val, 
+					tmp_transaction.sender, 
+					tmp_transaction.receiver, 
+					READ_CMD,
+					 tmp_traNsaction.tag,
+					 tmp_transaction.id, tmp_transaction.adr);
 				end if;
 			elsif st = three then
 			transaction_o.val<='0';
+			tst_t_o.val <='0';
 				if rdready_i = '1' then
 					---Note: the data is available here
 					---, do we need to check that?
@@ -103,11 +112,23 @@ begin
 							tmp_transaction.receiver := master_id;
 							tmp_transaction.cmd      := '1';
 							transaction_o            <= tmp_transaction;
+							tst_t_o <= (tmp_transaction.val, 
+                                                tmp_transaction.sender, 
+                                                tmp_transaction.receiver, 
+                                                READ_CMD,
+                                                 tmp_traNsaction.tag,
+                                                 tmp_transaction.id, tmp_transaction.adr);
 							st                       := one;
 						end if;
 						st            := one;
 						---read response here is done
-						transaction_o <= tmp_transaction;
+--						transaction_o <= tmp_transaction;
+--						tst_t_o <= (tmp_transaction.val, 
+--                                            tmp_transaction.sender, 
+--                                            tmp_transaction.receiver, 
+--                                            READ_CMD,
+--                                             tmp_traNsaction.tag,
+--                                             tmp_transaction.id, tmp_transaction.adr);
 					end if;
 				end if;
 			end if;

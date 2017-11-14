@@ -10,17 +10,21 @@ package defs is
   constant ADR_WIDTH : positive := 32;
   constant DAT_WIDTH : positive := 32;
   constant IP_CT: positive := 4;
- subtype IP_VECT_T is std_logic_vector(11 downto 0);
+ subtype IP_VECT_T is std_logic_vector(19 downto 0);
    type IP_T is (CPU0, CPU1, CACHE0, CACHE1,
                  SA, MEM, GFX, PMU,
-                 AUDIO, USB, UART,
+                 AUDIO, USB, UART,CACHE0M,
+                  CACHE1M,SAM,
+                 GFXM, AUDIOM, USBM, UARTM,
                  NONE);
    type STATE is (one, two, three, four, five, six);
    type IP_VECT_ARRAY_T is array(IP_T) of IP_VECT_T;
-   constant ip_enc : IP_VECT_ARRAY_T := (x"001", x"002", x"004", x"008",
-                                         x"010", x"020", x"040", x"080",
-                                         x"100", x"200", x"400",
-                                         x"000");
+   constant ip_enc : IP_VECT_ARRAY_T := (x"00001", x"00002", x"00004", x"00008",
+                                         x"00010", x"00020", x"00040", x"00080",
+                                         x"00100", x"00200", x"00400", x"00800", x"01000",x"02000",
+                                         x"04000", x"08000", x"10000",x"20000",
+                                         x"00000");
+  
   type MSG_T is record
    val       : std_logic;                     -- valid bit;
    cmd       : std_logic_vector(7 downto 0);
@@ -40,6 +44,29 @@ type TST_T is record
    adr       : std_logic_vector(1 downto 0);
 end record TST_T;
 
+
+type ALL_T is
+     array (0 to 31) of TST_T;
+type TST_TTS is record
+    val       : std_logic;                     -- valid bit;
+   sender : IP_T;
+   receiver: IP_T;
+   cmd       : std_logic_vector(7 downto 0);
+   tag       : std_logic_vector(7 downto 0);  -- src
+   id        : std_logic_vector(7 downto 0);  --sequence id
+   adr       : std_logic_vector(1 downto 0);
+   tim      : INTEGER;
+end record TST_TTs;
+type TST_TO is record
+   val       : std_logic;                     -- valid bit;
+   sender : IP_T;
+   receiver: IP_T;
+   cmd       : std_logic_vector(7 downto 0);
+   tag       : std_logic_vector(7 downto 0);  -- src
+   id        : std_logic_vector(7 downto 0);  --sequence id
+   adr       : std_logic_vector(1 downto 0);
+   tim      : std_logic;
+end record TST_TO;
 type AXI_T is record
    val       : std_logic;                     -- valid bit;
    sender : IP_T;
@@ -48,7 +75,7 @@ type AXI_T is record
    tag       : std_logic_vector(7 downto 0);  -- src
    id        : std_logic_vector(7 downto 0);  --sequence id
    adr       : std_logic_vector(1 downto 0);
-end record TST_T;
+end record AXI_T;
 
 type cacheline is record
 	val       : std_logic;                     -- valid bit;

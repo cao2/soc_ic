@@ -71,6 +71,7 @@ package util is
   function slv(m : BMSG_T) return std_logic_vector;
   function slv(m: AXI_T) return std_logic_vector;
   function stt(m: IP_T) return std_logic_vector;
+  function slv(m: TST_TO) return std_logic_vector;
   --procedure clr(signal vector : out std_logic_vector);
 end util;
 
@@ -316,5 +317,9 @@ end;
   begin
     return m.val & stt(m.sender)&stt(m.receiver) & m.cmd & m.tag & m.id & m.adr ;
   end;
+   function slv(m : TST_TO) return std_logic_vector is
+   begin
+     return m.val & stt(m.sender)&stt(m.receiver) & m.cmd & m.tag & m.id & m.adr&m.tim ;
+   end;
   
 end util;
