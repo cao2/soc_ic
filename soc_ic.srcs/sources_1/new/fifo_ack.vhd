@@ -11,9 +11,9 @@ entity fifo_ack is
     CLK		: in  STD_LOGIC;
     RST		: in  STD_LOGIC;
     WriteEn	: in  STD_LOGIC;
-    DataIn	: in  MSG_T;
+    DataIn	: in  TST_TTS;
     ReadEn	: in  STD_LOGIC;
-    DataOut	: out MSG_T;
+    DataOut	: out TST_TTS;
     Empty	: out STD_LOGIC;
     Full	: out STD_LOGIC := '0';
     ack : in std_logic
@@ -28,7 +28,7 @@ begin
   -- Memory Pointer Process
   fifo_proc : process (clk)
     type FIFO_Memory is
-      array (0 to FIFO_DEPTH - 1) of MSG_T;
+      array (0 to FIFO_DEPTH - 1) of TST_TTS;
     variable Memory : FIFO_Memory;
     
     variable Head : natural range 0 to FIFO_DEPTH - 1;
@@ -46,7 +46,7 @@ begin
         Looped := false;
         Full  <= '0';
         Empty <= '1';
-        DataOut<= ZERO_MSG;
+        DataOut.val<= '0';
       else
     	if st = one then
         if (WriteEn = '1') then
@@ -80,7 +80,7 @@ begin
             end if;
           end if;
         else 
-          DataOut <= ZERO_MSG;
+          DataOut.val <= '0';
         end if;
         
         -- Update Empty and Full flags
@@ -96,7 +96,7 @@ begin
         end if;
        elsif st= two then
         if ack='1' then
-        DataOut.val='0';
+        DataOut.val<='0';
         end if;
        end if;
       

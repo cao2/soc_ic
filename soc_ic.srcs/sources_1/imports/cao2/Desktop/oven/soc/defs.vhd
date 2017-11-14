@@ -56,6 +56,7 @@ type TST_TTS is record
    id        : std_logic_vector(7 downto 0);  --sequence id
    adr       : std_logic_vector(1 downto 0);
    tim      : INTEGER;
+   channel: integer;
 end record TST_TTs;
 type TST_TO is record
    val       : std_logic;                     -- valid bit;
