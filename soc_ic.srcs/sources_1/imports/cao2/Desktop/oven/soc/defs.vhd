@@ -47,6 +47,9 @@ end record TST_T;
 
 type ALL_T is
      array (0 to 31) of TST_T;
+     
+     
+     
 type TST_TTS is record
     val       : std_logic;                     -- valid bit;
    sender : IP_T;
@@ -57,7 +60,7 @@ type TST_TTS is record
    adr       : std_logic_vector(1 downto 0);
    tim      : INTEGER;
    channel: integer;
-end record TST_TTs;
+end record TST_TTS;
 type TST_TO is record
    val       : std_logic;                     -- valid bit;
    sender : IP_T;

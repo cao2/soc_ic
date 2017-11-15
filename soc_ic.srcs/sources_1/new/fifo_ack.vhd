@@ -5,7 +5,7 @@ use work.defs.all;
 
 entity fifo_ack is
   Generic (
-    constant FIFO_DEPTH	: positive := 8
+    constant FIFO_DEPTH	: positive := 3
 	);
   Port ( 
     CLK		: in  STD_LOGIC;
@@ -96,7 +96,8 @@ begin
         end if;
        elsif st= two then
         if ack='1' then
-        DataOut.val<='0';
+        DataOut.val <='0';
+        st := one;
         end if;
        end if;
       

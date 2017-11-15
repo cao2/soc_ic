@@ -14,14 +14,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="371001fs"></ZoomEndTime>
-      <Cursor1Time time="215000fs"></Cursor1Time>
+      <ZoomEndTime time="148000001fs"></ZoomEndTime>
+      <Cursor1Time time="115000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="160"></NameColumnWidth>
-      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+      <ValueColumnWidth column_width="118"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="22" />
+   <WVObjectSize size="4" />
    <wvobject fp_name="/top/clock" type="logic">
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
@@ -34,81 +34,8 @@
       <obj_property name="ElementShortName">cpu_res_o</obj_property>
       <obj_property name="ObjectShortName">cpu_res_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/top/gfx_entity/upreq_o" type="array">
-      <obj_property name="ElementShortName">upreq_o</obj_property>
-      <obj_property name="ObjectShortName">upreq_o</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/gfx_entity/upres_i" type="array">
-      <obj_property name="ElementShortName">upres_i</obj_property>
-      <obj_property name="ObjectShortName">upres_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/gfx_entity/upreq_o" type="array">
-      <obj_property name="ElementShortName">upreq_o</obj_property>
-      <obj_property name="ObjectShortName">upreq_o</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/gfx_entity/upres_i" type="array">
-      <obj_property name="ElementShortName">upres_i</obj_property>
-      <obj_property name="ObjectShortName">upres_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/interconnect/up_snp_req_o" type="array">
-      <obj_property name="ElementShortName">up_snp_req_o</obj_property>
-      <obj_property name="ObjectShortName">up_snp_req_o</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/interconnect/up_snp_res_i" type="array">
-      <obj_property name="ElementShortName">up_snp_res_i</obj_property>
-      <obj_property name="ObjectShortName">up_snp_res_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/interconnect/up_snp_hit_i" type="logic">
-      <obj_property name="ElementShortName">up_snp_hit_i</obj_property>
-      <obj_property name="ObjectShortName">up_snp_hit_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/snp_req_o" type="array">
-      <obj_property name="ElementShortName">snp_req_o</obj_property>
-      <obj_property name="ObjectShortName">snp_req_o</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/snp_res_i" type="array">
-      <obj_property name="ElementShortName">snp_res_i</obj_property>
-      <obj_property name="ObjectShortName">snp_res_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/snp_hit_i" type="logic">
-      <obj_property name="ElementShortName">snp_hit_i</obj_property>
-      <obj_property name="ObjectShortName">snp_hit_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/readreq" type="array">
-      <obj_property name="ElementShortName">readreq</obj_property>
-      <obj_property name="ObjectShortName">readreq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/readres" type="array">
-      <obj_property name="ElementShortName">readres</obj_property>
-      <obj_property name="ObjectShortName">readres</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/treadreq3" type="array">
-      <obj_property name="ElementShortName">treadreq3</obj_property>
-      <obj_property name="ObjectShortName">treadreq3</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/cache_ent/snp_c_req2" type="array">
-      <obj_property name="ElementShortName">snp_c_req2</obj_property>
-      <obj_property name="ObjectShortName">snp_c_req2</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/snp_req_o" type="array">
-      <obj_property name="ElementShortName">snp_req_o</obj_property>
-      <obj_property name="ObjectShortName">snp_req_o</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/proc0_e/snp_res_i" type="array">
-      <obj_property name="ElementShortName">snp_res_i</obj_property>
-      <obj_property name="ObjectShortName">snp_res_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/snp_req11" type="array">
-      <obj_property name="ElementShortName">snp_req11</obj_property>
-      <obj_property name="ObjectShortName">snp_req11</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/snp_req1" type="array">
-      <obj_property name="ElementShortName">snp_req1</obj_property>
-      <obj_property name="ObjectShortName">snp_req1</obj_property>
-   </wvobject>
-   <wvobject fp_name="/top/snp_req_1_monitor/transaction_o" type="array">
-      <obj_property name="ElementShortName">transaction_o</obj_property>
-      <obj_property name="ObjectShortName">transaction_o</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+   <wvobject fp_name="/top/trace_ip/Full" type="logic">
+      <obj_property name="ElementShortName">Full</obj_property>
+      <obj_property name="ObjectShortName">Full</obj_property>
    </wvobject>
 </wave_config>

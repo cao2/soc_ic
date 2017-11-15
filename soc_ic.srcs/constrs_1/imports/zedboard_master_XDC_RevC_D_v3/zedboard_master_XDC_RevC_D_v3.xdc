@@ -62,8 +62,13 @@
 ##	
 ##
 ## ----------------------------------------------------------------------------
-
-## ----------------------------------------------------------------------------
+#set_property BITSTREAM.CONFIG.BPI_SYNC_MODE Type2 [current_design]
+#set_property BITSTREAM.CONFIG.EXTMASTERCCLK_EN div-2 [current_design]
+#set_property BITSTREAM.GENERAL.COMPRESS TRUE [current_design]
+#set_property BITSTREAM.CONFIG.UNUSEDPIN Pullup [current_design]
+#set_property CONFIG_MODE BPI16 [current_design]
+#set_property CFGBVS VCCO [current_design]
+#set_property CONFIG_VOLTAGE 2.5 [current_design]## ----------------------------------------------------------------------------
 ## Audio Codec - Bank 13
 ## ---------------------------------------------------------------------------- 
 #set_property PACKAGE_PIN AB1 [get_ports {AC_ADR0}];  # "AC-ADR0"
@@ -83,10 +88,17 @@ set_property PACKAGE_PIN Y9 [get_ports Clock];  # "GCLK"
 set_property IOSTANDARD LVCMOS15 [get_ports Clock]
 create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports Clock]
 
+
+set_property PACKAGE_PIN Y11 [get_ports rx_in]; 
+set_property IOSTANDARD LVCMOS15 [get_ports rx_in]
+
+
+set_property PACKAGE_PIN AA11 [get_ports tx_out];
+set_property IOSTANDARD LVCMOS15 [get_ports tx_out]
 ## ----------------------------------------------------------------------------
 ## JA Pmod - Bank 13
 ## ---------------------------------------------------------------------------- 
-#set_property PACKAGE_PIN Y11  [get_ports {JA1}];  # "JA1"
+#set_property PACKAGE_PIN Y11  [get_ports {tx_out}];  # "JA1"
 #set_property PACKAGE_PIN AA8  [get_ports {JA10}];  # "JA10"
 #set_property PACKAGE_PIN AA11 [get_ports {JA2}];  # "JA2"
 #set_property PACKAGE_PIN Y10  [get_ports {JA3}];  # "JA3"
@@ -205,6 +217,8 @@ create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports Clo
 ## User Push Buttons - Bank 34
 ## ---------------------------------------------------------------------------- 
 set_property PACKAGE_PIN P16 [get_ports reset];  # "BTNC"
+set_property IOSTANDARD LVCMOS15 [get_ports reset]
+
 #set_property PACKAGE_PIN R16 [get_ports {BTND}];  # "BTND"
 #set_property PACKAGE_PIN N15 [get_ports {BTNL}];  # "BTNL"
 #set_property PACKAGE_PIN R18 [get_ports {BTNR}];  # "BTNR"
