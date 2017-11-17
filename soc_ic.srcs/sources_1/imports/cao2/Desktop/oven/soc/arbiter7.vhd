@@ -40,7 +40,7 @@ signal s_ack1, s_ack2,s_ack3,s_ack4, s_ack5,s_ack6,s_ack7 : std_logic;
   signal tdout: BMSG_T;
   
 begin  
-  process (clock)
+  process (clock,reset)
    variable st : STATE := one;
   begin
    if reset = '1' then

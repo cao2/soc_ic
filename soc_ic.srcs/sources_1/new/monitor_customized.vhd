@@ -39,14 +39,6 @@ begin
 				else
 					tmp_t.adr := "10";
 				end if;
-
---				if msg_i.id = id then
---					tmp_t.id := "00";
---				elsif unsigned(msg_i.id) - unsigned(id) = 1 or unsigned(id) - unsigned(msg_i.id) = 1 then
---					tmp_t.id := "01";
---				else
---					tmp_t.id := "10";
---				end if;
 tmp_t.id := msg_i.id;
 				transaction_o <= tmp_t;
 			end if;

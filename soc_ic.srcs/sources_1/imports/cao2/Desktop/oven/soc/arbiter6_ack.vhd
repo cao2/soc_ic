@@ -38,7 +38,7 @@ architecture rtl of arbiter6_ack is
     signal s_token : integer :=0;
 		
 begin  
- 	process (clock)
+ 	process (clock,reset)
  		variable nilreq : MSG_T := ZERO_MSG;
  		variable state : integer:=0;
  		variable s_ack1, s_ack2,s_ack3,s_ack4, s_ack5,s_ack6 : std_logic;

@@ -39,7 +39,7 @@ architecture rtl of b_c_arbiter6 is
   signal tdout: cacheline;
   
 begin  
-  process (clock)
+  process (clock,reset)
    variable st : STATE := one;
   begin
    if reset = '1' then

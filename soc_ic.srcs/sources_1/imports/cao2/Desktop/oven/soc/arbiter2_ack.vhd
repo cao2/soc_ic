@@ -26,7 +26,7 @@ architecture rtl of arbiter2_ack is
   signal s_token : std_logic;
   
 begin  
-  process (clock)
+  process (clock,reset)
     variable nilreq : MSG_T := ZERO_MSG;
     variable cmd: std_logic_vector( 1 downto 0);
     variable state : integer :=0;

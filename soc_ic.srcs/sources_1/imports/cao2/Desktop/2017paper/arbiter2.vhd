@@ -28,7 +28,7 @@ signal s_ack1, s_ack2 : std_logic;
   signal tdout: MSG_T;
   
 begin  
- process (clock)
+ process (clock,reset)
   variable st : STATE := one;
  begin
   if reset = '1' then

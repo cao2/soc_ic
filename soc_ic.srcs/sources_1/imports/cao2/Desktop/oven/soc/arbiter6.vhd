@@ -38,7 +38,7 @@ architecture rtl of arbiter6 is
   signal tdout: MSG_T;
   
 begin  
-  process (clock)
+  process (clock,reset)
    variable st : STATE := one;
   begin
    if reset = '1' then

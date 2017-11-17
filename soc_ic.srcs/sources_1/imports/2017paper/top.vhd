@@ -20,9 +20,11 @@ entity top is
 		--		Clock   : in  std_logic;
 		--		--	       clk1 : in std_logic;
 		--		reset   : in  std_logic;
+		tra_data: out TST_TO;
+		full: out std_logic;
 		tx_out : out std_logic;
-		rx_in  : in  std_logic;
-		tra_data: out TST_TO
+		rx_in  : in  std_logic
+		
 	);
 end top;
 
@@ -431,72 +433,72 @@ signal mon_usb_read_t, mon_usb_write_t, mon_gfx_read_t, mon_gfx_write_t         
     signal ZERO_TSTT: TST_TO:=('0',PMU,PMU,(others=>'0'),(others=>'0'),(others=>'0'),(others=>'0'),'0');
 begin
 
---      trace_output_logger: process(tb_clk)
---       file trace_file: TEXT open write_mode is "trace_output.tstt";
---       variable l: line;
---     begin
---               if GEN_TRACE1 then
---                   if rising_edge(tb_clk) then
---                       ---- cpu
---                       write(l, slv(mon_data));     --35
---                       writeline(trace_file, l);
---                   end if;
---               end if;
---           end process; 
---  trace_ip: entity work.fifo32(rtl)
---    generic map(
---     FIFO_DEPTH => 8
---    )
---             port map(
---             CLK => Clock,
---             RST => reset,
---             DataIn => mon_array,
---             DataOut => tra_data,
---             Full => mon_full
---             );
---    outputt: process(tb_clk)
---    begin
---    if rising_edge(tb_clk) then
---        tra_data<= mon_data;
---    end if;
---    end process;
---    mon_array_driver: process(tb_clk)
---    begin
---        if rising_edge(tb_clk) then
---            mon_array(0)<=mon_cpu_req1; ----1
---             mon_array(1)<=mon_cpu_res1; ----2
---             mon_array(2)<=mon_cpu_req2; ----3
---             mon_array(3)<=mon_cpu_res2; ----4
--- --            mon_array(4)<=snp_req_1_mon; ----5
-----             mon_array(5)<=snp_req_2_mon; ----6
---             mon_array(6)<=mon_snp_res_1; ----7
---             mon_array(7)<=mon_snp_res_2; ----8
-----             mon_array(8)<=mon_bus_req1; ----9
-----             mon_array(9)<=mon_bus_req2; ----10
-----             mon_array(10)<=mon_bus_res1; ----11
-----             mon_array(11)<=mon_bus_res2; ----12
-----             mon_array(12)<=up_snp_req_mon; ----13
---             mon_array(13)<=up_snp_res_mon; ----14
---             mon_array(14)<=mon_mem_read_t; ----15
---             mon_array(15)<=mon_mem_write_t; ----16
---             mon_array(16)<=mon_gfx_read_t; ----17
---             mon_array(17)<=mon_gfx_write_t; ----18
---             mon_array(18)<=mon_audio_read_t; ----19
---             mon_array(19)<=mon_audio_write_t; ----20
---             mon_array(20)<=mon_usb_read_t; ----21
---             mon_array(21)<=mon_usb_write_t; ----22
---             mon_array(22)<=mon_uart_read_t; ----23
---             mon_array(23)<=mon_uart_write_t; ----24
---             mon_array(24)<=mon_gfx_upreq; ----25
---             mon_array(25)<=mon_gfx_upres; ----26
---             mon_array(26)<=mon_audio_upreq; ----27
---             mon_array(27)<=mon_audio_upres; ----28
---             mon_array(28)<=mon_usb_upreq; ----29
---             mon_array(29)<=mon_usb_upres; ----30
---             mon_array(30)<=mon_uart_upreq; ----31
---             mon_array(31)<=mon_uart_upres; ----32
---        end if;
---    end process;
+      trace_output_logger: process(tb_clk)
+       file trace_file: TEXT open write_mode is "trace_output.tstt";
+       variable l: line;
+     begin
+               if GEN_TRACE1 then
+                   if rising_edge(tb_clk) then
+                       ---- cpu
+                       write(l, slv(mon_data));     --35
+                       writeline(trace_file, l);
+                   end if;
+               end if;
+           end process; 
+  trace_ip: entity work.fifo32(rtl)
+    generic map(
+     FIFO_DEPTH => 8
+    )
+             port map(
+             CLK => Clock,
+             RST => reset,
+             DataIn => mon_array,
+             DataOut =>mon_data,
+             Full => full
+             );
+    outputt: process(tb_clk)
+    begin
+    if rising_edge(tb_clk) then
+        tra_data<= mon_data;
+    end if;
+    end process;
+    mon_array_driver: process(tb_clk)
+    begin
+        if rising_edge(tb_clk) then
+            mon_array(0)<=mon_cpu_req1; ----1
+             mon_array(1)<=mon_cpu_res1; ----2
+             mon_array(2)<=mon_cpu_req2; ----3
+             mon_array(3)<=mon_cpu_res2; ----4
+ --            mon_array(4)<=snp_req_1_mon; ----5
+--             mon_array(5)<=snp_req_2_mon; ----6
+             mon_array(6)<=mon_snp_res_1; ----7
+             mon_array(7)<=mon_snp_res_2; ----8
+--             mon_array(8)<=mon_bus_req1; ----9
+--             mon_array(9)<=mon_bus_req2; ----10
+--             mon_array(10)<=mon_bus_res1; ----11
+--             mon_array(11)<=mon_bus_res2; ----12
+--             mon_array(12)<=up_snp_req_mon; ----13
+             mon_array(13)<=up_snp_res_mon; ----14
+             mon_array(14)<=mon_mem_read_t; ----15
+             mon_array(15)<=mon_mem_write_t; ----16
+             mon_array(16)<=mon_gfx_read_t; ----17
+             mon_array(17)<=mon_gfx_write_t; ----18
+             mon_array(18)<=mon_audio_read_t; ----19
+             mon_array(19)<=mon_audio_write_t; ----20
+             mon_array(20)<=mon_usb_read_t; ----21
+             mon_array(21)<=mon_usb_write_t; ----22
+             mon_array(22)<=mon_uart_read_t; ----23
+             mon_array(23)<=mon_uart_write_t; ----24
+             mon_array(24)<=mon_gfx_upreq; ----25
+             mon_array(25)<=mon_gfx_upres; ----26
+             mon_array(26)<=mon_audio_upreq; ----27
+             mon_array(27)<=mon_audio_upres; ----28
+             mon_array(28)<=mon_usb_upreq; ----29
+             mon_array(29)<=mon_usb_upres; ----30
+             mon_array(30)<=mon_uart_upreq; ----31
+             mon_array(31)<=mon_uart_upres; ----32
+        end if;
+    end process;
 	transaction_logger_p : process(tb_clk)
 		file trace_file : TEXT open write_mode is "trace.tst";
 		variable l      : line;

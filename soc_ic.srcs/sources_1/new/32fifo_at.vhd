@@ -3,7 +3,7 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 use work.defs.all;
 
-entity fifo32 is
+entity fifo32_at is
   Generic (
     constant FIFO_DEPTH	: positive := 5
 	);
@@ -18,9 +18,9 @@ entity fifo32 is
     DataOut	: out TST_TO;
     Full	: out STD_LOGIC := '0'
 	);
-end fifo32;
+end fifo32_at;
 
-architecture rtl of fifo32 is
+architecture rtl of fifo32_at is
  --signal td1: std_logic_vector(31 downto 0);
  --signal td2: std_logic_vector(31 downto 0);
 begin
@@ -28,7 +28,7 @@ begin
   -- Memory Pointer Process
   fifo_proc : process (clk,rst)
     type FIFO_Memory is
-      array (0 to FIFO_DEPTH - 1) of TST_TO;
+      array (0 to FIFO_DEPTH - 1) of ALL_T;
     variable Memory : FIFO_Memory;
     
     variable Head : natural range 0 to FIFO_DEPTH - 1;
@@ -39,6 +39,8 @@ begin
     variable i: integer :=0;
     variable first: boolean := true;
     variable amount: integer :=0;
+    variable tmp_all: ALL_T;
+    variable st: natural range 0 to 31;;
   begin
   	if rising_edge(CLK) then
       if RST = '1' then
@@ -52,14 +54,20 @@ begin
         first  := true;
         i := 0;
        -- if (WriteEn = '1') then
-        while (i<32) loop
+       if( DataIn(0).val='1' or DataIn(1).val='1' or DataIn(2).val='1' or DataIn(3).val='1' or DataIn(4).val='1' or DataIn(5).val='1' or DataIn(6).val='1' 
+       or DataIn(7).val='1' or DataIn(8).val='1' or DataIn(9).val='1' or DataIn(10).val='1' 
+        or DataIn(11).val='1' or DataIn(12).val='1' or DataIn(13).val='1' or DataIn(14).val='1' or DataIn(15).val='1' or DataIn(16).val='1' 
+             or DataIn(17).val='1' or DataIn(18).val='1' or DataIn(19).val='1' or
+             DataIn(20).val='1' or DataIn(21).val='1' or DataIn(22).val='1' or DataIn(23).val='1' or DataIn(24).val='1' or DataIn(25).val='1' or DataIn(26).val='1' 
+                    or DataIn(27).val='1' or DataIn(28).val='1' or DataIn(29).val='1' or
+                    DataIn(30).val='1' or DataIn(31).val='1') then
           if (((Looped = false) or (Head /= Tail))) and DataIn(i).val='1' then
 
             if (first=true) then
-                Memory(Head) := (DataIn(i).val,DataIn(i).sender,DataIn(i).receiver,DataIn(i).cmd,DataIn(i).tag,DataIn(i).id,DataIn(i).adr,'1') ;
+                Memory(Head) :=DataIn ;
                 first := false;
              else
-                 Memory(Head) := (DataIn(i).val,DataIn(i).sender,DataIn(i).receiver,DataIn(i).cmd,DataIn(i).tag,DataIn(i).id,DataIn(i).adr,'0') ;
+                 Memory(Head) := DataIn ;
             end if;
             -- Increment Head pointer as needed
             if (Head = FIFO_DEPTH - 1) then
@@ -81,8 +89,9 @@ begin
                   else
                     Full    <= '0';
                   end if;
-       end loop;
-
+       
+          end if;
+          if (st=zero) then
           if ((Looped = true) or (Head /= Tail)) then
             -- Update data output
             DataOut <= Memory(Tail);
@@ -96,7 +105,8 @@ begin
               Tail := Tail + 1;
             end if;
           end if;
-     
+         elsif (st=one) then
+         end if;
       end if;
    end if;
   end process;
