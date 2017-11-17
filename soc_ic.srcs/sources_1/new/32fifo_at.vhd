@@ -30,7 +30,9 @@ begin
     type FIFO_Memory is
       array (0 to FIFO_DEPTH - 1) of ALL_T;
     variable Memory : FIFO_Memory;
-    
+    variable num_val: natural range 0 to 31;
+    type val_c is array (0 to 31) of natural range 0 to 31;
+    variable val_chan : val_c;
     variable Head : natural range 0 to FIFO_DEPTH - 1;
     variable Tail : natural range 0 to FIFO_DEPTH - 1;
     
@@ -38,9 +40,11 @@ begin
     variable len: integer :=0;
     variable i: integer :=0;
     variable first: boolean := true;
+    variable tmp_all_read: ALL_T;
     variable amount: integer :=0;
     variable tmp_all: ALL_T;
-    variable st: natural range 0 to 31;;
+    variable st: natural range 0 to 31:=0;
+    variable valid: boolean:=false;
   begin
   	if rising_edge(CLK) then
       if RST = '1' then
@@ -54,13 +58,15 @@ begin
         first  := true;
         i := 0;
        -- if (WriteEn = '1') then
-       if( DataIn(0).val='1' or DataIn(1).val='1' or DataIn(2).val='1' or DataIn(3).val='1' or DataIn(4).val='1' or DataIn(5).val='1' or DataIn(6).val='1' 
-       or DataIn(7).val='1' or DataIn(8).val='1' or DataIn(9).val='1' or DataIn(10).val='1' 
-        or DataIn(11).val='1' or DataIn(12).val='1' or DataIn(13).val='1' or DataIn(14).val='1' or DataIn(15).val='1' or DataIn(16).val='1' 
-             or DataIn(17).val='1' or DataIn(18).val='1' or DataIn(19).val='1' or
-             DataIn(20).val='1' or DataIn(21).val='1' or DataIn(22).val='1' or DataIn(23).val='1' or DataIn(24).val='1' or DataIn(25).val='1' or DataIn(26).val='1' 
-                    or DataIn(27).val='1' or DataIn(28).val='1' or DataIn(29).val='1' or
-                    DataIn(30).val='1' or DataIn(31).val='1') then
+       
+       
+       ----now need to calculate number of valid
+       if (DataIn(0).val='1') then
+            valid := true;
+            val_chan(num_val) := 0;
+            num_val:= num_val+1;
+       end if;
+       if (valid=true) then
           if (((Looped = false) or (Head /= Tail))) and DataIn(i).val='1' then
 
             if (first=true) then
@@ -91,10 +97,10 @@ begin
                   end if;
        
           end if;
-          if (st=zero) then
+          if (st=0) then
           if ((Looped = true) or (Head /= Tail)) then
             -- Update data output
-            DataOut <= Memory(Tail);
+            tmp_all_read := Memory(Tail);
             amount := amount -1;
             -- Update Tail pointer as needed
             if (Tail = FIFO_DEPTH - 1) then
@@ -105,7 +111,7 @@ begin
               Tail := Tail + 1;
             end if;
           end if;
-         elsif (st=one) then
+         elsif (st=1) then
          end if;
       end if;
    end if;
