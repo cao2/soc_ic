@@ -2,18 +2,19 @@ library IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 use work.defs.all;
+use work.util.all;
 
 entity fifo_ack is
   Generic (
-    constant FIFO_DEPTH	: positive := 3
+    constant FIFO_DEPTH	: positive :=5
 	);
   Port ( 
     CLK		: in  STD_LOGIC;
     RST		: in  STD_LOGIC;
     WriteEn	: in  STD_LOGIC;
-    DataIn	: in  TST_TTS;
+    DataIn	: in  TST_T;
     ReadEn	: in  STD_LOGIC;
-    DataOut	: out TST_TTS;
+    DataOut	: out std_logic_vector(36 downto 0);
     Empty	: out STD_LOGIC;
     Full	: out STD_LOGIC := '0';
     ack : in std_logic
@@ -28,7 +29,7 @@ begin
   -- Memory Pointer Process
   fifo_proc : process (clk)
     type FIFO_Memory is
-      array (0 to FIFO_DEPTH - 1) of TST_TTS;
+      array (0 to FIFO_DEPTH - 1) of std_logic_vector(36 downto 0);
     variable Memory : FIFO_Memory;
     
     variable Head : natural range 0 to FIFO_DEPTH - 1;
@@ -46,13 +47,13 @@ begin
         Looped := false;
         Full  <= '0';
         Empty <= '1';
-        DataOut.val<= '0';
+        DataOut<= (others=>'0');
       else
     	if st = one then
         if (WriteEn = '1') then
           if ((Looped = false) or (Head /= Tail)) then
             -- Write Data to Memory
-            Memory(Head) := DataIn;
+            Memory(Head) := slv(DataIn);
             
             -- Increment Head pointer as needed
             if (Head = FIFO_DEPTH - 1) then
@@ -80,7 +81,7 @@ begin
             end if;
           end if;
         else 
-          DataOut.val <= '0';
+          DataOut <=(others=>'0');
         end if;
         
         -- Update Empty and Full flags
@@ -96,7 +97,7 @@ begin
         end if;
        elsif st= two then
         if ack='1' then
-        DataOut.val <='0';
+        DataOut <=(others=>'0');
         st := one;
         end if;
        end if;
