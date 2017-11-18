@@ -11,27 +11,26 @@ Library UNIMACRO;
 use UNIMACRO.vcomponents.all;
 --  <-----Cut code below this line and paste into the architecture body---->
 
-   -- FIFO_SYNC_MACRO: Synchronous First-In, First-Out (FIFO) RAM Buffer
-   --                  Artix-7
-   -- Xilinx HDL Language Template, version 2017.2
+-- FIFO_SYNC_MACRO: Synchronous First-In, First-Out (FIFO) RAM Buffer
+--                  Artix-7
+-- Xilinx HDL Language Template, version 2017.2
 
-   -- Note -  This Unimacro model assumes the port directions to be "downto". 
-   --         Simulation of this model with "to" in the port directions could lead to erroneous results.
+-- Note -  This Unimacro model assumes the port directions to be "downto". 
+--         Simulation of this model with "to" in the port directions could lead to erroneous results.
 
-   -----------------------------------------------------------------
-   -- DATA_WIDTH | FIFO_SIZE | FIFO Depth | RDCOUNT/WRCOUNT Width --
-   -- ===========|===========|============|=======================--
-   --   37-72    |  "36Kb"   |     512    |         9-bit         --
-   --   19-36    |  "36Kb"   |    1024    |        10-bit         --
-   --   19-36    |  "18Kb"   |     512    |         9-bit         --
-   --   10-18    |  "36Kb"   |    2048    |        11-bit         --
-   --   10-18    |  "18Kb"   |    1024    |        10-bit         --
-   --    5-9     |  "36Kb"   |    4096    |        12-bit         --
-   --    5-9     |  "18Kb"   |    2048    |        11-bit         --
-   --    1-4     |  "36Kb"   |    8192    |        13-bit         --
-   --    1-4     |  "18Kb"   |    4096    |        12-bit         --
-   -----------------------------------------------------------------
-
+-----------------------------------------------------------------
+-- DATA_WIDTH | FIFO_SIZE | FIFO Depth | RDCOUNT/WRCOUNT Width --
+-- ===========|===========|============|=======================--
+--   37-72    |  "36Kb"   |     512    |         9-bit         --
+--   19-36    |  "36Kb"   |    1024    |        10-bit         --
+--   19-36    |  "18Kb"   |     512    |         9-bit         --
+--   10-18    |  "36Kb"   |    2048    |        11-bit         --
+--   10-18    |  "18Kb"   |    1024    |        10-bit         --
+--    5-9     |  "36Kb"   |    4096    |        12-bit         --
+--    5-9     |  "18Kb"   |    2048    |        11-bit         --
+--    1-4     |  "36Kb"   |    8192    |        13-bit         --
+--    1-4     |  "18Kb"   |    4096    |        12-bit         --
+-----------------------------------------------------------------
 
 entity arbiter32 is
 	Generic(
@@ -42,613 +41,306 @@ entity arbiter32 is
 		RST     : in  STD_LOGIC;
 		DataIn  : in  ALL_T;
 		DataOut : out std_logic_vector(37 downto 0);
-		Full    : out STD_LOGIC := '0'
+		A_full  : out STD_LOGIC := '0'
 	);
 end arbiter32;
 
 architecture rtl of arbiter32 is
 	--signal td1: std_logic_vector(31 downto 0);
 	--signal td2: std_logic_vector(31 downto 0);
-	signal tts0, tts1, tts2, tts3, tts4, tts5, tts6, tts7, tts8, tts9, tts10, tts11, tts12, tts13, tts14, tts15, tts16, tts17, tts18, tts19, tts20, tts21, tts22, tts23, tts24, tts25, tts26, tts27, tts28, tts29, tts30, tts31                                 : std_logic_vector(36 downto 0);
+	signal tts0, tts1, tts2, tts3, tts4, tts5, tts6, tts7, tts8, tts9, tts10, tts11, tts12, tts13, tts14, tts15, tts16, tts17, tts18, tts19, tts20, tts21, tts22, tts23, tts24, tts25, tts26, tts27, tts28, tts29, tts30, tts31 : std_logic_vector(36 downto 0);
 	type tts_a is array (0 to 31) of std_logic_vector(36 downto 0);
-	signal tts_array: tts_a;
-	signal in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15, in16, in17, in18, in19, in20, in21, in22, in23, in24, in25, in26, in27, in28, in29, in30, in31                                                                 : std_logic_vector(36 downto 0);
-	signal we0, we1, we2, we3, we4, we5, we6, we7, we8, we9, we10, we11, we12, we13, we14, we15, we16, we17, we18, we19, we20, we21, we22, we23, we24, we25, we26, we27, we28, we29, we30, we31                                                                 : std_logic;
-	signal full0, full1, full2, full3, full4, full5, full6, full7, full8, full9, full10, full11, full12, full13, full14, full15, full16, full17, full18, full19, full20, full21, full22, full23, full24, full25, full26, full27, full28, full29, full30, full31 : std_logic;
-	signal emp0, emp1, emp2, emp3, emp4, emp5, emp6, emp7, emp8, emp9, emp10, emp11, emp12, emp13, emp14, emp15, emp16, emp17, emp18, emp19, emp20, emp21, emp22, emp23, emp24, emp25, emp26, emp27, emp28, emp29, emp30, emp31                                 : std_logic;
-	signal count                                                                                                                                                                                                                                                : integer := 0;
-    signal en31,en30,en29,en28,en27,en26,en25,en24,en23,en22,en21,en20,en19,en18,en17,en16,en15,en14,en13,en12,en11,en10,en9,en8,en7,en6,en5,en4,en3,en2,en1,en0 : std_logic:='0';
---	signal layer1_1, layer1_2, layer1_3, layer1_4, layer1_5, layer1_6, layer1_7, layer1_8, layer1_9, layer1_10, layer1_11, layer1_12, layer1_13, layer1_14, layer1_15, layer1_16                                                                                : TST_TTS;
---	signal layer2_1, layer2_2, layer2_3, layer2_4, layer2_5, layer2_6, layer2_7, layer2_8: TST_TTS;
---	signal layer3_1, layer3_2, layer3_3, layer3_4 : TST_TTS;
---	signal layer4_1, layer4_2 : TST_TTS;
-	constant DEPTH : positive := 16;
-	signal ack                                                                                                                                                                                                                                                  : std_logic_vector(31 downto 0);
+	signal tts_array                                                                                                                                                                                                            : tts_a;
+	signal en, full, emp                                                                                                                                                                                                        : std_logic_vector(31 downto 0);
+	signal we0, we1, we2, we3, we4, we5, we6, we7, we8, we9, we10, we11, we12, we13, we14, we15, we16, we17, we18, we19, we20, we21, we22, we23, we24, we25, we26, we27, we28, we29, we30, we31                                 : std_logic;
+	signal count                                                                                                                                                                                                                : integer  := 0;
+	--	signal layer1_1, layer1_2, layer1_3, layer1_4, layer1_5, layer1_6, layer1_7, layer1_8, layer1_9, layer1_10, layer1_11, layer1_12, layer1_13, layer1_14, layer1_15, layer1_16                                                                                : TST_TTS;
+	--	signal layer2_1, layer2_2, layer2_3, layer2_4, layer2_5, layer2_6, layer2_7, layer2_8: TST_TTS;
+	--	signal layer3_1, layer3_2, layer3_3, layer3_4 : TST_TTS;
+	--	signal layer4_1, layer4_2 : TST_TTS;
+	constant DEPTH                                                                                                                                                                                                              : positive := 16;
+	signal ack                                                                                                                                                                                                                  : std_logic_vector(31 downto 0);
 begin
-    tts_map: process(clk)
-    begin
-        if rising_edge(clk) then
-            tts_array(1) <= tts1;
-        tts_array(2) <= tts2;
-        tts_array(3) <= tts3;
-        tts_array(4) <= tts4;
-        tts_array(5) <= tts5;
-        tts_array(6) <= tts6;
-        tts_array(7) <= tts7;
-        tts_array(8) <= tts8;
-        tts_array(9) <= tts9;
-        tts_array(10) <= tts10;
-        tts_array(11) <= tts11;
-        tts_array(12) <= tts12;
-        tts_array(13) <= tts13;
-        tts_array(14) <= tts14;
-        tts_array(15) <= tts15;
-        tts_array(16) <= tts16;
-        tts_array(17) <= tts17;
-        tts_array(18) <= tts18;
-        tts_array(19) <= tts19;
-        tts_array(20) <= tts20;
-        tts_array(21) <= tts21;
-        tts_array(22) <= tts22;
-        tts_array(23) <= tts23;
-        tts_array(24) <= tts24;
-        tts_array(25) <= tts25;
-        tts_array(26) <= tts26;
-        tts_array(27) <= tts27;
-        tts_array(28) <= tts28;
-        tts_array(29) <= tts29;
-        tts_array(30) <= tts30;
-        tts_array(31) <= tts31;
+		tts_map : process(clk)
+		begin
+			if rising_edge(clk) then
+				tts_array(1)  <= tts1;
+				tts_array(2)  <= tts2;
+				tts_array(3)  <= tts3;
+				tts_array(4)  <= tts4;
+				tts_array(5)  <= tts5;
+				tts_array(6)  <= tts6;
+				tts_array(7)  <= tts7;
+				tts_array(8)  <= tts8;
+				tts_array(9)  <= tts9;
+				tts_array(10) <= tts10;
+				tts_array(11) <= tts11;
+				tts_array(12) <= tts12;
+				tts_array(13) <= tts13;
+				tts_array(14) <= tts14;
+				tts_array(15) <= tts15;
+				tts_array(16) <= tts16;
+				tts_array(17) <= tts17;
+				tts_array(18) <= tts18;
+				tts_array(19) <= tts19;
+				tts_array(20) <= tts20;
+				tts_array(21) <= tts21;
+				tts_array(22) <= tts22;
+				tts_array(23) <= tts23;
+				tts_array(24) <= tts24;
+				tts_array(25) <= tts25;
+				tts_array(26) <= tts26;
+				tts_array(27) <= tts27;
+				tts_array(28) <= tts28;
+				tts_array(29) <= tts29;
+				tts_array(30) <= tts30;
+				tts_array(31) <= tts31;
+	
+			end if;
+		end process;
+	fifo_proc : process(clk, rst)
+		-- type ram_t is array (0 to FIFO_DEPTH - 1) of ALL_T;
+		-- variable Memory   : ram_t;
+		variable num_val  : natural range 0 to 31;
+		type val_c is array (0 to 31) of natural range 0 to 31;
+		variable val_chan : val_c;
+		variable Head     : natural range 0 to FIFO_DEPTH - 1;
+		variable Tail     : natural range 0 to FIFO_DEPTH - 1;
 
-            
-        end if;
-    end process;
-    fifo_proc : process(clk, rst)
-   -- type ram_t is array (0 to FIFO_DEPTH - 1) of ALL_T;
-   -- variable Memory   : ram_t;
-    variable num_val  : natural range 0 to 31;
-    type val_c is array (0 to 31) of natural range 0 to 31;
-    variable val_chan : val_c;
-    variable Head     : natural range 0 to FIFO_DEPTH - 1;
-    variable Tail     : natural range 0 to FIFO_DEPTH - 1;
+		variable Looped : boolean;
+		variable len    : integer               := 0;
+		--variable i            : integer := 0;
+		--variable first        : boolean := true;
+		---variable tmp_all_read : ALL_T;
+		--variable amount       : integer := 0;
+		-- variable tmp_all      : ALL_T;
+		variable st     : natural range 0 to 31 := 0;
+		variable valid  : boolean               := false;
+		variable i: natural range 0 to 32 :=0;
+	begin
+		if rising_edge(CLK) then
+			if RST = '1' then
+				DataOut <= (others => '0');
+			else
+				----now need to calculate number of valid
+				if (DataIn(0).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 0;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(1).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 1;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(2).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 2;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(3).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 3;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(4).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 4;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(5).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 5;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(6).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 6;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(7).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 7;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(8).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 8;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(9).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 9;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(10).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 10;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(11).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 11;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(12).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 12;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(13).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 13;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(14).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 14;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(15).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 15;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(16).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 16;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(17).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 17;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(18).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 18;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(19).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 19;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(20).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 20;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(21).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 21;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(22).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 22;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(23).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 23;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(24).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 24;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(25).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 25;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(26).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 26;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(27).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 27;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(28).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 28;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(29).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 29;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(30).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 30;
+					num_val           := num_val + 1;
+				end if;
+				if (DataIn(31).val = '1') then
+					valid             := true;
+					val_chan(num_val) := 31;
+					num_val           := num_val + 1;
+				end if;
+				---ack <= (others => '0');
+				if (valid = true) then
+					if (st = 0) then
+						re(i) <= '1';
+						if tts_array(val_chan(i))(36 downto 36) = "0" then
+							DataOut <= tts_array(val_chan(i)) & '1';
+							---now the first data is out, check if it reaches the size
+							if i + 1 < num_val then
+								i := i + 1;
+							end if;
+						end if;
+					end if;
+				elsif (st = 1) then
+					re(i) <= '1';
+					if tts_array(val_chan(i))(36 downto 36) = "0" then
+						DataOut          <= tts_array(val_chan(i)) & '0';
+						ack(val_chan(1)) <= '1';
+						if i + 1 = num_val then
+							st := 0;
+						else
+							i:= i+1;
+						end if;
+					end if;
+				
 
-    variable Looped       : boolean;
-    variable len          : integer := 0;
-    --variable i            : integer := 0;
-    --variable first        : boolean := true;
-    ---variable tmp_all_read : ALL_T;
-    --variable amount       : integer := 0;
-   -- variable tmp_all      : ALL_T;
-    variable st           : natural range 0 to 31 := 0;
-    variable valid        : boolean := false;
-begin
-    if rising_edge(CLK) then
-        if RST = '1' then
-            Head        := 0;
-            Tail        := 0;
-            Looped      := false;
-            Full        <= '0';
-            --        Empty <= '1';
-            DataOut<=(others=>'0');
-        else
-            ----now need to calculate number of valid
-            if (DataIn(0).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 0;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(1).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 1;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(2).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 2;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(3).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 3;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(4).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 4;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(5).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 5;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(6).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 6;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(7).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 7;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(8).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 8;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(9).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 9;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(10).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 10;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(11).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 11;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(12).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 12;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(13).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 13;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(14).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 14;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(15).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 15;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(16).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 16;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(17).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 17;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(18).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 18;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(19).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 19;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(20).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 20;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(21).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 21;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(22).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 22;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(23).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 23;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(24).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 24;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(25).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 25;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(26).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 26;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(27).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 27;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(28).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 28;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(29).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 29;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(30).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 30;
-                num_val           := num_val + 1;
-            end if;
-            if (DataIn(31).val = '1') then
-                valid             := true;
-                val_chan(num_val) := 31;
-                num_val           := num_val + 1;
-            end if;
-            ack<=(others=>'0');
-            if (valid = true) then
-            if (st = 0) then
-                    DataOut<= tts_array(val_chan(0))&'1';
-                    ---now the first data is out, check if it reaches the size
-                    if st + 1 < num_val then
-                        st := st + 1;
-                    end if;
-                end if;
-           elsif (st = 1) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(1))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 2) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(2))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 3) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(3))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 4) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(4))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 5) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(5))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 6) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(6))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 7) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(7))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 8) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(8))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 9) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(9))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 10) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(10))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 11) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(11))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 12) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(12))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 13) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(13))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 14) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(14))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 15) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(15))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 16) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(16))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 17) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(17))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 18) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(18))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 19) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(19))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 20) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(20))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 21) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(21))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 22) then
-                 if tts_array(val_chan(st))(36 downto 36)="0" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(22))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 23) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(23))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 24) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(24))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 25) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(25))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 26) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(26))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 27) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(27))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 28) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(28))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 29) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(29))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 30) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(30))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
-                elsif (st = 31) then
-                 if tts_array(val_chan(st))(36 downto 36)="1" then
-                   DataOut <=tts_array(val_chan(st))&'0';
-                  ack(val_chan(31))<='1';
-                  if st+1<num_val then
-                   st:=st+1;
-                  else
-                   st:=0;
-                  end if;
-                 end if;
+				end if;
+			end if;
+		end if;
+	end process;
 
-
-
-            end if;
-        end if;
-    end if;
-end process;
-    
-    
-   FIFO_SYNC_MACRO_inst : FIFO_SYNC_MACRO
-   generic map (
-      DEVICE => "7SERIES",            -- Target Device: "VIRTEX5, "VIRTEX6", "7SERIES" 
-      ALMOST_FULL_OFFSET => X"0080",  -- Sets almost full threshold
-      ALMOST_EMPTY_OFFSET => X"0080", -- Sets the almost empty threshold
-      DATA_WIDTH => 37,   -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      FIFO_SIZE => "36Kb")            -- Target BRAM, "18Kb" or "36Kb" 
-   port map (
-     -- ALMOSTEMPTY => ,   -- 1-bit output almost empty
-      --ALMOSTFULL => ALMOSTFULL,     -- 1-bit output almost full
-      DO => in0,                     -- Output data, width defined by DATA_WIDTH parameter
-      EMPTY => emp0,               -- 1-bit output empty
-      FULL => full0,                 -- 1-bit output full
-    --  RDCOUNT => RDCOUNT,           -- Output read count, width determined by FIFO depth
-    --  RDERR => RDERR,               -- 1-bit output read error
-    --  WRCOUNT => WRCOUNT,           -- Output write count, width determined by FIFO depth
-     -- WRERR => WRERR,               -- 1-bit output write error
-      CLK => CLK,                   -- 1-bit input clock
-      DI => tts0,                     -- Input data, width defined by DATA_WIDTH parameter
-      RDEN => en0,                 -- 1-bit input read enable
-      RST => RST,                   -- 1-bit input reset
-      WREN => we0                  -- 1-bit input write enable
-   );
-    
+	FIFO0 : FIFO_SYNC_MACRO
+		generic map(
+			DEVICE              => "7SERIES", -- Target Device: "VIRTEX5, "VIRTEX6", "7SERIES" 
+			ALMOST_FULL_OFFSET  => X"0080", -- Sets almost full threshold
+			ALMOST_EMPTY_OFFSET => X"0080", -- Sets the almost empty threshold
+			DATA_WIDTH          => 37,  -- Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
+			FIFO_SIZE           => "36Kb") -- Target BRAM, "18Kb" or "36Kb" 
+		port map(
+			-- ALMOSTEMPTY => ,   -- 1-bit output almost empty
+			--ALMOSTFULL => ALMOSTFULL,     -- 1-bit output almost full
+			DO    => in0,               -- Output data, width defined by DATA_WIDTH parameter
+			EMPTY => emp0,              -- 1-bit output empty
+			FULL  => full0,             -- 1-bit output full
+			--  RDCOUNT => RDCOUNT,           -- Output read count, width determined by FIFO depth
+			--  RDERR => RDERR,               -- 1-bit output read error
+			--  WRCOUNT => WRCOUNT,           -- Output write count, width determined by FIFO depth
+			-- WRERR => WRERR,               -- 1-bit output write error
+			CLK   => CLK,               -- 1-bit input clock
+			DI    => tts0,              -- Input data, width defined by DATA_WIDTH parameter
+			RDEN  => en(0),             -- 1-bit input read enable
+			RST   => RST,               -- 1-bit input reset
+			WREN  => we0                -- 1-bit input write enable
+		);
 
 	fifo0_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we0 <= '0';
 			elsif DataIn(0).val = '1' then -- if req is valid
 				in0 <= slv(DataIn(0));
@@ -658,856 +350,930 @@ end process;
 			end if;
 		end if;
 	end process;
-
-	
+	FIFO1 : FIFO_SYNC_MACRO
+		generic map(
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
+		port map(
+			DO    => in1,
+			EMPTY => emp(1),
+			FULL  => full(1),
+			CLK   => CLK,
+			DI    => tts1,
+			RDEN  => en(1),
+			RST   => RST,
+			WREN  => we1
+		);
 	fifo1_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we1 <= '0';
-			elsif DataIn(1).val = '1' then -- if req is valid
-				in1 <= DataIn(1);
+			elsif DataIn(1).val = '1' then
+				in1 <= slv(DataIn(1));
 				we1 <= '1';
 			else
 				we1 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo2 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO2 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(2),
-			RST     => RST,
-			DataIn  => in2,
-			WriteEn => we2,
-			ReadEn  => '1',
-			DataOut => tts2,
-			Full    => full2,
-			Empty   => emp2
+			DO    => in2,
+			EMPTY => emp(2),
+			FULL  => full(2),
+			CLK   => CLK,
+			DI    => tts2,
+			RDEN  => en(2),
+			RST   => RST,
+			WREN  => we2
 		);
-
 	fifo2_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we2 <= '0';
-			elsif DataIn(2).val = '1' then -- if req is valid
-				in2 <= DataIn(2);
+			elsif DataIn(2).val = '1' then
+				in2 <= slv(DataIn(2));
 				we2 <= '1';
 			else
 				we2 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo3 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO3 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(3),
-			RST     => RST,
-			DataIn  => in3,
-			WriteEn => we3,
-			ReadEn  => '1',
-			DataOut => tts3,
-			Full    => full3,
-			Empty   => emp3
+			DO    => in3,
+			EMPTY => emp(3),
+			FULL  => full(3),
+			CLK   => CLK,
+			DI    => tts3,
+			RDEN  => en(3),
+			RST   => RST,
+			WREN  => we3
 		);
 	fifo3_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we3 <= '0';
-			elsif DataIn(3).val = '1' then -- if req is valid
-				in3 <= DataIn(3);
+			elsif DataIn(3).val = '1' then
+				in3 <= slv(DataIn(3));
 				we3 <= '1';
 			else
 				we3 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo4 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO4 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(4),
-			RST     => RST,
-			DataIn  => in4,
-			WriteEn => we4,
-			ReadEn  => '1',
-			DataOut => tts4,
-			Full    => full4,
-			Empty   => emp4
+			DO    => in4,
+			EMPTY => emp(4),
+			FULL  => full(4),
+			CLK   => CLK,
+			DI    => tts4,
+			RDEN  => en(4),
+			RST   => RST,
+			WREN  => we4
 		);
 	fifo4_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we4 <= '0';
-			elsif DataIn(4).val = '1' then -- if req is valid
-				in4 <= DataIn(4);
+			elsif DataIn(4).val = '1' then
+				in4 <= slv(DataIn(4));
 				we4 <= '1';
 			else
 				we4 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo5 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO5 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(5),
-			RST     => RST,
-			DataIn  => in5,
-			WriteEn => we5,
-			ReadEn  => '1',
-			DataOut => tts5,
-			Full    => full5,
-			Empty   => emp5
+			DO    => in5,
+			EMPTY => emp(5),
+			FULL  => full(5),
+			CLK   => CLK,
+			DI    => tts5,
+			RDEN  => en(5),
+			RST   => RST,
+			WREN  => we5
 		);
 	fifo5_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we5 <= '0';
-			elsif DataIn(5).val = '1' then -- if req is valid
-				in5 <= DataIn(5);
+			elsif DataIn(5).val = '1' then
+				in5 <= slv(DataIn(5));
 				we5 <= '1';
 			else
 				we5 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo6 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO6 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(6),
-			RST     => RST,
-			DataIn  => in6,
-			WriteEn => we6,
-			ReadEn  => '1',
-			DataOut => tts6,
-			Full    => full6,
-			Empty   => emp6
+			DO    => in6,
+			EMPTY => emp(6),
+			FULL  => full(6),
+			CLK   => CLK,
+			DI    => tts6,
+			RDEN  => en(6),
+			RST   => RST,
+			WREN  => we6
 		);
 	fifo6_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we6 <= '0';
-			elsif DataIn(6).val = '1' then -- if req is valid
-				in6 <= DataIn(6);
+			elsif DataIn(6).val = '1' then
+				in6 <= slv(DataIn(6));
 				we6 <= '1';
 			else
 				we6 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo7 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO7 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(7),
-			RST     => RST,
-			DataIn  => in7,
-			WriteEn => we7,
-			ReadEn  => '1',
-			DataOut => tts7,
-			Full    => full7,
-			Empty   => emp7
+			DO    => in7,
+			EMPTY => emp(7),
+			FULL  => full(7),
+			CLK   => CLK,
+			DI    => tts7,
+			RDEN  => en(7),
+			RST   => RST,
+			WREN  => we7
 		);
 	fifo7_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we7 <= '0';
-			elsif DataIn(7).val = '1' then -- if req is valid
-				in7 <= DataIn(7);
+			elsif DataIn(7).val = '1' then
+				in7 <= slv(DataIn(7));
 				we7 <= '1';
 			else
 				we7 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo8 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO8 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(8),
-			RST     => RST,
-			DataIn  => in8,
-			WriteEn => we8,
-			ReadEn  => '1',
-			DataOut => tts8,
-			Full    => full8,
-			Empty   => emp8
+			DO    => in8,
+			EMPTY => emp(8),
+			FULL  => full(8),
+			CLK   => CLK,
+			DI    => tts8,
+			RDEN  => en(8),
+			RST   => RST,
+			WREN  => we8
 		);
 	fifo8_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we8 <= '0';
-			elsif DataIn(8).val = '1' then -- if req is valid
-				in8 <= DataIn(8);
+			elsif DataIn(8).val = '1' then
+				in8 <= slv(DataIn(8));
 				we8 <= '1';
 			else
 				we8 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo9 : entity work.fifo_ack(rtl)   -- req from device
+	FIFO9 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(9),
-			RST     => RST,
-			DataIn  => in9,
-			WriteEn => we9,
-			ReadEn  => '1',
-			DataOut => tts9,
-			Full    => full9,
-			Empty   => emp9
+			DO    => in9,
+			EMPTY => emp(9),
+			FULL  => full(9),
+			CLK   => CLK,
+			DI    => tts9,
+			RDEN  => en(9),
+			RST   => RST,
+			WREN  => we9
 		);
 	fifo9_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we9 <= '0';
-			elsif DataIn(9).val = '1' then -- if req is valid
-				in9 <= DataIn(9);
+			elsif DataIn(9).val = '1' then
+				in9 <= slv(DataIn(9));
 				we9 <= '1';
 			else
 				we9 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo10 : entity work.fifo_ack(rtl)  -- req from device
+	FIFO10 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(10),
-			RST     => RST,
-			DataIn  => in10,
-			WriteEn => we10,
-			ReadEn  => '1',
-			DataOut => tts10,
-			Full    => full10,
-			Empty   => emp10
+			DO    => in10,
+			EMPTY => emp(10),
+			FULL  => full(10),
+			CLK   => CLK,
+			DI    => tts10,
+			RDEN  => en(10),
+			RST   => RST,
+			WREN  => we10
 		);
 	fifo10_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we10 <= '0';
-			elsif DataIn(10).val = '1' then -- if req is valid
-				in10 <= DataIn(10);
+			elsif DataIn(10).val = '1' then
+				in10 <= slv(DataIn(10));
 				we10 <= '1';
 			else
 				we10 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo11 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO11 : FIFO_SYNC_MACRO
 		generic map(
-			fifo_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(11),
-			RST     => RST,
-			DataIn => in11,
-			WriteEn => we11,
-			ReadEn  => '1',
-			DataOut => tts11,
-			full   => full11,
-			empty  => emp11
+			DO    => in11,
+			EMPTY => emp(11),
+			FULL  => full(11),
+			CLK   => CLK,
+			DI    => tts11,
+			RDEN  => en(11),
+			RST   => RST,
+			WREN  => we11
 		);
 	fifo11_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we11 <= '0';
-			elsif DataIn(11).val = '1' then -- if req is valid
-				in11 <= DataIn(11);
+			elsif DataIn(11).val = '1' then
+				in11 <= slv(DataIn(11));
 				we11 <= '1';
 			else
 				we11 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo12 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO12 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(12),
-			RST     => RST,
-			DataIn => in12,
-			WriteEn => we12,
-			ReadEn  => '1',
-			DataOut => tts12,
-			full => full12,
-			empty  => emp12
+			DO    => in12,
+			EMPTY => emp(12),
+			FULL  => full(12),
+			CLK   => CLK,
+			DI    => tts12,
+			RDEN  => en(12),
+			RST   => RST,
+			WREN  => we12
 		);
 	fifo12_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we12 <= '0';
-			elsif DataIn(12).val = '1' then -- if req is valid
-				in12 <= DataIn(12);
+			elsif DataIn(12).val = '1' then
+				in12 <= slv(DataIn(12));
 				we12 <= '1';
 			else
 				we12 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo13 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO13 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(13),
-			RST     => RST,
-			DataIn => in13,
-			WriteEn => we13,
-			ReadEn  => '1',
-			DataOut => tts13,
-			full => full13,
-			empty  => emp13
+			DO    => in13,
+			EMPTY => emp(13),
+			FULL  => full(13),
+			CLK   => CLK,
+			DI    => tts13,
+			RDEN  => en(13),
+			RST   => RST,
+			WREN  => we13
 		);
 	fifo13_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we13 <= '0';
-			elsif DataIn(13).val = '1' then -- if req is valid
-				in13 <=DataIn(13);
+			elsif DataIn(13).val = '1' then
+				in13 <= slv(DataIn(13));
 				we13 <= '1';
 			else
 				we13 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo14 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO14 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(14),
-			RST     => RST,
-			DataIn => in14,
-			WriteEn => we14,
-			ReadEn  => '1',
-			DataOut => tts14,
-			full => full14,
-			empty  => emp14
+			DO    => in14,
+			EMPTY => emp(14),
+			FULL  => full(14),
+			CLK   => CLK,
+			DI    => tts14,
+			RDEN  => en(14),
+			RST   => RST,
+			WREN  => we14
 		);
 	fifo14_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we14 <= '0';
-			elsif DataIn(14).val = '1' then -- if req is valid
-				in14 <= DataIn(14);
+			elsif DataIn(14).val = '1' then
+				in14 <= slv(DataIn(14));
 				we14 <= '1';
 			else
 				we14 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo15 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO15 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(15),
-			RST     => RST,
-			DataIn => in15,
-			WriteEn => we15,
-			ReadEn  => '1',
-			DataOut => tts15,
-			full => full15,
-			empty  => emp15
+			DO    => in15,
+			EMPTY => emp(15),
+			FULL  => full(15),
+			CLK   => CLK,
+			DI    => tts15,
+			RDEN  => en(15),
+			RST   => RST,
+			WREN  => we15
 		);
 	fifo15_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we15 <= '0';
-			elsif DataIn(15).val = '1' then -- if req is valid
-				in15 <= DataIn(15);
+			elsif DataIn(15).val = '1' then
+				in15 <= slv(DataIn(15));
 				we15 <= '1';
 			else
 				we15 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo16 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO16 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(16),
-			RST     => RST,
-			DataIn => in16,
-			WriteEn => we16,
-			ReadEn  => '1',
-			DataOut => tts16,
-			full => full16,
-			empty  => emp16
+			DO    => in16,
+			EMPTY => emp(16),
+			FULL  => full(16),
+			CLK   => CLK,
+			DI    => tts16,
+			RDEN  => en(16),
+			RST   => RST,
+			WREN  => we16
 		);
 	fifo16_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we16 <= '0';
-			elsif DataIn(16).val = '1' then -- if req is valid
-				in16 <= DataIn(16);
+			elsif DataIn(16).val = '1' then
+				in16 <= slv(DataIn(16));
 				we16 <= '1';
 			else
 				we16 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo17 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO17 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => 3
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(17),
-			RST     => RST,
-			DataIn => in17,
-			WriteEn => we17,
-			ReadEn  => '1',
-			DataOut => tts17,
-			full => full17,
-			empty  => emp17
+			DO    => in17,
+			EMPTY => emp(17),
+			FULL  => full(17),
+			CLK   => CLK,
+			DI    => tts17,
+			RDEN  => en(17),
+			RST   => RST,
+			WREN  => we17
 		);
 	fifo17_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we17 <= '0';
-			elsif DataIn(17).val = '1' then -- if req is valid
-				in17 <= DataIn(17);
+			elsif DataIn(17).val = '1' then
+				in17 <= slv(DataIn(17));
 				we17 <= '1';
 			else
 				we17 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo18 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO18 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(18),
-			RST     => RST,
-			DataIn => in18,
-			WriteEn => we18,
-			ReadEn  => '1',
-			DataOut => tts18,
-			full => full18,
-			empty  => emp18
+			DO    => in18,
+			EMPTY => emp(18),
+			FULL  => full(18),
+			CLK   => CLK,
+			DI    => tts18,
+			RDEN  => en(18),
+			RST   => RST,
+			WREN  => we18
 		);
 	fifo18_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we18 <= '0';
-			elsif DataIn(18).val = '1' then -- if req is valid
-				in18 <= DataIn(18);
+			elsif DataIn(18).val = '1' then
+				in18 <= slv(DataIn(18));
 				we18 <= '1';
 			else
 				we18 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo19 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO19 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(19),
-			RST     => RST,
-			DataIn => in19,
-			WriteEn => we19,
-			ReadEn  => '1',
-			DataOut => tts19,
-			full => full19,
-			empty  => emp19
+			DO    => in19,
+			EMPTY => emp(19),
+			FULL  => full(19),
+			CLK   => CLK,
+			DI    => tts19,
+			RDEN  => en(19),
+			RST   => RST,
+			WREN  => we19
 		);
 	fifo19_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we19 <= '0';
-			elsif DataIn(19).val = '1' then -- if req is valid
-				in19 <= DataIn(19);
+			elsif DataIn(19).val = '1' then
+				in19 <= slv(DataIn(19));
 				we19 <= '1';
 			else
 				we19 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo20 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO20 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(20),
-			RST     => RST,
-			DataIn => in20,
-			WriteEn => we20,
-			ReadEn  => '1',
-			DataOut => tts20,
-			full => full20,
-			empty  => emp20
+			DO    => in20,
+			EMPTY => emp(20),
+			FULL  => full(20),
+			CLK   => CLK,
+			DI    => tts20,
+			RDEN  => en(20),
+			RST   => RST,
+			WREN  => we20
 		);
 	fifo20_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we20 <= '0';
-			elsif DataIn(20).val = '1' then -- if req is valid
-				in20 <= DataIn(20);
+			elsif DataIn(20).val = '1' then
+				in20 <= slv(DataIn(20));
 				we20 <= '1';
 			else
 				we20 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo21 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO21 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(21),
-			RST     => RST,
-			DataIn => in21,
-			WriteEn => we21,
-			ReadEn  => '1',
-			DataOut => tts21,
-			full => full21,
-			empty  => emp21
+			DO    => in21,
+			EMPTY => emp(21),
+			FULL  => full(21),
+			CLK   => CLK,
+			DI    => tts21,
+			RDEN  => en(21),
+			RST   => RST,
+			WREN  => we21
 		);
 	fifo21_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we21 <= '0';
-			elsif DataIn(21).val = '1' then -- if req is valid
-				in21 <= DataIn(21);
+			elsif DataIn(21).val = '1' then
+				in21 <= slv(DataIn(21));
 				we21 <= '1';
 			else
 				we21 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo22 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO22 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(22),
-			RST     => RST,
-			DataIn => in22,
-			WriteEn => we22,
-			ReadEn  => '1',
-			DataOut => tts22,
-			full => full22,
-			empty  => emp22
+			DO    => in22,
+			EMPTY => emp(22),
+			FULL  => full(22),
+			CLK   => CLK,
+			DI    => tts22,
+			RDEN  => en(22),
+			RST   => RST,
+			WREN  => we22
 		);
 	fifo22_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we22 <= '0';
-			elsif DataIn(22).val = '1' then -- if req is valid
-				in22 <= DataIn(22);
+			elsif DataIn(22).val = '1' then
+				in22 <= slv(DataIn(22));
 				we22 <= '1';
 			else
 				we22 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo23 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO23 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(23),
-			RST     => RST,
-			DataIn => in23,
-			WriteEn => we23,
-			ReadEn  => '1',
-			DataOut => tts23,
-			full => full23,
-			empty  => emp23
+			DO    => in23,
+			EMPTY => emp(23),
+			FULL  => full(23),
+			CLK   => CLK,
+			DI    => tts23,
+			RDEN  => en(23),
+			RST   => RST,
+			WREN  => we23
 		);
 	fifo23_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we23 <= '0';
-			elsif DataIn(23).val = '1' then -- if req is valid
-				in23 <= DataIn(23);
+			elsif DataIn(23).val = '1' then
+				in23 <= slv(DataIn(23));
 				we23 <= '1';
 			else
 				we23 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo24 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO24 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(24),
-			RST     => RST,
-			DataIn => in24,
-			WriteEn => we24,
-			ReadEn  => '1',
-			DataOut => tts24,
-			full => full24,
-			empty  => emp24
+			DO    => in24,
+			EMPTY => emp(24),
+			FULL  => full(24),
+			CLK   => CLK,
+			DI    => tts24,
+			RDEN  => en(24),
+			RST   => RST,
+			WREN  => we24
 		);
 	fifo24_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we24 <= '0';
-			elsif DataIn(24).val = '1' then -- if req is valid
-				in24 <= DataIn(24);
+			elsif DataIn(24).val = '1' then
+				in24 <= slv(DataIn(24));
 				we24 <= '1';
 			else
 				we24 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo25 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO25 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(25),
-			RST     => RST,
-			DataIn => in25,
-			WriteEn => we25,
-			ReadEn  => '1',
-			DataOut => tts25,
-			full => full25,
-			empty  => emp25
+			DO    => in25,
+			EMPTY => emp(25),
+			FULL  => full(25),
+			CLK   => CLK,
+			DI    => tts25,
+			RDEN  => en(25),
+			RST   => RST,
+			WREN  => we25
 		);
 	fifo25_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we25 <= '0';
-			elsif DataIn(25).val = '1' then -- if req is valid
-				in25 <= DataIn(25);
+			elsif DataIn(25).val = '1' then
+				in25 <= slv(DataIn(25));
 				we25 <= '1';
 			else
 				we25 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo26 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO26 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(26),
-			RST     => RST,
-			DataIn => in26,
-			WriteEn => we26,
-			ReadEn  => '1',
-			DataOut => tts26,
-			full => full26,
-			empty  => emp26
+			DO    => in26,
+			EMPTY => emp(26),
+			FULL  => full(26),
+			CLK   => CLK,
+			DI    => tts26,
+			RDEN  => en(26),
+			RST   => RST,
+			WREN  => we26
 		);
 	fifo26_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we26 <= '0';
-			elsif DataIn(26).val = '1' then -- if req is valid
-				in26 <= DataIn(26);
+			elsif DataIn(26).val = '1' then
+				in26 <= slv(DataIn(26));
 				we26 <= '1';
 			else
 				we26 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo27 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO27 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(27),
-			RST     => RST,
-			DataIn => in27,
-			WriteEn => we27,
-			ReadEn  => '1',
-			DataOut => tts27,
-			full => full27,
-			empty  => emp27
+			DO    => in27,
+			EMPTY => emp(27),
+			FULL  => full(27),
+			CLK   => CLK,
+			DI    => tts27,
+			RDEN  => en(27),
+			RST   => RST,
+			WREN  => we27
 		);
 	fifo27_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we27 <= '0';
-			elsif DataIn(27).val = '1' then -- if req is valid
-				in27 <= DataIn(27);
+			elsif DataIn(27).val = '1' then
+				in27 <= slv(DataIn(27));
 				we27 <= '1';
 			else
 				we27 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo28 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO28 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(28),
-			RST     => RST,
-			DataIn => in28,
-			WriteEn => we28,
-			ReadEn  => '1',
-			DataOut => tts28,
-			full => full28,
-			empty  => emp28
+			DO    => in28,
+			EMPTY => emp(28),
+			FULL  => full(28),
+			CLK   => CLK,
+			DI    => tts28,
+			RDEN  => en(28),
+			RST   => RST,
+			WREN  => we28
 		);
 	fifo28_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we28 <= '0';
-			elsif DataIn(28).val = '1' then -- if req is valid
-				in28 <= DataIn(28);
+			elsif DataIn(28).val = '1' then
+				in28 <= slv(DataIn(28));
 				we28 <= '1';
 			else
 				we28 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo29 : entity work.fifo_ack(rtl)     -- req from device
+	FIFO29 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(29),
-			RST     => RST,
-			DataIn => in29,
-			WriteEn => we29,
-			ReadEn  => '1',
-			DataOut => tts29,
-			full => full29,
-			empty  => emp29
+			DO    => in29,
+			EMPTY => emp(29),
+			FULL  => full(29),
+			CLK   => CLK,
+			DI    => tts29,
+			RDEN  => en(29),
+			RST   => RST,
+			WREN  => we29
 		);
 	fifo29_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we29 <= '0';
-			elsif DataIn(29).val = '1' then -- if req is valid
-				in29 <= DataIn(29);
+			elsif DataIn(29).val = '1' then
+				in29 <= slv(DataIn(29));
 				we29 <= '1';
 			else
 				we29 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo30 : entity work.fifo_ack(rtl)  -- req from device
+	FIFO30 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(30),
-			RST     => RST,
-			DataIn  => in30,
-			WriteEn => we30,
-			ReadEn  => '1',
-			DataOut => tts30,
-			Full    => full30,
-			Empty   => emp30
+			DO    => in30,
+			EMPTY => emp(30),
+			FULL  => full(30),
+			CLK   => CLK,
+			DI    => tts30,
+			RDEN  => en(30),
+			RST   => RST,
+			WREN  => we30
 		);
 	fifo30_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we30 <= '0';
-			elsif DataIn(30).val = '1' then -- if req is valid
-				in30 <= DataIn(30);
+			elsif DataIn(30).val = '1' then
+				in30 <= slv(DataIn(30));
 				we30 <= '1';
 			else
 				we30 <= '0';
 			end if;
 		end if;
 	end process;
-
-	fifo31 : entity work.fifo_ack(rtl)  -- req from device
+	FIFO31 : FIFO_SYNC_MACRO
 		generic map(
-			FIFO_DEPTH => DEPTH
-		)
+			DEVICE              => "7SERIES",
+			ALMOST_FULL_OFFSET  => X"0080",
+			ALMOST_EMPTY_OFFSET => X"0080",
+			DATA_WIDTH          => 37,
+			FIFO_SIZE = "36Kb")
 		port map(
-			CLK     => CLK, ack => ack(31),
-			RST     => RST,
-			DataIn  => in31,
-			WriteEn => we31,
-			ReadEn  => '1',
-			DataOut => tts31,
-			Full    => full31,
-			Empty   => emp31
+			DO    => in31,
+			EMPTY => emp(31),
+			FULL  => full(31),
+			CLK   => CLK,
+			DI    => tts31,
+			RDEN  => en(31),
+			RST   => RST,
+			WREN  => we31
 		);
 	fifo31_p : process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if RST='1' then
+			if RST = '1' then
 				we31 <= '0';
-			elsif DataIn(31).val = '1' then -- if req is valid
-				in31 <= DataIn(31);
+			elsif DataIn(31).val = '1' then
+				in31 <= slv(DataIn(31));
 				we31 <= '1';
 			else
 				we31 <= '0';
@@ -1515,5 +1281,4 @@ end process;
 		end if;
 	end process;
 
-	
 end rtl;
