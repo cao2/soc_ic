@@ -36,7 +36,7 @@ entity ic is
 		uart_upreq_i                                    : in  MSG_T;
 		uart_upres_o                                    : out MSG_T;
 		uart_upreq_full_o                               : out std_logic;
-		
+		full_cache_req1, full_cache_req2: out std_logic;
 		mem_rid : out std_logic_vector(7 downto 0);
 		mem_rtag: out std_logic_vector(7 downto 0);
 		mem_wid : out std_logic_vector(7 downto 0);
@@ -186,7 +186,8 @@ entity ic is
 		rlast_audio                                     : in  std_logic;
 		rdvalid_audio                                   : in  std_logic;
 		rdready_audio                                   : out std_logic;
-		rres_audio                                      : in  std_logic_vector(1 downto 0)
+		rres_audio                                      : in  std_logic_vector(1 downto 0);
+		snp_req_full_i: in std_logic
 	);
 end ic;
 
@@ -501,7 +502,7 @@ begin
 			WriteEn => we16,
 			ReadEn  => re16,
 			DataOut => out16,
-			Full    => emp_full,
+			Full    => full_cache_req1,
 			Empty   => emp16
 		);
 	cache1_req_fifo: entity work.fifo(rtl)
@@ -512,7 +513,7 @@ begin
 			WriteEn => we17,
 			ReadEn  => re17,
 			DataOut => out17,
-			Full    => emp_full,
+			Full    => full_cache_req2,
 			Empty   => emp17
 		);
 	usb_upreq_m : entity work.per_upreq_m(rtl)
@@ -556,7 +557,7 @@ begin
   
 	snp_res_fifo : entity work.fifo_snp(rtl)
 	generic map(
-                FIFO_DEPTH => 150
+                FIFO_DEPTH => 50
             )
 		port map(
 			CLK     => Clock,
@@ -1191,7 +1192,7 @@ begin
 			dout  => bus_res2_o
 		);
 
-	per_upreq_arbiter : entity work.arbiter6(rtl)
+	per_upreq_arbiter : entity work.arbiter6_full(rtl)
 		port map(
 			clock => Clock,
 			reset => reset,
@@ -1207,6 +1208,7 @@ begin
 			ack5  => snp1_ack5,
 			din6  => snp1_6,
 			ack6  => snp1_ack6,
+			full => snp_req_full_i,
 			dout  => up_snp_req_o
 		);
 
@@ -1388,6 +1390,7 @@ begin
 	begin
 		if rising_edge(Clock) then
 			if state = 0 then
+			    report "snp_res state 0";
 				if re2 = '0' and emp2 = '0' then
 					re2   <= '1';
 					state := 1;
@@ -1402,27 +1405,28 @@ begin
 						-- -this belongs to the memory	
 						tmp_msg := out2.msg;
 						tomem3  <= out2.msg;
-						--report "snoop )::::::::::::::::::::::::::::::tomem3 i's tag info: " & integer'image(to_integer(unsigned(out2.msg.tag)));
+						report "snoop )::::::::::::::::::::::::::::::tomem3 i's tag info: " & integer'image(to_integer(unsigned(out2.msg.tag)));
 						state   := 5;
 					elsif out2.msg.adr(30 downto 29) = "00" then
 						togfx3 <= out2.msg;
-						--report "togfx3, snop response";	
+						report "togfx3, snop response";	
 						state  := 6;
 					elsif out2.msg.adr(30 downto 29) = "01" then
-						--report "touart3, snop response";	
+						report "touart3, snop response";	
 						touart3 <= out2.msg;
 						state   := 7;
 					elsif out2.msg.adr(30 downto 29) = "10" then
-						--report "tousb3, snop response";	
+						report "tousb3, snop response";	
 						tousb3 <= out2.msg;
 						state  := 8;
 					elsif out2.msg.adr(30 downto 29) = "11" then
-						--report "toaudio3, snop response";	
+						report "toaudio3, snop response";	
 						toaudio3 <= out2.msg;
 						state    := 14;
 					end if;
 				-- it's a hit, return to the source ip
 				elsif out2.msg.val = '1' then
+				report "else if";
 					if dst_eq(out2.msg, GFX_TAG) then
 						gfx_upres6 <= out2.msg;
 						state      := 9;
@@ -1439,7 +1443,7 @@ begin
 				end if;
 			elsif state = 5 then
 				if mem_ack3 = '1' then
-					--report "3 ack";
+					report "3 ack";
 					state  := 0;
 					tomem3 <= ZERO_MSG;
 				end if;

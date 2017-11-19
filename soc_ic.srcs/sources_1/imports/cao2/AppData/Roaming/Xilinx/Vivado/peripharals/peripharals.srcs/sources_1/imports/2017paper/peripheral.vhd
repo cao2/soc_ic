@@ -55,7 +55,7 @@ entity peripheral is
 end peripheral;
 
 architecture rtl of peripheral is
-  type ram_type is array (0 to natural(2 ** 2 - 1) - 1) of ADR_T;
+  type ram_type is array (0 to 15) of ADR_T;
   signal ROM_array : ram_type  := (others => (others => '0'));
   signal poweron   : std_logic := '1';
 
@@ -67,13 +67,13 @@ architecture rtl of peripheral is
   signal r: std_logic_vector(31 downto 0);
 begin
 
- rndgen_ent : entity work.rndgen(rtl) port map (
-     clk    => Clock,
-     rst    => reset,
-     en     => '1',
-     seed_i => nat(id_i),
-     rnd_o  => r
-     );
+-- rndgen_ent : entity work.rndgen(rtl) port map (
+--     clk    => Clock,
+--     rst    => reset,
+--     en     => '1',
+--     seed_i => nat(id_i),
+--     rnd_o  => r
+--     );
 
 set_tag: process(Clock)
 	begin
@@ -246,7 +246,7 @@ set_tag: process(Clock)
           rnd_dlay(b, s, dc, st, st_nxt);
         elsif st = 2 then -- done
           upreq_o <= ZERO_MSG;
-          --sim_end <= '1';
+          sim_end <= '1';
         elsif st = 0 then -- check
           if is_tset(TEST(UREQ)) and
             ((UREQT_SRC and ip_enc(id_i)) /= ip_enc(NONE)) then
@@ -299,11 +299,12 @@ set_tag: process(Clock)
 
           -- set sequence id
           seqid := seqid + 1;
-          
+          if upreq_full_i/='1' then
           upreq_o <= ('1', tcmd, tag, std_logic_vector(to_unsigned(seqid, 8)),
                       t_adr, ZERO_DAT);
           --report "<<<<<<<up request tag is "& integer'image(to_integer(unsigned(tag)));
           st := 4;
+          end if;
         elsif st = 4 then
           upreq_o <= ZERO_MSG;
           -- do not wait for response

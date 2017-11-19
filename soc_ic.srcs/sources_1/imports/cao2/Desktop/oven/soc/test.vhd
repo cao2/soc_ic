@@ -33,7 +33,7 @@ package test is
   --********* GLOBAL TEST OPTS ***************
   constant MEM_DELAY : natural := 10;
   -- test delay flag, used by rnd_dlay fun to re-enable rndmz_flg 
-  constant TDLAY_FLG : boolean := true;
+  constant TDLAY_FLG : boolean := false;
 
   --********* PWR TEST OPTS ******************
   constant PWRT_CNT : natural := 5;
@@ -46,7 +46,7 @@ package test is
   constant RWT_SRC : IP_VECT_T := ip_enc(CPU0) or ip_enc(CPU1);
   --constant RWT_DST : IP_VECT_T := ip_enc(GFX); -- NOT IMPLEMENTED YET
   --constant RWT_MAXDELAY : natural := 10;  -- NOT IMPLEMENTED YET
-  constant RWT_WAITRES : boolean := true;
+  constant RWT_WAITRES : boolean := false;
   constant RWT_CMD : CMD_T := READ_CMD or
                               WRITE_CMD;
 
@@ -103,7 +103,7 @@ package body test is
   begin
     if rndmz_dlay and st /= next_st then -- start
       --report "start";
-      cnt := 5;
+      cnt := 1;
       seed := seed + 1;
       rndmz_dlay := false;
 --      report "pt_delay.cnt" & integer'image(cnt);
@@ -141,8 +141,9 @@ package body test is
                      variable st : inout natural;
                      constant next_st : in natural) is
   begin
+  --cnt := 1;
     if rndmz_dlay and st /= next_st then -- start
-      cnt := 5;
+      cnt :=1;
       seed := seed + 1;
       rndmz_dlay := false;
       delay(cnt, st, next_st);

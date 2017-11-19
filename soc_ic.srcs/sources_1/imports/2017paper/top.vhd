@@ -17,21 +17,27 @@ use UNISIM.vcomponents.all;
 
 entity top is
 	Port(
-		Clock   : in  std_logic;
+		-- Clock   : in  std_logic;
 		--		--	       clk1 : in std_logic;
-		reset   : in  std_logic;
+		  --reset   : in  std_logic;
 		tra_data: out std_logic_vector(37 downto 0);
 		full: out std_logic;
 		tx_out : out std_logic;
-		rx_in  : in  std_logic
+		rx_in  : in  std_logic;
+		proc0_done: out std_logic;
+		proc1_done: out std_logic;
+		usb_done: out std_logic;
+		uart_done: out std_logic;
+		gfx_done: out std_logic;
+		audio_done: out std_logic
 		
 	);
 end top;
 
 architecture tb of top is
-	--signal clock        : std_logic;
-	--signal reset        : std_logic;
-	-- Clock frequency and signal
+	signal clock        : std_logic;
+	signal reset        : std_logic;
+	 ------Clock frequency and signal
 	constant tb_period  : time      := 10 ps;
 	signal tb_clk       : std_logic := '0';
 	signal tb_sim_ended : std_logic := '0';
@@ -244,7 +250,7 @@ architecture tb of top is
 
 	signal cpu1_pwr_req, cpu1_pwr_res, cpu2_pwr_req, cpu2_pwr_res : MSG_T;
 
-	signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done : std_logic;
+--	signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done : std_logic;
 	signal full_snpres                                                       : std_logic;
 	--	signal Clock : std_logic;
 
@@ -432,21 +438,25 @@ signal mon_usb_read_t, mon_usb_write_t, mon_gfx_read_t, mon_gfx_write_t         
     signal mem_wid, mem_wtag: std_logic_vector(7 downto 0);
     signal ZERO_TSTT: TST_TO:=('0',PMU,PMU,(others=>'0'),(others=>'0'),(others=>'0'),(others=>'0'),'0');
     signal v32: std_logic_vector(31 downto 0);
+    
+    
+    signal snp_req_full0, snp_req_full1, up_req_full0, up_req_full1, upsnp_req_full0, upsnp_req_full1,upsnp_res_full0: std_logic;
+    signal full_cache_req0, full_cache_req1: std_logic;
 begin
 
---      trace_output_logger: process(tb_clk)
---       file trace_file: TEXT open write_mode is "trace_output.tstt";
---       variable l: line;
---     begin
---               if GEN_TRACE1 then
---                   if rising_edge(tb_clk) then
---                       ---- cpu
---                       write(l, mon_data);     --35
---                       writeline(trace_file, l);
---                   end if;
---               end if;
---           end process; 
-  trace_ip: entity work.fifo32(rtl)
+      trace_output_logger: process(Clock)
+       file trace_file: TEXT open write_mode is "trace_output.tstt";
+       variable l: line;
+     begin
+               if GEN_TRACE1 then
+                   if rising_edge(Clock) then
+                       ---- cpu
+                       write(l, mon_data);     --35
+                       writeline(trace_file, l);
+                   end if;
+               end if;
+           end process; 
+  trace_ip: entity work.arbiter32(rtl)
     generic map(
      FIFO_DEPTH => 3
     )
@@ -456,7 +466,7 @@ begin
              ---Valid_32 => v32,
              DataIn => mon_array,
              DataOut =>mon_data,
-             Full => full
+             control_full => full
              );
     outputt: process(Clock)
     begin
@@ -464,24 +474,24 @@ begin
         tra_data<= mon_data;
     end if;
     end process;
-    mon_array_driver: process(tb_clk)
+    mon_array_driver: process(Clock)
     begin
-        if rising_edge(tb_clk) then
+        if rising_edge(Clock) then
            ---v32<= tmp_all_read(31).val &tmp_all_read(30).val &tmp_all_read(29).val &tmp_all_read(28).val &tmp_all_read(27).val &tmp_all_read(26).val &tmp_all_read(25).val &tmp_all_read(24).val &tmp_all_read(23).val &tmp_all_read(22).val &tmp_all_read(21).val &tmp_all_read(20).val &tmp_all_read(19).val &tmp_all_read(18).val &tmp_all_read(17).val &tmp_all_read(16).val &tmp_all_read(15).val &tmp_all_read(14).val &tmp_all_read(13).val &tmp_all_read(12).val &tmp_all_read(11).val &tmp_all_read(10).val &tmp_all_read(9).val &tmp_all_read(8).val &tmp_all_read(7).val &tmp_all_read(6).val &tmp_all_read(5).val &tmp_all_read(4).val &tmp_all_read(3).val &tmp_all_read(2).val &tmp_all_read(1).val &tmp_all_read(0).val;
 
             mon_array(0)<=mon_cpu_req1; ----1
              mon_array(1)<=mon_cpu_res1; ----2
              mon_array(2)<=mon_cpu_req2; ----3
              mon_array(3)<=mon_cpu_res2; ----4
- --            mon_array(4)<=snp_req_1_mon; ----5
---             mon_array(5)<=snp_req_2_mon; ----6
+             mon_array(4)<=snp_req_1_mon; ----5
+             mon_array(5)<=snp_req_2_mon; ----6
              mon_array(6)<=mon_snp_res_1; ----7
              mon_array(7)<=mon_snp_res_2; ----8
---             mon_array(8)<=mon_bus_req1; ----9
---             mon_array(9)<=mon_bus_req2; ----10
---             mon_array(10)<=mon_bus_res1; ----11
---             mon_array(11)<=mon_bus_res2; ----12
---             mon_array(12)<=up_snp_req_mon; ----13
+             mon_array(8)<=mon_bus_req1; ----9
+             mon_array(9)<=mon_bus_req2; ----10
+             mon_array(10)<=mon_bus_res1; ----11
+             mon_array(11)<=mon_bus_res2; ----12
+             mon_array(12)<=up_snp_req_mon; ----13
              mon_array(13)<=up_snp_res_mon; ----14
              mon_array(14)<=mon_mem_read_t; ----15
              mon_array(15)<=mon_mem_write_t; ----16
@@ -503,13 +513,13 @@ begin
              mon_array(31)<=mon_uart_upres; ----32
         end if;
     end process;
---	transaction_logger_p : process(tb_clk)
+--	transaction_logger_p : process(Clock)
 --		file trace_file : TEXT open write_mode is "trace.tst";
 --		variable l      : line;
 --		constant SEP    : String(1 to 1) := ",";
 --	begin
 --		if GEN_TRACE1 then
---			if rising_edge(tb_clk) then
+--			if rising_edge(Clock) then
 --				---- cpu
 --				write(l, slv(mon_array( 0))); ----1
 --				write(l, SEP);
@@ -1250,23 +1260,13 @@ begin
               msg_o         => snp_res21,
               transaction_o => mon_snp_res_2
           );
-      --        IBUFGDS_inst : IBUFGDS
-      --generic map (
-      --DIFF_TERM => FALSE, -- Differential Termination
-      --IBUF_LOW_PWR => TRUE, -- Low power (TRUE) vs. performance (FALSE) setting for referenced I/O standards
-      --IOSTANDARD => "DEFAULT")
-      --port map (
-      --O => Clock, -- Clock buffer output
-      --I => clk, -- Diff_p clock buffer input (connect directly to top-level port)
-      --IB => clk1 -- Diff_n clock buffer input (connect directly to top-level port)
-      --);
-      -- End of IBUFGDS_inst instantiation
+     
       proc0_e : entity work.proc(rtl)
           port map(
               reset         => reset,
               Clock         => Clock,
               id_i          => CPU0,
-              snp_req_i     => snp_req11, -- snoop req from cache 2
+              snp_req_i     => snp_req1, -- snoop req from cache 2
               snp_hit_o     => snp_hit1,
               snp_res_o     => snp_res1,
               up_snp_req_i  => up_snp_req11, -- upstream snoop req 
@@ -1275,16 +1275,24 @@ begin
               full_snpres_i => full_snpres,
               snp_req_o     => snp_req2,  -- fwd snp req to other cache
               snp_hit_i     => snp_hit2,
-              snp_res_i     => snp_res21,
+              snp_res_i     => snp_res2,
               bus_req_o     => bus_req1,  -- mem or pwr req to ic
-              bus_res_i     => bus_res11, -- mem or pwr resp from ic    
+              bus_res_i     => bus_res1, -- mem or pwr resp from ic    
   
               --     wb_req_o      => wb_req1,
   
+  
+             srf_full_i => snp_req_full0,
+                 ---snp request full input
+                 srf_full_o=> snp_req_full1,
+                 ---bur snp request full
+                 brf_full_o=>up_req_full0,
               -- for observation:
               done_o        => proc0_done,
               cpu_req_o     => cpu_req1,
-              cpu_res_o     => cpu_res1
+              cpu_res_o     => cpu_res1,
+              upsnp_req_full => upsnp_req_full0,
+              full_cache_req_i => full_cache_req0
           );
   
       proc1_e : entity work.proc(rtl)
@@ -1292,7 +1300,7 @@ begin
               reset         => reset,
               Clock         => Clock,
               id_i          => CPU1,
-              snp_req_i     => snp_req21, -- snoop req from cache 2
+              snp_req_i     => snp_req2, -- snoop req from cache 2
               snp_hit_o     => snp_hit2,
               snp_res_o     => snp_res2,
               -- TODO not implemented yet:
@@ -1307,11 +1315,16 @@ begin
               bus_res_i     => bus_res21, -- mem or pwr resp from ic    
   
               --     wb_req_o      => wb_req2,
-  
+              srf_full_i => snp_req_full1,
+                               ---snp request full input
+               srf_full_o=> snp_req_full0,
+                               ---bur snp request full
+               brf_full_o=>up_req_full1,
               -- for observation:
               done_o        => proc1_done,
               cpu_req_o     => cpu_req2,
-              cpu_res_o     => cpu_res2
+              cpu_res_o     => cpu_res2,
+              full_cache_req_i=> full_cache_req1
           );
   
       power : entity work.pwr(rtl)
@@ -1352,6 +1365,11 @@ begin
               mem_rtag=> mem_rtag,
               mem_wid => mem_wid,
               mem_wtag=> mem_wtag,
+              snp_req_full_i =>upsnp_req_full0,
+              
+              
+              full_cache_req1 =>full_cache_req0,
+              full_cache_req2 =>full_cache_req1,
               -- write
               waddr              => waddr,
               wlen               => wlen,
@@ -1425,59 +1443,59 @@ begin
               rlast_uart         => rlast_uart1,
               rdvalid_uart       => rdvalid_uart1,
               rdready_uart       => rdready_uart,
-              rres_uart          => rres_uart1,
+              rres_uart          => rres_uart,
               waddr_usb          => waddr_usb,
               wlen_usb           => wlen_usb,
               wsize_usb          => wsize_usb,
               wvalid_usb         => wvalid_usb,
-              wready_usb         => wready_usb1,
+              wready_usb         => wready_usb,
               wdata_usb          => wdata_usb,
               wtrb_usb           => wtrb_usb,
               wlast_usb          => wlast_usb,
               wdvalid_usb        => wdvalid_usb,
-              wdataready_usb     => wdataready_usb1,
+              wdataready_usb     => wdataready_usb,
               wrready_usb        => wrready_usb,
-              wrvalid_usb        => wrvalid_usb1,
-              wrsp_usb           => wrsp_usb1,
+              wrvalid_usb        => wrvalid_usb,
+              wrsp_usb           => wrsp_usb,
               raddr_usb          => raddr_usb,
               rlen_usb           => rlen_usb,
               rsize_usb          => rsize_usb,
               rvalid_usb         => rvalid_usb,
-              rready_usb         => rready_usb1,
-              rdata_usb          => rdata_usb1,
-              rstrb_usb          => rstrb_usb1,
-              rlast_usb          => rlast_usb1,
-              rdvalid_usb        => rdvalid_usb1,
+              rready_usb         => rready_usb,
+              rdata_usb          => rdata_usb,
+              rstrb_usb          => rstrb_usb,
+              rlast_usb          => rlast_usb,
+              rdvalid_usb        => rdvalid_usb,
               rdready_usb        => rdready_usb,
-              rres_usb           => rres_usb1,
+              rres_usb           => rres_usb,
               waddr_audio        => waddr_audio,
               wlen_audio         => wlen_audio,
               wsize_audio        => wsize_audio,
               wvalid_audio       => wvalid_audio,
-              wready_audio       => wready_audio1,
+              wready_audio       => wready_audio,
               wdata_audio        => wdata_audio,
               wtrb_audio         => wtrb_audio,
               wlast_audio        => wlast_audio,
               wdvalid_audio      => wdvalid_audio,
-              wdataready_audio   => wdataready_audio1,
+              wdataready_audio   => wdataready_audio,
               wrready_audio      => wrready_audio,
-              wrvalid_audio      => wrvalid_audio1,
-              wrsp_audio         => wrsp_audio1,
+              wrvalid_audio      => wrvalid_audio,
+              wrsp_audio         => wrsp_audio,
               raddr_audio        => raddr_audio,
               rlen_audio         => rlen_audio,
               rsize_audio        => rsize_audio,
               rvalid_audio       => rvalid_audio,
-              rready_audio       => rready_audio1,
-              rdata_audio        => rdata_audio1,
-              rstrb_audio        => rstrb_audio1,
-              rlast_audio        => rlast_audio1,
-              rdvalid_audio      => rdvalid_audio1,
+              rready_audio       => rready_audio,
+              rdata_audio        => rdata_audio,
+              rstrb_audio        => rstrb_audio,
+              rlast_audio        => rlast_audio,
+              rdvalid_audio      => rdvalid_audio,
               rdready_audio      => rdready_audio,
               rres_audio         => rres_audio1,
               up_snp_res_i       => up_snp_res11,
               up_snp_hit_i       => up_snp_hit,
-              cache1_req_i       => bus_req11,
-              cache2_req_i       => bus_req21,
+              cache1_req_i       => bus_req1,
+              cache2_req_i       => bus_req2,
               pwr_res_i          => ic_pwr_res,
               wb_req1_i          => wb_req1,
               wb_req2_i          => wb_req2,
@@ -1500,36 +1518,36 @@ begin
               reset        => reset,
               id_i         => GFX,
               -- write address channel
-              waddr_i      => waddr_gfx1,
-              wlen_i       => wlen_gfx1,
-              wsize_i      => wsize_gfx1,
-              wvalid_i     => wvalid_gfx1,
+              waddr_i      => waddr_gfx ,
+              wlen_i       => wlen_gfx ,
+              wsize_i      => wsize_gfx ,
+              wvalid_i     => wvalid_gfx ,
               wready_o     => wready_gfx,
               -- write data channel
-              wdata_i      => wdata_gfx1,
-              wtrb_i       => wtrb_gfx1,
-              wlast_i      => wlast_gfx1,
-              wdvalid_i    => wdvalid_gfx1,
+              wdata_i      => wdata_gfx ,
+              wtrb_i       => wtrb_gfx ,
+              wlast_i      => wlast_gfx ,
+              wdvalid_i    => wdvalid_gfx ,
               wdataready_o => wdataready_gfx,
               -- write response channel
-              wrready_i    => wrready_gfx1,
+              wrready_i    => wrready_gfx ,
               wrvalid_o    => wrvalid_gfx,
               wrsp_o       => wrsp_gfx,
               -- read address channel
-              raddr_i      => raddr_gfx1,
-              rlen_i       => rlen_gfx1,
-              rsize_i      => rsize_gfx1,
-              rvalid_i     => rvalid_gfx1,
+              raddr_i      => raddr_gfx ,
+              rlen_i       => rlen_gfx ,
+              rsize_i      => rsize_gfx ,
+              rvalid_i     => rvalid_gfx ,
               rready_o     => rready_gfx,
               -- read data channel
               rdata_o      => rdata_gfx,
               rstrb_o      => rstrb_gfx,
               rlast_o      => rlast_gfx,
               rdvalid_o    => rdvalid_gfx,
-              rdready_i    => rdready_gfx1,
+              rdready_i    => rdready_gfx ,
               rres_o       => rres_gfx,
               -- up snp
-              upres_i      => gfx_upres1,
+              upres_i      => gfx_upres ,
               upreq_o      => gfx_upreq,
               upreq_full_i => gfx_upreq_full,
               -- power
@@ -1544,36 +1562,36 @@ begin
               reset        => reset,
               id_i         => AUDIO,
               -- write address channel
-              waddr_i      => waddr_audio1,
-              wlen_i       => wlen_audio1,
-              wsize_i      => wsize_audio1,
-              wvalid_i     => wvalid_audio1,
+              waddr_i      => waddr_audio ,
+              wlen_i       => wlen_audio ,
+              wsize_i      => wsize_audio ,
+              wvalid_i     => wvalid_audio ,
               wready_o     => wready_audio,
               -- write data channel
-              wdata_i      => wdata_audio1,
-              wtrb_i       => wtrb_audio1,
-              wlast_i      => wlast_audio1,
-              wdvalid_i    => wdvalid_audio1,
+              wdata_i      => wdata_audio ,
+              wtrb_i       => wtrb_audio ,
+              wlast_i      => wlast_audio ,
+              wdvalid_i    => wdvalid_audio ,
               wdataready_o => wdataready_audio,
               -- write response channel
-              wrready_i    => wrready_audio1,
+              wrready_i    => wrready_audio ,
               wrvalid_o    => wrvalid_audio,
               wrsp_o       => wrsp_audio,
               -- read address channel
-              raddr_i      => raddr_audio1,
-              rlen_i       => rlen_audio1,
-              rsize_i      => rsize_audio1,
-              rvalid_i     => rvalid_audio1,
+              raddr_i      => raddr_audio ,
+              rlen_i       => rlen_audio ,
+              rsize_i      => rsize_audio ,
+              rvalid_i     => rvalid_audio ,
               rready_o     => rready_audio,
               -- read data channel
               rdata_o      => rdata_audio,
               rstrb_o      => rstrb_audio,
               rlast_o      => rlast_audio,
               rdvalid_o    => rdvalid_audio,
-              rdready_i    => rdready_audio1,
+              rdready_i    => rdready_audio ,
               rres_o       => rres_audio,
               -- up snp
-              upres_i      => audio_upres1,
+              upres_i      => audio_upres ,
               upreq_o      => audio_upreq,
               upreq_full_i => audio_upreq_full,
               -- power
@@ -1588,36 +1606,36 @@ begin
               reset        => reset,
               id_i         => USB,
               -- write address channel
-              waddr_i      => waddr_usb1,
-              wlen_i       => wlen_usb1,
-              wsize_i      => wsize_usb1,
-              wvalid_i     => wvalid_usb1,
+              waddr_i      => waddr_usb ,
+              wlen_i       => wlen_usb ,
+              wsize_i      => wsize_usb ,
+              wvalid_i     => wvalid_usb ,
               wready_o     => wready_usb,
               -- write data channel
-              wdata_i      => wdata_usb1,
-              wtrb_i       => wtrb_usb1,
-              wlast_i      => wlast_usb1,
-              wdvalid_i    => wdvalid_usb1,
+              wdata_i      => wdata_usb ,
+              wtrb_i       => wtrb_usb ,
+              wlast_i      => wlast_usb ,
+              wdvalid_i    => wdvalid_usb ,
               wdataready_o => wdataready_usb,
               -- write response channel
-              wrready_i    => wrready_usb1,
+              wrready_i    => wrready_usb ,
               wrvalid_o    => wrvalid_usb,
               wrsp_o       => wrsp_usb,
               -- read address channel
-              raddr_i      => raddr_usb1,
-              rlen_i       => rlen_usb1,
-              rsize_i      => rsize_usb1,
-              rvalid_i     => rvalid_usb1,
+              raddr_i      => raddr_usb ,
+              rlen_i       => rlen_usb ,
+              rsize_i      => rsize_usb ,
+              rvalid_i     => rvalid_usb ,
               rready_o     => rready_usb,
               -- read data channel
               rdata_o      => rdata_usb,
               rstrb_o      => rstrb_usb,
               rlast_o      => rlast_usb,
               rdvalid_o    => rdvalid_usb,
-              rdready_i    => rdready_usb1,
+              rdready_i    => rdready_usb ,
               rres_o       => rres_usb,
               -- up snp
-              upres_i      => usb_upres1,
+              upres_i      => usb_upres ,
               upreq_o      => usb_upreq,
               upreq_full_i => usb_upreq_full,
               -- power
@@ -1634,36 +1652,36 @@ begin
               tx_out       => tx_out,
               rx_in        => rx_in,
               -- write address channel
-              waddr_i      => waddr_uart1,
-              wlen_i       => wlen_uart1,
-              wsize_i      => wsize_uart1,
-              wvalid_i     => wvalid_uart1,
+              waddr_i      => waddr_uart ,
+              wlen_i       => wlen_uart ,
+              wsize_i      => wsize_uart ,
+              wvalid_i     => wvalid_uart ,
               wready_o     => wready_uart,
               -- write data channel
-              wdata_i      => wdata_uart1,
-              wtrb_i       => wtrb_uart1,
-              wlast_i      => wlast_uart1,
-              wdvalid_i    => wdvalid_uart1,
+              wdata_i      => wdata_uart ,
+              wtrb_i       => wtrb_uart ,
+              wlast_i      => wlast_uart ,
+              wdvalid_i    => wdvalid_uart ,
               wdataready_o => wdataready_uart,
               -- write response channel
-              wrready_i    => wrready_uart1,
+              wrready_i    => wrready_uart ,
               wrvalid_o    => wrvalid_uart,
               wrsp_o       => wrsp_uart,
               -- read address channel
-              raddr_i      => raddr_uart1,
-              rlen_i       => rlen_uart1,
-              rsize_i      => rsize_uart1,
-              rvalid_i     => rvalid_uart1,
+              raddr_i      => raddr_uart ,
+              rlen_i       => rlen_uart ,
+              rsize_i      => rsize_uart ,
+              rvalid_i     => rvalid_uart ,
               rready_o     => rready_uart,
               -- read data channel
               rdata_o      => rdata_uart,
               rstrb_o      => rstrb_uart,
               rlast_o      => rlast_uart,
               rdvalid_o    => rdvalid_uart,
-              rdready_i    => rdready_uart1,
+              rdready_i    => rdready_uart ,
               rres_o       => rres_uart,
               -- up snp
-              upres_i      => uart_upres1,
+              upres_i      => uart_upres ,
               upreq_o      => uart_upreq,
               upreq_full_i => uart_upreq_full,
               -- power
@@ -1676,43 +1694,43 @@ begin
           port map(
               Clock        => Clock,
               reset        => reset,
-              waddr_i      => waddr1,
-              wlen_i       => wlen1,
-              wsize_i      => wsize1,
-              wvalid_i     => wvalid1,
+              waddr_i      => waddr ,
+              wlen_i       => wlen ,
+              wsize_i      => wsize ,
+              wvalid_i     => wvalid ,
               wready_o     => wready,
-              wdata_i      => wdata1,
-              wtrb_i       => wtrb1,
-              wlast_i      => wlast1,
-              wdvalid_i    => wdvalid1,
+              wdata_i      => wdata ,
+              wtrb_i       => wtrb ,
+              wlast_i      => wlast ,
+              wdvalid_i    => wdvalid ,
               wdataready_o => wdataready,
-              wrready_i    => wrready1,
+              wrready_i    => wrready ,
               wrvalid_o    => wrvalid,
               wrsp_o       => wrsp,
-              raddr_i      => raddr1,
-              rlen_i       => rlen1,
-              rsize_i      => rsize1,
-              rvalid_i     => rvalid1,
+              raddr_i      => raddr ,
+              rlen_i       => rlen ,
+              rsize_i      => rsize ,
+              rvalid_i     => rvalid ,
               rready_o     => rready,
               rdata_o      => rdata,
               rstrb_o      => rstrb,
               rlast_o      => rlast,
               rdvalid_o    => rdvalid,
-              rdready_i    => rdready1,
+              rdready_i    => rdready ,
               rres_o       => rres
           );
   
       -- -- Clock generation, starts at 0
---      tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
---      Clock  <= tb_clk;
+      tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
+      Clock  <= tb_clk;
   
-      logger_p : process(tb_clk)
+      logger_p : process(Clock)
           file trace_file : TEXT open write_mode is "trace1.txt";
           variable l      : line;
           constant SEP    : String(1 to 1) := ",";
       begin
           if GEN_TRACE1 then
-              if rising_edge(tb_clk) then
+              if rising_edge(Clock) then
                   ---- cpu
                   write(l, slv(cpu_req1)); --0
                   write(l, SEP);
@@ -2012,14 +2030,14 @@ begin
       --    wait;
       --  end process;
   
---      stimuli : process
---      begin
---          reset <= '1';
---          wait for 15 ps;
---          reset <= '0';
---          wait until tb_sim_ended = '1';
---          report "SIM END";
---      end process;
+      stimuli : process
+      begin
+          reset <= '1';
+          wait for 15 ps;
+          reset <= '0';
+          wait until tb_sim_ended = '1';
+          report "SIM END";
+      end process;
   
-      tb_sim_ended <= proc0_done and proc1_done and usb_done and uart_done and gfx_done and audio_done;
+      --tb_sim_ended <= proc0_done and proc1_done and usb_done and uart_done and gfx_done and audio_done;
   end tb;

@@ -45,11 +45,9 @@ begin
           if ((Looped = false) or (Head /= Tail)) then
             -- Write Data to Memory
             Memory(Head) := DataIn;
-            
             -- Increment Head pointer as needed
             if (Head = FIFO_DEPTH - 1) then
               Head := 0;
-              
               Looped := true;
             else
               Head := Head + 1;
@@ -61,11 +59,9 @@ begin
           if ((Looped = true) or (Head /= Tail)) then
             -- Update data output
             DataOut <= Memory(Tail);
-            
             -- Update Tail pointer as needed
             if (Tail = FIFO_DEPTH - 1) then
               Tail := 0;
-              
               Looped := false;
             else
               Tail := Tail + 1;

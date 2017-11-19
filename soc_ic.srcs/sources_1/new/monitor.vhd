@@ -52,22 +52,26 @@ architecture rtl of monitor_axi_read is
 	type state is (one, two, three, four, five);
 begin
 
-	axi_wt_extractor_write : process(clk)
+	axi_wt_extractor_write : process(rst,clk)
 		variable tmp_transaction : AXI_T;
 		variable st              : state                         := one;
 		variable adr             : std_logic_vector(31 downto 0) := (others => '0');
 		variable id              : std_logic_vector(7 downto 0)  := (others => '0');
 	begin
-		if rising_edge(clk) then
+	    if (rst='1') then
+	       transaction_o.val <='0';
+	       tst_t_o.val<='0';
+		elsif rising_edge(clk) then
 			if st = one then
 				transaction_o.val <= '0';
+				tmp_transaction.val :='0';
 				tst_t_o.val <='0';
 				if rready_i = '1' then
 					st := two;
 				end if;
 			elsif st = two then
 				if rvalid_i = '1' then
-				tmp_transaction.val := '1';
+				    tmp_transaction.val := '1';
 					tmp_transaction.sender   := master_id;
 					tmp_transaction.receiver := slave_id;
 					tmp_transaction.cmd      := '0';
@@ -80,17 +84,6 @@ begin
 					else
 						tmp_transaction.adr := "10";
 					end if;
-
---					if id_i = id then
---						tmp_transaction.id := "00";
---					elsif unsigned(id_i) - unsigned(id) = 1 or unsigned(id) - unsigned(id_i) = 1 then
---						tmp_transaction.id := "01";
---					else
---						tmp_transaction.id := "10";
---					end if;
-
-					tmp_transaction.adr := "00";
-					---Note: there are also size, and length, ignored here
 					st                  := three;
 					transaction_o<= tmp_transaction;
 					tst_t_o <= (tmp_transaction.val, 

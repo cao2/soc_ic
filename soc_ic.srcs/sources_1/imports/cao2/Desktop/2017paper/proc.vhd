@@ -32,7 +32,15 @@ entity proc is
     -- for observation only:
     done_o       : out std_logic;
     cpu_req_o    : out MSG_T;
-    cpu_res_o    : out MSG_T
+    cpu_res_o    : out MSG_T;
+    full_cache_req_i : in std_logic;
+    ---snp request full input
+    srf_full_i: in std_logic;
+    ---snp request full input
+    srf_full_o: out std_logic;
+    ---bur snp request full
+    brf_full_o: out std_logic;
+    upsnp_req_full :out std_logic
     );
 
 end proc;
@@ -50,7 +58,7 @@ architecture rtl of proc is
   signal pwrt_req, pwrt_res : MSG_T;
   signal pwrt_req_ack : std_logic;
   signal pwrt_done : std_logic := '0';
-  
+  signal crf_full: std_logic;
 begin
   
 
@@ -60,7 +68,7 @@ begin
     reset       => reset,
 
     id_i        => id_i,
-    
+    crf_full_o=>crf_full,
     cpu_req_i  => req,
     cpu_res_o => cpu_res,
 
@@ -76,9 +84,13 @@ begin
     snp_hit_i => snp_hit_i,
     snp_res_i => snp_res_i,
 	full_snpres_i => full_snpres_i,
+	full_cache_req_i=> full_cache_req_i,
     bus_req_o  => bus_req_o, -- mem or pwr req to ic
     bus_res_i   => bus_res_i, -- mem or pwr resp from ic
-
+    srf_full_i =>srf_full_i,
+    srf_full_o  => srf_full_o,
+    brf_full_o  => upsnp_req_full,
+    
     wb_req_o      => wb_req_o,
     full_crq_i    => '0',
     full_wb_i     => '0',
@@ -96,6 +108,7 @@ begin
    cpu_req_o => rwt_req,
    cpu_req_ack_i => rwt_req_ack,
    done_o    => rwt_done
+  
    );
 
   pwrt_ent : entity work.cpu_test(pwrt) port map(
@@ -109,9 +122,10 @@ begin
    cpu_req_o => pwrt_req,
    cpu_req_ack_i => pwrt_req_ack,
    done_o    => pwrt_done
+  
    );
   
-  cpu_req_arbiter : entity work.arbiter6(rtl) port map(
+  cpu_req_arbiter : entity work.arbiter6_full(rtl) port map(
    clock => Clock,
    reset => reset,
    din1  => cpu_req,
@@ -124,7 +138,8 @@ begin
    din4  => ZERO_MSG,
    din5  => ZERO_MSG,
    din6  => ZERO_MSG,
-   dout  => req
+   dout  => req,
+   full=>crf_full
    );
   
   cpu_req_o <= req;

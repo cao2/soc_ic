@@ -29,7 +29,10 @@ entity l1_cache is
 		crf_full_o    : out std_logic := '0'; -- Full flag from cpu_req FIFO
 		srf_full_o    : out std_logic := '0'; -- Full flag from snp_req FIFO
 		bsf_full_o    : out std_logic := '0'; -- Full flag from bus_req FIFO
-
+        brf_full_o     : out std_logic:='0';
+        srf_full_i: in std_logic;
+        full_cache_req_i: in std_logic;
+        
 		full_crq_i    : in  std_logic;  -- TODO what is this? not implemented?
 		full_wb_i     : in  std_logic;
 		full_srs_i    : in  std_logic;  -- TODO where is this coming from? not implemented?
@@ -75,7 +78,7 @@ signal tmp_res    : MSG_T;
 	-- empty signals
 	signal crf_emp, srf_emp, bsf_emp, brf_emp, ssf_emp : std_logic;
 	-- full signals
-	signal brf_full, ssf_full : std_logic := '0'; -- TODO not implemented yet?
+	signal  ssf_full : std_logic := '0'; -- TODO not implemented yet?
 
 	-- MCU (Memory Control Unit)
 
@@ -140,7 +143,7 @@ begin
 	
 	ureq_fifo : entity work.fifo(rtl)   -- req from device
 		generic map(
-			FIFO_DEPTH => 250
+			FIFO_DEPTH => 32
 		)
 		port map(
 			CLK     => Clock,
@@ -149,7 +152,7 @@ begin
 			WriteEn => brf_we,
 			ReadEn  => brf_re,
 			DataOut => readreq3,
-			Full    => brf_full,
+			Full    => brf_full_o,
 			Empty   => brf_emp
 		);
 
@@ -205,7 +208,7 @@ begin
 			ack2  => ack2,              -- o
 			dout  => cpu_res_o
 		);
-	snp_c_req_arbiter : entity work.arbiter2(rtl)
+	snp_c_req_arbiter : entity work.arbiter2_full(rtl)
 		port map(
 			clock => Clock,
 			reset => reset,
@@ -213,7 +216,8 @@ begin
 			ack1  => snp_c_ack1,
 			din2  => snp_c_req2,
 			ack2  => snp_c_ack2,
-			dout  => snp_req_o
+			dout  => snp_req_o,
+			full   => srf_full_i
 		);
 
 	readreq_arbiter : entity work.arbiter6(rtl)
@@ -292,7 +296,7 @@ begin
 		if rising_edge(Clock) then
 			if reset = '1' then
                     srf_we <= '0';
-                elsif snp_req_i.val = '1' then
+            elsif snp_req_i.val = '1' then
 				srf_in <= snp_req_i;
 				srf_we <= '1';
 			else
@@ -332,6 +336,7 @@ begin
 		variable idx     : integer := 0;
 		variable saved_adr : std_logic_vector(31 downto 0);
 		variable tmp_front: std_logic_vector(35 downto 0);
+		variable tmp_bus_req: MSG_T;
 	begin
 		
 		-- tmp_write_req <= nilreq;
@@ -375,13 +380,13 @@ begin
 							cpu_res1 <= (readres.val,readres.cmd, readres.tag,readres.id,readres.adr, readres.dat(31 downto 0));
 							st       := 4;
 						end if;
-					else                -- it's a miss
-						snp_c_req1 <= (readres.val,readres.cmd, readres.tag,readres.id,readres.adr, readres.dat(31 downto 0));
-						saved_adr := readres.adr;
-						st         := 5;
+					else  
+					  snp_c_req1 <= (readres.val,readres.cmd, readres.tag,readres.id,readres.adr, readres.dat(31 downto 0));
+                      saved_adr := readres.adr;
+                      st         := 5;
 					end if;
-				end if;
-
+			end if;
+			
 			elsif st = 3 then           -- get_resp_from_mcu
 				if wtack3 = '1' then
 					-- once the write is send out, won't wait for write acknowledge, cauze dont care anymore
@@ -416,12 +421,16 @@ begin
 							tmp       <= (snp_res_i.val, snp_res_i.cmd, snp_res_i.tag, snp_res_i.id, snp_res_i.adr,snp_res_i.dat(31 downto 0));
 							
 						else
-							bus_req_o <= (snp_res_i.val, snp_res_i.cmd, snp_res_i.tag, snp_res_i.id, snp_res_i.adr,snp_res_i.dat(31 downto 0));
-							st        := 0;
+							tmp_bus_req := (snp_res_i.val, snp_res_i.cmd, snp_res_i.tag, snp_res_i.id, snp_res_i.adr,snp_res_i.dat(31 downto 0));
+							st        := 8;
 						end if;
 					end if;
 				end if;
-				
+				elsif st =8 then
+				 if full_cache_req_i/='1' then
+				 bus_req_o<= tmp_bus_req;
+				 st :=0;
+				 end if;
 				
 			elsif st = 7 then
 				if wtack3 = '1' then
@@ -492,15 +501,15 @@ begin
 					state         := 3;
 					
 				end if;
-				report "cache state 2";
+				---reportort "cache state 2";
 			elsif state = 3 then        -- get_ack
 				if wtack4 = '1' then
 					twritereq4.val <= '0';
 					state         := 4;
 				end if;
-				report "cache state 3";
+				---reportort "cache state 3";
 			elsif state = 4 then  
-			 report "cache state 4";     
+			 ---reportort "cache state 4";     
 				if writeack = '1' then
 				    
 					snp_res_o <= ('1', tmp_snp_req.cmd, tmp_snp_req.tag, tmp_snp_req.id, tmp_snp_req.adr, tmp_snp_req.dat,tmp_snp_req.frontinfo);
@@ -520,7 +529,8 @@ begin
 	ureq_req_p : process( clock)
 		variable state      : integer := 0;
 		variable tmp_h      : std_logic;
-		
+		variable tmp_snp_res: cacheline;
+		variable tmp_up_snp_res: MSG_T;
 	begin
 		
 		if rising_edge(Clock) then
@@ -550,21 +560,27 @@ begin
 				if readres.val = '1' then -- if hit
 					tmp_up_res <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
 					if rd_hit = '1' then
-						up_snp_res_o <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
-						up_snp_hit_o <= '1';
-						state        := 0;
+					   state :=7;
+					   tmp_up_snp_res :=(readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
 					-- -here we may need to modify it :: meaning the exclusive bit, the valid bit and everything, not sure we should worry this for
 					-- upstream request, 
 					-- maybe not  =>  if it is read, we dont care, not cache coherency=> if write, already done in read process
 					else                -- it's a miss
-					-- --report "miss form cache 0, now send to cache1";
-						snp_c_req2 <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
-						state      := 2;
+					-- -----reportort "miss form cache 0, now send to cache1";
+					snp_c_req2 <= (readres.val, readres.cmd, readres.tag, readres.id, readres.adr, readres.dat(31 downto 0));
+                                            state      := 2;
 					end if;
-				end if;
+					end if;
+			elsif state =7 then
+			if full_snpres_i /= '1' then
+			         up_snp_res_o <= tmp_up_snp_res; 
+                     up_snp_hit_o <= '1';
+                     state :=0;
+                end if;
+					
 			elsif state = 2 then        -- wait_peer
 				if snp_c_ack2 = '1' then
-					-- --report "sent";
+					-- -----reportort "sent";
 					snp_c_req2 <= ZERO_MSG;
 					state      := 3;
 				end if;
@@ -585,7 +601,7 @@ begin
 				if full_snpres_i /= '1' then
 					up_snp_res_o <= tmp_res;
 					up_snp_hit_o <= tmp_h;
-					--report "1 cache send out";
+					-----reportort "1 cache send out";
 					state        := 0;
 				end if;
 			end if;
@@ -600,7 +616,7 @@ begin
 	-- elsif rising_edge(Clock) then
 	-- tmp_msg := bus_res(BMSG_WIDTH-1 downto BMSG_WIDTH - MSG_WIDTH);
 	-- if is_valid(tmp_msg) and is_pwr_cmd(tmp_msg) then
-	-- --report integer'image(BMSG_WIDTH - MSG_WIDTH);
+	-- -----reportort integer'image(BMSG_WIDTH - MSG_WIDTH);
 	-- cpu_res2 <= tmp_msg; -- TODO should be cpu_res3
 	-- end if;
 	-- end if;

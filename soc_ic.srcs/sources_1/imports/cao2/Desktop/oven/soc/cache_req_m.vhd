@@ -54,6 +54,7 @@ begin
 				end if;
 			elsif state = 1 then
 				re <= '0';
+				
 				cache_cmd <= cache_req_i.cmd;
 				if cache_req_i.val = '1' and is_pwr_cmd(cache_req_i) then
 					--report "pwr send out, pwr_req_o! " & integer'image(to_integer(unsigned(cache_req_i.dat)));
