@@ -47,7 +47,7 @@ entity arbiter32 is
 end arbiter32;
 
 architecture rtl of arbiter32 is
-	constant dpth                                                                                                                                                                                                               : positive                      := 8;
+	constant dpth                                                                                                                                                                                                               : positive                      := 3;
 	--signal td1: std_logic_vector(31 downto 0);
 	--signal td2: std_logic_vector(31 downto 0);
 	signal in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15, in16, in17, in18, in19, in20, in21, in22, in23, in24, in25, in26, in27, in28, in29, in30, in31                                 : std_logic_vector(36 downto 0);
@@ -63,11 +63,15 @@ architecture rtl of arbiter32 is
 	constant DEPTH                                                                                                                                                                                                              : positive                      := 16;
 	signal control_in, control_out                                                                                                                                                                                              : std_logic_vector(31 downto 0);
 	signal control_re, control_we, control_empty                                                                                                                                                                                : std_logic;
+	signal i_s: natural range 0 to 32 := 0;
+	signal control_vs : std_logic_vector(31 downto 0);
+	signal num_val_s  : natural range 0 to 31;
 	signal ack                                                                                                                                                                                                                  : std_logic_vector(31 downto 0);
 begin
 	tts_map : process(clk)
 	begin
 		if rising_edge(clk) then
+		tts_array(0)<=tts0;
 			tts_array(1)  <= tts1;
 			tts_array(2)  <= tts2;
 			tts_array(3)  <= tts3;
@@ -128,6 +132,9 @@ begin
 			if RST = '1' then
 				DataOut <= (others => '0');
 			else
+			 i_s <=i;
+			 control_vs<=contro_v;
+			 num_val_s<= num_val;
 				if state = one then
 					num_val    := 0;
 					i          := 0;
@@ -135,9 +142,10 @@ begin
 					state      := two;
 				elsif state = two then
 					control_re <= '0';
+					state := seven;
+				elsif state = seven then
 					if control_out /= "00000000000000000000000000000000" then
 						contro_v := control_out;
-
 						if (contro_v(0) = '1') then
 							valid             := true;
 							val_chan(num_val) := 0;

@@ -17,7 +17,7 @@ package defs is
                   CACHE1M,SAM,
                  GFXM, AUDIOM, USBM, UARTM,
                  NONE);
-   type STATE is (one, two, three, four, five, six);
+   type STATE is (one, two, three, four, five, six,seven);
    type IP_VECT_ARRAY_T is array(IP_T) of IP_VECT_T;
    constant ip_enc : IP_VECT_ARRAY_T := (x"00001", x"00002", x"00004", x"00008",
                                          x"00010", x"00020", x"00040", x"00080",

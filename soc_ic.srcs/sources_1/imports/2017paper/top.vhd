@@ -17,31 +17,32 @@ use UNISIM.vcomponents.all;
 
 entity top is
 	Port(
-		-- Clock   : in  std_logic;
+		Clock   : in  std_logic;
 		--		--	       clk1 : in std_logic;
-		  --reset   : in  std_logic;
-		tra_data: out std_logic_vector(37 downto 0);
-		full: out std_logic;
+		reset   : in  std_logic;
+		--tra_data: out std_logic_vector(37 downto 0);
+		--full: out std_logic;
 		tx_out : out std_logic;
-		rx_in  : in  std_logic;
-		proc0_done: out std_logic;
-		proc1_done: out std_logic;
-		usb_done: out std_logic;
-		uart_done: out std_logic;
-		gfx_done: out std_logic;
-		audio_done: out std_logic
+		rx_in  : in  std_logic
+--		proc0_done: out std_logic;
+--		proc1_done: out std_logic;
+--		usb_done: out std_logic;
+--		uart_done: out std_logic;
+--		gfx_done: out std_logic;
+--		audio_done: out std_logic
 		
 	);
 end top;
 
 architecture tb of top is
-	signal clock        : std_logic;
-	signal reset        : std_logic;
+--	signal clock        : std_logic;
+--	signal reset        : std_logic;
 	 ------Clock frequency and signal
 	constant tb_period  : time      := 10 ps;
 	signal tb_clk       : std_logic := '0';
 	signal tb_sim_ended : std_logic := '0';
-
+    signal proc0_done, proc1_done, usb_done, uart_done, gfx_done, audio_done,full: std_logic;
+    signal tra_data: std_logic_vector(37 downto 0);
 	signal full_c1_u, full_c2_u, full_b_m                                                                  : std_logic;
 	signal cpu_res1, cpu_res2, cpu_req1, cpu_req2                                                          : MSG_T;
 	signal bus_res1, bus_res2                                                                              : BMSG_T;
@@ -1720,9 +1721,9 @@ begin
               rres_o       => rres
           );
   
-      -- -- Clock generation, starts at 0
-      tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
-      Clock  <= tb_clk;
+--      -- -- Clock generation, starts at 0
+--      tb_clk <= not tb_clk after tb_period/2 when tb_sim_ended /= '1' else '0';
+--      Clock  <= tb_clk;
   
       logger_p : process(Clock)
           file trace_file : TEXT open write_mode is "trace1.txt";
@@ -2030,14 +2031,14 @@ begin
       --    wait;
       --  end process;
   
-      stimuli : process
-      begin
-          reset <= '1';
-          wait for 15 ps;
-          reset <= '0';
-          wait until tb_sim_ended = '1';
-          report "SIM END";
-      end process;
+--      stimuli : process
+--      begin
+--          reset <= '1';
+--          wait for 15 ps;
+--          reset <= '0';
+--          wait until tb_sim_ended = '1';
+--          report "SIM END";
+--      end process;
   
       --tb_sim_ended <= proc0_done and proc1_done and usb_done and uart_done and gfx_done and audio_done;
   end tb;
